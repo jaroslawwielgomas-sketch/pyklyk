@@ -58,6 +58,34 @@ button { font: inherit; cursor: pointer; }
 [data-reveal][data-reveal-delay="4"] { transition-delay: .32s; }
 
 /* =============================================================================
+   MOBILNE MENU — wspólna naprawa panelu nawigacji (dotyczy wszystkich wersji)
+   -----------------------------------------------------------------------------
+   Problem: po przewinięciu nagłówek (.hdr.is-scrolled) dostaje backdrop-filter,
+   który tworzy „containing block" i łapie pozycjonowany panel .nav
+   (position:fixed). Skutek: po otwarciu menu i zjechaniu w dół panel zwijał się
+   do wysokości nagłówka, a odnośniki „wylewały się" półprzezroczyście na hero.
+   Naprawa:
+     • na czas otwarcia menu wyłączamy filtr nagłówka → panel znów pozycjonuje
+       się względem całego okna (pełna wysokość, nieprzezroczyste tło wersji),
+     • blokujemy przewijanie tła,
+     • przyciemniamy treść pod panelem (backdrop).
+   ============================================================================= */
+body.nav-open { overflow: hidden; }
+body.nav-open .hdr { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+body.nav-open::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 95;                       /* pod nagłówkiem (z-index:100), nad treścią */
+  background: rgba(18, 14, 10, .55);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  animation: pl-nav-backdrop .3s ease both;
+}
+@keyframes pl-nav-backdrop { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { body.nav-open::before { animation: none; } }
+
+/* =============================================================================
    FORMULARZ — wspólne, dostępne style (theme przez zmienne --pl-*)
    ============================================================================= */
 .pl-form { --f-radius: var(--pl-radius-sm, 12px); }

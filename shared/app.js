@@ -321,6 +321,20 @@
       });
     }
 
+    // zamknięcie menu: klawisz Escape oraz klik w przyciemnione tło (poza panelem)
+    function closeNav() {
+      document.body.classList.remove("nav-open");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && document.body.classList.contains("nav-open")) closeNav();
+    });
+    document.addEventListener("click", function (e) {
+      if (!document.body.classList.contains("nav-open")) return;
+      if ((nav && nav.contains(e.target)) || (toggle && toggle.contains(e.target))) return;
+      closeNav();
+    });
+
     // smooth scroll + zamknięcie menu mobilnego
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener("click", function (e) {

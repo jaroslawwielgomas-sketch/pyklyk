@@ -207,7 +207,7 @@ body { background: var(--noir); color: var(--ivory); }
 .pl-menu__panel.is-active { display: block; }
 @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 .pl-menu__list { max-width: 860px; margin: 0 auto; display: grid; gap: .2rem; }
-.pl-menu__item { display: flex; align-items: flex-end; padding: .85rem .2rem; border-bottom: 1px solid rgba(201,162,75,.10); }
+.pl-menu__item { display: flex; align-items: baseline; padding: .85rem .2rem; border-bottom: 1px solid rgba(201,162,75,.10); }
 .pl-menu__name { flex: 0 0 auto; font-family: var(--pl-font-head); font-size: 1.35rem; font-weight: 600; color: var(--ivory); }
 .pl-menu__item::after { content: ""; flex: 1 1 auto; margin: 0 .8rem .42em; border-bottom: 1px dotted rgba(201,162,75,.5); }
 .pl-menu__ing { flex: 0 0 auto; max-width: 55%; text-align: right; font-size: .86rem; color: var(--taupe); letter-spacing: .01em; }
