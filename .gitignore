@@ -1,0 +1,10 @@
+# Pliki robocze / narzędziowe — nie publikować
+_shots/
+_pdf_render/
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+
+# Notatka lokalna dla Claude (nie publikujemy na repo kolegi)
+CLAUDE.md

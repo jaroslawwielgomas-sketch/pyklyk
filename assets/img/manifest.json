@@ -1,0 +1,274 @@
+[
+ {
+  "name": "cocktails-01",
+  "jpg": "cocktails-01.jpg",
+  "webp": "cocktails-01.webp",
+  "w": 1800,
+  "h": 1350,
+  "orientation": "landscape"
+ },
+ {
+  "name": "cocktails-02",
+  "jpg": "cocktails-02.jpg",
+  "webp": "cocktails-02.webp",
+  "w": 1399,
+  "h": 1727,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-03",
+  "jpg": "cocktails-03.jpg",
+  "webp": "cocktails-03.webp",
+  "w": 1317,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-04",
+  "jpg": "cocktails-04.jpg",
+  "webp": "cocktails-04.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-05",
+  "jpg": "cocktails-05.jpg",
+  "webp": "cocktails-05.webp",
+  "w": 1351,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-06",
+  "jpg": "cocktails-06.jpg",
+  "webp": "cocktails-06.webp",
+  "w": 960,
+  "h": 879,
+  "orientation": "landscape"
+ },
+ {
+  "name": "cocktails-07",
+  "jpg": "cocktails-07.jpg",
+  "webp": "cocktails-07.webp",
+  "w": 1515,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-08",
+  "jpg": "cocktails-08.jpg",
+  "webp": "cocktails-08.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-09",
+  "jpg": "cocktails-09.jpg",
+  "webp": "cocktails-09.webp",
+  "w": 1320,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-10",
+  "jpg": "cocktails-10.jpg",
+  "webp": "cocktails-10.webp",
+  "w": 1281,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-11",
+  "jpg": "cocktails-11.jpg",
+  "webp": "cocktails-11.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-12",
+  "jpg": "cocktails-12.jpg",
+  "webp": "cocktails-12.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "cocktails-13",
+  "jpg": "cocktails-13.jpg",
+  "webp": "cocktails-13.webp",
+  "w": 1083,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "detail-mojito",
+  "jpg": "detail-mojito.jpg",
+  "webp": "detail-mojito.webp",
+  "w": 1440,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "detail-whisky",
+  "jpg": "detail-whisky.jpg",
+  "webp": "detail-whisky.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bar-white-01",
+  "jpg": "bar-white-01.jpg",
+  "webp": "bar-white-01.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bar-white-02",
+  "jpg": "bar-white-02.jpg",
+  "webp": "bar-white-02.webp",
+  "w": 1306,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bar-white-03",
+  "jpg": "bar-white-03.jpg",
+  "webp": "bar-white-03.webp",
+  "w": 1800,
+  "h": 1352,
+  "orientation": "landscape"
+ },
+ {
+  "name": "bar-wood-01",
+  "jpg": "bar-wood-01.jpg",
+  "webp": "bar-wood-01.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bar-wood-02",
+  "jpg": "bar-wood-02.jpg",
+  "webp": "bar-wood-02.webp",
+  "w": 1188,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bar-wood-03",
+  "jpg": "bar-wood-03.jpg",
+  "webp": "bar-wood-03.webp",
+  "w": 1800,
+  "h": 1800,
+  "orientation": "landscape"
+ },
+ {
+  "name": "bar-lights",
+  "jpg": "bar-lights.jpg",
+  "webp": "bar-lights.webp",
+  "w": 1477,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bartender-01",
+  "jpg": "bartender-01.jpg",
+  "webp": "bartender-01.webp",
+  "w": 1620,
+  "h": 1080,
+  "orientation": "landscape"
+ },
+ {
+  "name": "bartender-02",
+  "jpg": "bartender-02.jpg",
+  "webp": "bartender-02.webp",
+  "w": 1620,
+  "h": 1080,
+  "orientation": "landscape"
+ },
+ {
+  "name": "bartender-03",
+  "jpg": "bartender-03.jpg",
+  "webp": "bartender-03.webp",
+  "w": 1620,
+  "h": 1080,
+  "orientation": "landscape"
+ },
+ {
+  "name": "bartender-fire",
+  "jpg": "bartender-fire.jpg",
+  "webp": "bartender-fire.webp",
+  "w": 960,
+  "h": 638,
+  "orientation": "landscape"
+ },
+ {
+  "name": "bartender-04",
+  "jpg": "bartender-04.jpg",
+  "webp": "bartender-04.webp",
+  "w": 1470,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bartender-05",
+  "jpg": "bartender-05.jpg",
+  "webp": "bartender-05.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bartender-06",
+  "jpg": "bartender-06.jpg",
+  "webp": "bartender-06.webp",
+  "w": 1232,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "bartender-07",
+  "jpg": "bartender-07.jpg",
+  "webp": "bartender-07.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "couple-01",
+  "jpg": "couple-01.jpg",
+  "webp": "couple-01.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "couple-02",
+  "jpg": "couple-02.jpg",
+  "webp": "couple-02.webp",
+  "w": 1350,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "couple-03",
+  "jpg": "couple-03.jpg",
+  "webp": "couple-03.webp",
+  "w": 1125,
+  "h": 1800,
+  "orientation": "portrait"
+ },
+ {
+  "name": "couple-04",
+  "jpg": "couple-04.jpg",
+  "webp": "couple-04.webp",
+  "w": 1464,
+  "h": 1800,
+  "orientation": "portrait"
+ }
+]
