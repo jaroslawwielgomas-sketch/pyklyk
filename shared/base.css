@@ -43,6 +43,10 @@ a { color: inherit; text-decoration: none; }
 img, picture, svg { max-width: 100%; display: block; }
 picture { display: block; }
 picture > img { width: 100%; height: 100%; object-fit: cover; }
+/* Galeria (masonry): wysokość kafelka wynika z proporcji obrazka (atrybuty width/height
+   w HTML), więc miejsce jest zarezerwowane ZANIM zdjęcie się doładuje — układ nie „rośnie",
+   a kotwice (np. „Zapytaj o termin" → #kontakt) trafiają w cel. Nadpisuje height:100% wyżej. */
+.pl-gal__pic img { width: 100%; height: auto; }
 ul { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; cursor: pointer; }
 

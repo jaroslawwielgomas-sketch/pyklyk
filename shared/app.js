@@ -335,7 +335,74 @@
       closeNav();
     });
 
-    // smooth scroll + zamknięcie menu mobilnego
+    // Smooth-scroll kotwic ODPORNY na zmiany układu.
+    // Zwykłe „policz cel raz i przewiń" zawodzi, gdy w trakcie przewijania doładują
+    // się zdjęcia/fonty i strona urośnie (cel ucieka w dół → lądujemy za wysoko).
+    // Tu cel jest przeliczany także PO kliknięciu, aż układ się ustabilizuje;
+    // korekcję przerywamy natychmiast, gdy użytkownik sam przewinie stronę.
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var SCROLL_KEYS = { ArrowUp: 1, ArrowDown: 1, PageUp: 1, PageDown: 1, Home: 1, End: 1, " ": 1, Spacebar: 1 };
+    var activeNav = null;
+
+    function headerOffset() { return (header ? header.offsetHeight : 0) - 1; }
+    function targetY(t) { return Math.max(0, t.getBoundingClientRect().top + window.pageYOffset - headerOffset()); }
+
+    function goToAnchor(t) {
+      if (activeNav) activeNav.cancel();                 // bez wyścigu przy szybkich kliknięciach
+      var behavior = reduceMotion ? "auto" : "smooth";
+      var lastWant = -1, done = false, poll = null, deadline = null, stable = 0;
+
+      function aim(force) {
+        if (done) return;
+        var want = targetY(t);
+        if (force || Math.abs(want - lastWant) > 3) {    // reaguj tylko na realny ruch celu (nie na szum sub-pikselowy)
+          lastWant = want;
+          window.scrollTo({ top: want, behavior: behavior });
+        }
+      }
+      function cancel() {
+        if (done) return;
+        done = true;
+        if (poll) clearTimeout(poll);
+        if (deadline) clearTimeout(deadline);
+        window.removeEventListener("wheel", onUser);
+        window.removeEventListener("touchmove", onUser);
+        window.removeEventListener("keydown", onKey);
+        document.removeEventListener("load", onLoad, true);
+        if (activeNav === ctl) activeNav = null;
+      }
+      function onUser() { cancel(); }                      // użytkownik sam przewija → zostaw go w spokoju
+      function onKey(e) { if (SCROLL_KEYS[e.key]) cancel(); }
+      function onLoad(e) {                                 // obraz nad sekcją się doładował → popraw cel
+        var tag = e && e.target && e.target.tagName;
+        if (tag === "IMG" || tag === "SOURCE") aim(false);
+      }
+      function tick() {
+        if (done) return;
+        var want = targetY(t);
+        if (Math.abs(want - lastWant) > 3) { aim(true); stable = 0; }
+        else if (Math.abs(want - window.pageYOffset) <= 2 && ++stable >= 3) { poll = null; return; }  // na miejscu; nasłuch zostaje do deadline
+        poll = setTimeout(tick, 90);
+      }
+
+      window.addEventListener("wheel", onUser, { passive: true });
+      window.addEventListener("touchmove", onUser, { passive: true });
+      window.addEventListener("keydown", onKey);
+      document.addEventListener("load", onLoad, true);     // 'load' obrazków nie bąbelkuje → faza przechwytywania
+
+      var ctl = { cancel: cancel, aim: aim };
+      activeNav = ctl;
+      aim(true);                                           // pierwszy skok
+      poll = setTimeout(tick, 90);
+      deadline = setTimeout(cancel, 4000);                 // twardy koniec korekcji (~4 s)
+    }
+
+    // Późne doładowanie fontów (Google Fonts, display=swap) też przesuwa sekcje —
+    // gdy będą gotowe, popraw aktywny cel.
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(function () { if (activeNav) activeNav.aim(false); });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener("click", function (e) {
         var id = a.getAttribute("href");
@@ -345,9 +412,7 @@
         e.preventDefault();
         document.body.classList.remove("nav-open");
         if (toggle) toggle.setAttribute("aria-expanded", "false");
-        var off = (header ? header.offsetHeight : 0) - 1;
-        var y = t.getBoundingClientRect().top + window.pageYOffset - off;
-        window.scrollTo({ top: y, behavior: "smooth" });
+        goToAnchor(t);
       });
     });
 
@@ -504,11 +569,25 @@
     }).join("");
   };
 
+  // Wymiary źródłowe zdjęć galerii (px) → pozwalają zarezerwować wysokość kafelka
+  // ZANIM obraz się doładuje, więc masonry nie „rośnie" i kotwice trafiają w cel.
+  var GAL_DIMS = {
+    "cocktails-01": [1800, 1350], "cocktails-02": [1399, 1727], "cocktails-03": [1317, 1800],
+    "cocktails-04": [1350, 1800], "cocktails-05": [1351, 1800], "cocktails-06": [960, 879],
+    "cocktails-07": [1515, 1800], "cocktails-08": [1350, 1800], "cocktails-09": [1320, 1800],
+    "cocktails-10": [1281, 1800], "cocktails-11": [1350, 1800], "cocktails-12": [1350, 1800],
+    "cocktails-13": [1083, 1800], "detail-mojito": [1440, 1800], "detail-whisky": [1350, 1800],
+    "bar-lights": [1477, 1800], "bartender-01": [1620, 1080], "bartender-fire": [960, 638],
+    "bartender-04": [1470, 1800], "bar-wood-01": [1350, 1800], "couple-01": [1350, 1800],
+    "couple-03": [1125, 1800]
+  };
+
   PL.renderGallery = function (target) {
     var t = el(target); if (!t) return;
     t.innerHTML = C.images.gallery.map(function (name, i) {
+      var d = GAL_DIMS[name] || [3, 4];   // brak wpisu → proporcje 3/4; miejsce i tak jest rezerwowane
       return '<figure class="pl-gal__item" data-reveal data-reveal-delay="' + (i % 4) + '">' +
-        PL.img(name, { className: "pl-gal__pic", alt: "Pyk Łyk — realizacja" }) + "</figure>";
+        PL.img(name, { className: "pl-gal__pic", alt: "Pyk Łyk — realizacja", width: d[0], height: d[1] }) + "</figure>";
     }).join("");
   };
 
