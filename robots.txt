@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jaroslawwielgomas-sketch.github.io/pyklyk/sitemap.xml
+Sitemap: https://pyklyk.pl/sitemap.xml

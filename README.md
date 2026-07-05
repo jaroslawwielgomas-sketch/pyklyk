@@ -90,7 +90,7 @@ Formularz ma **wymagany checkbox RODO** linkujący do `polityka-prywatnosci.html
 
 Repozytorium: **jaroslawwielgomas-sketch/pyklyk**. Deploy przez GitHub Pages (branch `main`, katalog `/root`).
 Po `git push` do `origin` strona aktualizuje się pod:
-`https://jaroslawwielgomas-sketch.github.io/pyklyk/`
+`https://pyklyk.pl/`
 
 Plik `.nojekyll` wymusza serwowanie plików bez przetwarzania przez Jekyll.
 

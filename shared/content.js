@@ -84,14 +84,13 @@ window.PYKLYK = {
       title:  "12 lat za barem. Ponad 1000 udanych imprez.",
       lead:   "Jesteśmy zespołem doświadczonych barmanów, których łączy jedna pasja — tworzenie niezapomnianych koktajli.",
       body: [
-        "Od 12 lat specjalizujemy się w obsłudze barmańskiej wesel i eventów. Mamy na koncie ponad 1000 zrealizowanych imprez i dysponujemy kilkoma ekipami, dzięki czemu jesteśmy w stanie obsłużyć kilka wydarzeń tego samego dnia.",
-        "Świadczymy usługę kompleksowo — wyręczamy Cię z zakupów i organizacji. Dostarczamy mobilny bar z pełnym wyposażeniem i asortymentem. Po Twojej stronie zostają tylko 3–5 litrów czystej wódki, resztą zajmujemy się my."
+        "Od 12 lat jako Pyk Łyk tworzymy niezapomniane koktajle i wyjątkową atmosferę. Zapewniamy profesjonalną obsługę barmańską na weselach i eventach, działając głównie na terenie województw: mazowieckiego, lubelskiego i łódzkiego.",
+        "Pracujemy w pełni kompleksowo – po Twojej stronie zostaje jedynie przygotowanie 3–5 litrów czystej wódki. Całą logistyką (od zakupów, przez szkło, lód, dopasowane dekoracje, aż po sprzątanie) zajmujemy się my. Dysponujemy kilkoma doświadczonymi ekipami, co gwarantuje pełną niezawodność, nawet przy wielu realizacjach jednego dnia."
       ],
       points: [
-        "Doświadczeni barmani z pasją i flair barmański",
-        "Kompleksowa obsługa — od zakupów po sprzątanie baru",
-        "Kilka ekip w gotowości — obsłużymy kilka eventów dziennie",
-        "Autorskie koktajle i zaskakujące dekoracje"
+        "Kompleksowość: My organizujemy bar, Ty cieszysz się imprezą.",
+        "Wizualny zachwyt: Autorskie menu i pięknie udekorowane, przyciągające wzrok drinki.",
+        "Pewność: Rozbudowany zespół gotowy do działania."
       ]
     },
 
@@ -171,7 +170,7 @@ window.PYKLYK = {
   // Prezent od firmy
   gift: {
     title: "Welcome drink dla Pary Młodej",
-    desc:  "W prezencie od firmy przygotowujemy dla Pary Młodej wyjątkowy welcome drink na powitanie gości."
+    desc:  "W prezencie od firmy przygotowujemy dla Pary Młodej wyjątkowy welcome drink"
   },
 
   /* -------------------------------------------------------------------------
@@ -253,7 +252,7 @@ window.PYKLYK = {
   ],
 
   /* -------------------------------------------------------------------------
-     FAQ — 6 najczęstszych pytań
+     FAQ — najczęstsze pytania
      ------------------------------------------------------------------------- */
   faq: [
     {
@@ -291,6 +290,10 @@ window.PYKLYK = {
     {
       q: "Ile kosztuje obsługa baru?",
       a: "Cena zależy przede wszystkim od liczby gości i terminu imprezy — dlatego przygotowujemy indywidualną wycenę. Wyślij zapytanie przez formularz lub zadzwoń pod 513 595 540, a szybko przedstawimy propozycję."
+    },
+    {
+      q: "Gdzie dojeżdża Wasz mobilny drink bar i w jakich miastach obsługujecie wesela?",
+      a: "Nasz główny obszar działania to Warszawa oraz miejscowości w promieniu do 150 km. Najczęściej zapewniamy profesjonalnego barmana na wesele w takich miastach jak: Warszawa, Łódź, Radom, Płock, Siedlce, Skierniewice i Puławy. Jesteśmy w pełni elastyczni, dlatego z przyjemnością zorganizujemy kompleksową obsługę barmańską w dowolnym miejscu na terenie województwa mazowieckiego, łódzkiego i północnej części lubelskiego."
     }
   ],
 
