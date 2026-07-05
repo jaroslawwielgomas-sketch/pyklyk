@@ -6,5 +6,10 @@ _pdf_render/
 Thumbs.db
 node_modules/
 
+# Archiwum niewybranych wersji (v1–v3 + stary rozdzielacz) — kopia lokalna,
+# NIE publikujemy na GitHub Pages (unikamy duplikatów treści w Google).
+# Historia tych wersji i tak jest zachowana we wcześniejszych commitach.
+archiwum/
+
 # Notatka lokalna dla Claude (nie publikujemy na repo kolegi)
 CLAUDE.md

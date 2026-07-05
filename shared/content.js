@@ -28,8 +28,8 @@ window.PYKLYK = {
     // Temat maila z formularza — WYMAGANY dokładnie w tej formie:
     formSubject: "Zapytanie ofertowe- strona internetowa PYK ŁYK",
 
-    // Strona polityki prywatności (link przy checkboxie RODO). Ścieżka względem wersji (podfolder).
-    privacyUrl: "../polityka-prywatnosci.html",
+    // Strona polityki prywatności (link przy checkboxie RODO). Strona serwowana z katalogu głównego.
+    privacyUrl: "polityka-prywatnosci.html",
 
     // Formularz — na razie tryb "mailto" (otwiera program pocztowy).
     // Gdy założysz darmowe konto np. na https://web3forms.com,
@@ -261,6 +261,14 @@ window.PYKLYK = {
       a: "Im wcześniej, tym lepiej — najlepsze terminy weselne (piątki i soboty w sezonie) rezerwują się z dużym wyprzedzeniem. Dysponujemy kilkoma ekipami barmańskimi, więc jesteśmy w stanie obsłużyć nawet kilka imprez tego samego dnia. Napisz lub zadzwoń, a sprawdzimy dostępność Twojej daty."
     },
     {
+      q: "Jak wygląda rezerwacja terminu?",
+      a: "To naprawdę proste. Po akceptacji oferty, aby zarezerwować termin, wystarczy wypełnić i podpisać skan umowy — cały proces możemy załatwić w 100% online. Jesteśmy też gotowi spotkać się osobiście przy podpisaniu umowy. Zaliczka nie jest wymagana."
+    },
+    {
+      q: "Jakie imprezy obsługujecie?",
+      a: "Obsługujemy różnorodne wydarzenia: wesela, imprezy okolicznościowe, urodziny i osiemnastki, wieczory panieńskie, imprezy firmowe, imprezy plenerowe oraz imprezy tematyczne (np. świąteczne czy w klimacie Halloween)."
+    },
+    {
       q: "Czy alkohol jest po Waszej stronie?",
       a: "Tak — świadczymy usługę kompleksowo. Zapewniamy alkohole i likiery, soki, napoje, świeże owoce, lód, szkło i pełne wyposażenie baru. Po stronie Pary Młodej zostają zwykle jedynie 3–5 litrów czystej wódki. Resztą zajmujemy się my."
     },
@@ -271,6 +279,10 @@ window.PYKLYK = {
     {
       q: "Czego potrzebujecie od sali, żeby postawić bar?",
       a: "Wystarczy dostęp do prądu (gniazdko 230 V) oraz miejsce ok. 2×2 m na mobilny bar. Przy imprezach plenerowych prosimy o zadaszenie stanowiska. Bar dowozimy i składamy sami — transport jest wliczony w cenę."
+    },
+    {
+      q: "Kto zajmuje się myciem i zbieraniem szkła?",
+      a: "Zawsze staramy się dostosować do polityki sali, w której wykonujemy usługę. Jeśli sala pomaga w zbieraniu i myciu szkła, jest to dla nas duże ułatwienie. Jeśli nie ma takiej możliwości, serwisem szkła — zbieraniem i myciem — zajmujemy się w pełni sami."
     },
     {
       q: "Czy menu i ofertę można personalizować?",
