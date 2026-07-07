@@ -35,9 +35,9 @@ window.PYKLYK = {
     // Gdy założysz darmowe konto np. na https://web3forms.com,
     // zmień mode na "web3forms" i wklej klucz do accessKey.
     form: {
-      mode:      "mailto",                 // "mailto" | "web3forms" | "formspree"
-      accessKey: "",                       // klucz Web3Forms / endpoint Formspree
-    },
+  mode:      "web3forms",
+  accessKey: "0f2104de-ddbc-4e9a-a7f7-107ee351d483",
+},
 
     // Logo (ścieżki względem katalogu głównego strony). Wersje na jasnym tle
     // używają logo-light, na ciemnym — logo-dark.
