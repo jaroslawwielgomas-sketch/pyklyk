@@ -22,8 +22,8 @@ window.PYKLYK = {
     phoneHref:   "tel:+48513595540",       // format do klikania na telefonie
     phoneRaw:    "+48513595540",
 
-    email:       "jaroslaw.wielgomas@gmail.com",
-    emailHref:   "mailto:jaroslaw.wielgomas@gmail.com",
+    email:       "kontakt@pyklyk.pl",
+    emailHref:   "mailto:kontakt@pyklyk.pl",
 
     // Temat maila z formularza — WYMAGANY dokładnie w tej formie:
     formSubject: "Zapytanie ofertowe- strona internetowa PYK ŁYK",
@@ -31,13 +31,12 @@ window.PYKLYK = {
     // Strona polityki prywatności (link przy checkboxie RODO). Strona serwowana z katalogu głównego.
     privacyUrl: "polityka-prywatnosci.html",
 
-    // Formularz — na razie tryb "mailto" (otwiera program pocztowy).
-    // Gdy założysz darmowe konto np. na https://web3forms.com,
-    // zmień mode na "web3forms" i wklej klucz do accessKey.
+    // Formularz działa przez Web3Forms. Zmień accessKey tylko wtedy,
+    // gdy przenosisz formularz na inne konto Web3Forms.
     form: {
-  mode:      "web3forms",
-  accessKey: "0f2104de-ddbc-4e9a-a7f7-107ee351d483",
-},
+      mode:      "web3forms",              // "mailto" | "web3forms" | "formspree"
+      accessKey: "0f2104de-ddbc-4e9a-a7f7-107ee351d483", // klucz Web3Forms / endpoint Formspree
+    },
 
     // Logo (ścieżki względem katalogu głównego strony). Wersje na jasnym tle
     // używają logo-light, na ciemnym — logo-dark.
@@ -48,7 +47,7 @@ window.PYKLYK = {
     },
 
     area:        "Mazowieckie · Łódzkie · Lubelskie",
-    areaLong:    "Działamy głównie na Mazowszu oraz w województwie łódzkim i lubelskim — do ok. 170 km od Warszawy.",
+    areaLong:    "Działamy głównie na Mazowszu oraz w województwie łódzkim i lubelskim — do ok. 150 km od Warszawy.",
 
     social: {
       facebook:  "https://www.facebook.com/pyklyk",
@@ -73,7 +72,7 @@ window.PYKLYK = {
   copy: {
     hero: {
       kicker:   "Profesjonalna obsługa barmańska",
-      title:    "Celebruj chwile",
+      title:    "Barman na wesele i mobilny drink bar",
       subtitle: "Mobilny bar, autorskie koktajle i barmani z pasją — sprawimy, że Twoje wesele lub event zapamiętają wszyscy goście.",
       ctaPrimary:   "Zapytaj o termin",
       ctaSecondary: "Zobacz ofertę"
@@ -137,7 +136,7 @@ window.PYKLYK = {
     reviews: {
       kicker: "Opinie",
       title:  "Zaufało nam ponad 1000 par i firm",
-      lead:   "Ponad 100 pozytywnych opinii na Facebooku oraz w serwisie Wesele z Klasą."
+      lead:   "Zweryfikowane opinie w serwisie Wesele z Klasą potwierdzają średnią 5,00/5 przy 47 recenzjach, a dodatkowe rekomendacje klientów znajdziesz także na Facebooku."
     },
 
     faq: {
@@ -240,21 +239,25 @@ window.PYKLYK = {
   ],
 
   /* -------------------------------------------------------------------------
-     OPINIE  ⚠ PRZYKŁADOWE — do podmiany na prawdziwe cytaty z FB / Wesele z Klasą.
-     (Zostawiam realistyczne przykłady, ale zanim opublikujesz, wstaw prawdziwe
-      opinie klientów. Pod spodem i tak linkujemy do źródeł z prawdziwymi opiniami.)
+     OPINIE — źródłowe podsumowania publicznych opinii z profilu Wesele z Klasą.
+     Nie są to fikcyjne cytaty; teksty są parafrazą najczęściej powtarzających się
+     ocen klientów, z linkiem do źródła pod sekcją opinii.
      ------------------------------------------------------------------------- */
   reviews: [
-    { text: "Bar Pyk Łyk to strzał w dziesiątkę! Drinki pyszne, dekoracje robiły ogromne wrażenie, a barmani byli mega kontaktowi. Goście do dziś wspominają.", author: "Paulina & Kamil", meta: "Wesele, Mazowsze" },
-    { text: "Profesjonalizm od pierwszego kontaktu aż po ostatniego drinka. Welcome drink dla nas jako Pary Młodej — piękny gest. Polecamy z całego serca!", author: "Marta & Paweł", meta: "Wesele" },
-    { text: "Obsługiwali nasz event firmowy — punktualnie, elegancko, drinki znikały w mgnieniu oka. Zdecydowanie zamówimy ponownie.", author: "Anna K.", meta: "Impreza firmowa" },
-    { text: "Kontakt super, elastyczne podejście, a menu dopasowane do naszych życzeń. Bar drewniany świetnie wpasował się w klimat stodoły.", author: "Natalia & Michał", meta: "Wesele w plenerze" }
+    { text: "47 publicznych opinii i średnia 5,00/5. Klienci najczęściej chwalą dopracowane koktajle, profesjonalną obsługę, estetykę podania i dobry kontakt.", author: "Profil Pyk Łyk", meta: "Wesele z Klasą" },
+    { text: "Po weselu w Warszawie klientka podkreśliła sprawną obsługę, koktajle dopracowane w szczegółach i poczucie, że goście byli dobrze zaopiekowani.", author: "Karolina", meta: "Zweryfikowana opinia, Warszawa" },
+    { text: "Pary młode zwracają uwagę, że drink bar staje się realną atrakcją wesela, a goście chętnie wracają po kolejne koktajle.", author: "Agata", meta: "Opinia po weselu, Parzno" },
+    { text: "W opiniach często pojawiają się bardzo smaczne drinki, elegancki wygląd koktajli oraz kulturalna i sympatyczna obsługa barmańska.", author: "Anna i Wioletta", meta: "Opinie klientów, Mazowieckie" }
   ],
 
   /* -------------------------------------------------------------------------
      FAQ — najczęstsze pytania
      ------------------------------------------------------------------------- */
   faq: [
+    {
+      q: "Dlaczego warto wybrać Pyk Łyk jako drink bar na wesele?",
+      a: "Pyk Łyk łączy 12 lat doświadczenia, ponad 1000 realizacji, dwóch barmanów na przyjęciu, mobilny bar, pełne wyposażenie, szkło, lód, napoje, alkohole i autorskie koktajle. Na profilu Wesele z Klasą firma ma średnią 5,00/5 z 47 opinii, a dodatkowe rekomendacje klientów można znaleźć także na Facebooku."
+    },
     {
       q: "Z jakim wyprzedzeniem najlepiej rezerwować termin?",
       a: "Im wcześniej, tym lepiej — najlepsze terminy weselne (piątki i soboty w sezonie) rezerwują się z dużym wyprzedzeniem. Dysponujemy kilkoma ekipami barmańskimi, więc jesteśmy w stanie obsłużyć nawet kilka imprez tego samego dnia. Napisz lub zadzwoń, a sprawdzimy dostępność Twojej daty."
@@ -266,6 +269,10 @@ window.PYKLYK = {
     {
       q: "Jakie imprezy obsługujecie?",
       a: "Obsługujemy różnorodne wydarzenia: wesela, imprezy okolicznościowe, urodziny i osiemnastki, wieczory panieńskie, imprezy firmowe, imprezy plenerowe oraz imprezy tematyczne (np. świąteczne czy w klimacie Halloween)."
+    },
+    {
+      q: "Czy Pyk Łyk to barman na wesele w Warszawie i na Mazowszu?",
+      a: "Tak. Pyk Łyk zapewnia profesjonalnego barmana na wesele, mobilny drink bar i kompleksową obsługę barmańską w Warszawie, na Mazowszu oraz w wybranych lokalizacjach województwa łódzkiego i lubelskiego. Najczęściej dojeżdżamy do ok. 150 km od Warszawy."
     },
     {
       q: "Czy alkohol jest po Waszej stronie?",
@@ -293,7 +300,28 @@ window.PYKLYK = {
     },
     {
       q: "Gdzie dojeżdża Wasz mobilny drink bar i w jakich miastach obsługujecie wesela?",
-      a: "Nasz główny obszar działania to Warszawa oraz miejscowości w promieniu do 150 km. Najczęściej zapewniamy profesjonalnego barmana na wesele w takich miastach jak: Warszawa, Łódź, Radom, Płock, Siedlce, Skierniewice i Puławy. Jesteśmy w pełni elastyczni, dlatego z przyjemnością zorganizujemy kompleksową obsługę barmańską w dowolnym miejscu na terenie województwa mazowieckiego, łódzkiego i północnej części lubelskiego."
+      a: "Nasz główny obszar działania to Warszawa oraz miejscowości w promieniu do 150 km. Najczęściej zapewniamy profesjonalnego barmana na wesele w takich miastach jak: Warszawa, Łódź, Radom, Płock, Siedlce, Skierniewice i Puławy. Jesteśmy w pełni elastyczni, dlatego z przyjemnością zorganizujemy kompleksową obsługę barmańską w dowolnym miejscu na terenie województwa mazowieckiego, łódzkiego i północnej części lubelskiego.",
+      map: {
+        title: "Obszar dojazdu Pyk Łyk",
+        label: "Orientacyjny promień dojazdu 150 km od Warszawy z największymi miastami w zasięgu",
+        note: "Promień jest orientacyjny. Dalsze lokalizacje wyceniamy indywidualnie.",
+        radiusKm: 150,
+        center: { name: "Warszawa", lat: 52.2297, lon: 21.0122 },
+        cities: [
+          { name: "Warszawa", lat: 52.2297, lon: 21.0122, type: "hub", dx: 14, dy: -14, anchor: "start" },
+          { name: "Łódź", lat: 51.7592, lon: 19.4560, type: "major", dx: -14, dy: 5, anchor: "end" },
+          { name: "Radom", lat: 51.4027, lon: 21.1471, type: "major", dx: -12, dy: 18, anchor: "end" },
+          { name: "Płock", lat: 52.5468, lon: 19.7064, type: "major", dx: -12, dy: -10, anchor: "end" },
+          { name: "Siedlce", lat: 52.1676, lon: 22.2902, type: "major", dx: 12, dy: 5, anchor: "start" },
+          { name: "Puławy", lat: 51.4164, lon: 21.9694, type: "major", dx: 13, dy: 19, anchor: "start" },
+          { name: "Skierniewice", lat: 51.9549, lon: 20.1583, dx: -12, dy: 18, anchor: "end" },
+          { name: "Ciechanów", lat: 52.8814, lon: 20.6199, dx: -13, dy: -10, anchor: "end" },
+          { name: "Ostrołęka", lat: 53.0833, lon: 21.5667, dx: 12, dy: -12, anchor: "start" },
+          { name: "Łomża", lat: 53.1781, lon: 22.0594, dx: 12, dy: -10, anchor: "start" },
+          { name: "Piotrków Tryb.", lat: 51.4052, lon: 19.7030, dx: -12, dy: 22, anchor: "end" },
+          { name: "Tomaszów Maz.", lat: 51.5313, lon: 20.0086, dx: -12, dy: 10, anchor: "end" }
+        ]
+      }
     }
   ],
 

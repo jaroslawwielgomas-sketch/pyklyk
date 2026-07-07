@@ -30,8 +30,10 @@
   <meta name="twitter:description" content="Mobilny bar i obsługa barmańska na wesela i eventy. Warszawa, Mazowieckie i okolice. Tel. 513 595 540.">
   <meta name="twitter:image" content="https://pyklyk.pl/assets/img/og-image.jpg">
 
-  <link rel="icon" type="image/png" href="assets/logo/favicon.png">
-  <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/logo/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,15 +47,22 @@
   {
     "@context": "https://schema.org",
     "@type": ["ProfessionalService", "LocalBusiness"],
+    "@id": "https://pyklyk.pl/#business",
     "name": "Pyk Łyk — barman na wesele i drink bar",
     "alternateName": "Pyk Łyk",
     "description": "Mobilny bar i obsługa barmańska na wesela i eventy. Barman na wesele i drink bar do wynajęcia — autorskie koktajle, 12 lat doświadczenia, 1000+ realizacji. Warszawa, Mazowieckie i okolice.",
+    "slogan": "Barman na wesele i mobilny drink bar",
     "url": "https://pyklyk.pl/",
     "image": "https://pyklyk.pl/assets/img/og-image.jpg",
     "logo": "https://pyklyk.pl/assets/logo/logo-light.png",
     "telephone": "+48513595540",
-    "email": "jaroslaw.wielgomas@gmail.com",
+    "email": "kontakt@pyklyk.pl",
     "founder": { "@type": "Person", "name": "Jarosław Wielgomas" },
+    "award": [
+      "Firma z klasą 2025 - Wesele z Klasą",
+      "Firma z klasą 2024 - Wesele z Klasą",
+      "Firma z klasą 2023 - Wesele z Klasą"
+    ],
     "priceRange": "$$",
     "currenciesAccepted": "PLN",
     "areaServed": [
@@ -68,7 +77,15 @@
       "https://www.instagram.com/pyk_lyk/",
       "https://www.weselezklasa.pl/ogloszenia-weselne/barman-na-wesele,25243/"
     ],
-    "knowsAbout": ["barman na wesele", "drink bar na wesele", "barman do wynajęcia", "obsługa barmańska", "mobilny bar", "koktajle na wesele"],
+    "knowsAbout": ["barman na wesele", "drink bar na wesele", "barman do wynajęcia", "obsługa barmańska", "mobilny bar", "koktajle na wesele", "event firmowy", "bar na poprawiny"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+48513595540",
+      "email": "kontakt@pyklyk.pl",
+      "contactType": "rezerwacje i wyceny",
+      "areaServed": "PL",
+      "availableLanguage": ["pl"]
+    },
     "makesOffer": {
       "@type": "Offer",
       "itemOffered": {
@@ -128,9 +145,9 @@
   </div>
 
   <div class="pl-container hero__inner">
-    <p class="kicker kicker--script hero__kicker">Profesjonalna obsługa barmańska</p>
-    <h1 class="hero__title"><span class="hero__title-main">Celebruj</span><span class="hero__accent">chwile</span></h1>
-    <p class="hero__sub">Mobilny bar, autorskie koktajle i barmani z pasją — sprawimy, że Twoje&nbsp;wesele lub event zapamiętają wszyscy goście.</p>
+    <p class="kicker kicker--script hero__kicker">Celebruj chwile z profesjonalnym barem</p>
+    <h1 class="hero__title"><span class="hero__title-main">Barman na wesele</span><span class="hero__accent">drink bar</span></h1>
+    <p class="hero__sub">Mobilny bar, autorskie koktajle i barmani z pasją — sprawimy, że Twoje wesele lub event zapamiętają wszyscy goście.</p>
     <div class="hero__cta">
       <a class="btn btn--accent" href="#kontakt">Zapytaj o termin</a>
       <a class="btn btn--ghost" href="#oferta">Zobacz ofertę</a>
@@ -275,7 +292,7 @@
       <p class="kicker kicker--script">Opinie</p>
       <h2 class="h2">Zaufało nam ponad 1000 par i firm</h2>
       <div class="botsep" aria-hidden="true"><span></span><svg viewBox="0 0 88 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h72"/><path d="M44 12c4-6 10-8 16-7-2 6-8 9-16 7z"/><path d="M44 12c-4-6-10-8-16-7 2 6 8 9 16 7z"/><path d="M62 12c3-4 8-5 12-4-2 5-7 6-12 4z"/><path d="M26 12c-3-4-8-5-12-4 2 5 7 6 12 4z"/><circle cx="44" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg><span></span></div>
-      <p class="lead center">Ponad 100 pozytywnych opinii na Facebooku oraz w serwisie Wesele z Klasą.</p>
+      <p class="lead center">Zweryfikowane opinie w serwisie Wesele z Klasą potwierdzają średnią 5,00/5 przy 47 recenzjach, a dodatkowe rekomendacje klientów znajdziesz także na Facebooku.</p>
     </div>
     <div class="rev-grid" data-render="reviews"></div>
     <div class="rev-links" data-reveal>
@@ -316,8 +333,8 @@
 
       <ul class="contact__list">
         <li><strong>Jarosław Wielgomas</strong></li>
-        <li><a href="mailto:jaroslaw.wielgomas@gmail.com">jaroslaw.wielgomas@gmail.com</a></li>
-        <li>Mazowieckie · Łódzkie · Lubelskie — do ok. 170 km od Warszawy</li>
+        <li><a href="mailto:kontakt@pyklyk.pl">kontakt@pyklyk.pl</a></li>
+        <li>Mazowieckie · Łódzkie · Lubelskie — do ok. 150 km od Warszawy</li>
       </ul>
 
       <div class="socials">
@@ -347,7 +364,7 @@
     </nav>
     <div class="footer__contact">
       <a class="footer__phone" href="tel:+48513595540">513 595 540</a>
-      <a href="mailto:jaroslaw.wielgomas@gmail.com">jaroslaw.wielgomas@gmail.com</a>
+      <a href="mailto:kontakt@pyklyk.pl">kontakt@pyklyk.pl</a>
       <div class="socials">
         <a href="https://www.facebook.com/pyklyk" target="_blank" rel="noopener" aria-label="Facebook" class="social" data-ico="facebook"></a>
         <a href="https://www.instagram.com/pyk_lyk/" target="_blank" rel="noopener" aria-label="Instagram" class="social" data-ico="instagram"></a>

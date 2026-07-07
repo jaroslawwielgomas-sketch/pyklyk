@@ -547,13 +547,95 @@
     }).join("");
   };
 
+  PL.renderServiceMap = function (map) {
+    if (!map || !map.center || !map.cities || !map.cities.length) return "";
+
+    function esc(value) {
+      return String(value || "").replace(/[&<>"']/g, function (ch) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+      });
+    }
+
+    var w = 720;
+    var h = 500;
+    var cx = 360;
+    var cy = 250;
+    var radiusKm = Number(map.radiusKm || 150);
+    var radiusPx = 190;
+    var center = map.center;
+    var kmLat = 111.32;
+    var kmLon = 111.32 * Math.cos(center.lat * Math.PI / 180);
+
+    function project(city) {
+      return {
+        x: cx + ((city.lon - center.lon) * kmLon * radiusPx / radiusKm),
+        y: cy - ((city.lat - center.lat) * kmLat * radiusPx / radiusKm)
+      };
+    }
+
+    function distance(city) {
+      var lat = (city.lat - center.lat) * kmLat;
+      var lon = (city.lon - center.lon) * kmLon;
+      return Math.sqrt((lat * lat) + (lon * lon));
+    }
+
+    function n(value) {
+      return Math.round(value * 10) / 10;
+    }
+
+    var routes = map.cities.filter(function (city) {
+      return city.name !== center.name && city.type === "major";
+    }).map(function (city) {
+      var p = project(city);
+      return '<line class="service-map__route" x1="' + cx + '" y1="' + cy + '" x2="' + n(p.x) + '" y2="' + n(p.y) + '"/>';
+    }).join("");
+
+    var cities = map.cities.map(function (city) {
+      var p = project(city);
+      var type = city.type || "city";
+      var dx = city.dx == null ? 12 : city.dx;
+      var dy = city.dy == null ? 5 : city.dy;
+      var anchor = city.anchor || "start";
+      var r = type === "hub" ? 8 : (type === "major" ? 6 : 5);
+      var distanceText = type === "hub" ? "centrum obszaru" : "ok. " + Math.round(distance(city)) + " km od Warszawy";
+
+      return '<g class="service-map__city service-map__city--' + esc(type) + '" transform="translate(' + n(p.x) + " " + n(p.y) + ')">' +
+        '<title>' + esc(city.name + " - " + distanceText) + "</title>" +
+        '<circle class="service-map__dot" r="' + r + '"/>' +
+        '<text class="service-map__label" x="' + dx + '" y="' + dy + '" text-anchor="' + esc(anchor) + '">' + esc(city.name) + "</text>" +
+      "</g>";
+    }).join("");
+
+    return '<div class="service-map" aria-label="' + esc(map.label) + '">' +
+      '<div class="service-map__top">' +
+        '<span class="service-map__title">' + esc(map.title || "Obszar dojazdu Pyk Łyk") + "</span>" +
+        '<span class="service-map__badge">do ' + radiusKm + " km</span>" +
+      "</div>" +
+      '<div class="service-map__canvas">' +
+        '<svg class="service-map__svg" viewBox="0 0 ' + w + " " + h + '" role="img" aria-labelledby="service-map-title service-map-desc">' +
+          '<title id="service-map-title">' + esc(map.title || "Obszar dojazdu Pyk Łyk") + "</title>" +
+          '<desc id="service-map-desc">' + esc(map.label) + "</desc>" +
+          '<rect class="service-map__bg" x="0" y="0" width="' + w + '" height="' + h + '" rx="22"/>' +
+          '<circle class="service-map__ring service-map__ring--outer" cx="' + cx + '" cy="' + cy + '" r="' + radiusPx + '"/>' +
+          '<circle class="service-map__ring service-map__ring--inner" cx="' + cx + '" cy="' + cy + '" r="' + (radiusPx / 2) + '"/>' +
+          '<text class="service-map__ring-label" x="' + (cx + radiusPx - 42) + '" y="' + (cy - 12) + '">150 km</text>' +
+          '<text class="service-map__ring-label service-map__ring-label--inner" x="' + (cx + radiusPx / 2 - 34) + '" y="' + (cy + 18) + '">75 km</text>' +
+          routes +
+          cities +
+        "</svg>" +
+      "</div>" +
+      '<div class="service-map__note">' + esc(map.note || "") + "</div>" +
+    "</div>";
+  };
+
   PL.renderFaq = function (target) {
     var t = el(target); if (!t) return;
     t.innerHTML = C.faq.map(function (f) {
+      var extra = f.map ? PL.renderServiceMap(f.map) : "";
       return '<div class="pl-faq__item" data-faq-item data-reveal>' +
         '<button class="pl-faq__q" data-faq-q><span class="pl-faq__qtext">' + f.q + "</span>" +
           '<span class="pl-faq__icon">' + PL.icon("chevron", { size: 20 }) + "</span></button>" +
-        '<div class="pl-faq__a" data-faq-a><div class="pl-faq__a-inner"><p>' + f.a + "</p></div></div></div>";
+        '<div class="pl-faq__a" data-faq-a><div class="pl-faq__a-inner"><p>' + f.a + "</p>" + extra + "</div></div></div>";
     }).join("");
   };
 

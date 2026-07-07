@@ -41,25 +41,25 @@ Znajdziesz tam m.in.:
 - **liczniki** (1000+ imprez, 12 lat…) — `stats`
 - **karta drinków** (14 / 6 / 3) — `menu`
 - **pakiety dodatkowe** — `packages`
-- **opinie** — `reviews` *(⚠ obecnie PRZYKŁADOWE — patrz niżej)*
+- **opinie** — `reviews` *(parafrazy publicznych opinii z profilu Wesele z Klasą)*
 - **FAQ** — `faq`
 - **typy imprez i województwa w formularzu** — `eventTypes`, `voivodeships`
 
 > Nagłówki, teksty hero/sekcji i stopkę zmienia się bezpośrednio w `index.html`.
 > Dane strukturalne FAQ (SEO) generują się automatycznie z `content.js` (`faq`).
 
-### ⚠ Opinie do podmiany
-W `content.js` (`reviews`) są **przykładowe** opinie. Przed publikacją wstaw prawdziwe cytaty
-z Facebooka i Wesele z Klasą (linki do źródeł są już na stronie).
+### Opinie
+W `content.js` (`reviews`) są krótkie, źródłowe podsumowania publicznych opinii z profilu Wesele z Klasą.
+Nie są to fikcyjne cytaty. Jeśli dodajesz nowe opinie, używaj prawdziwych źródeł i nie kopiuj długich tekstów bez zgody autora.
 
 ---
 
 ## 📨 Formularz — jak włączyć realną wysyłkę maili
 
-Zgłoszenia mają trafiać na **jaroslaw.wielgomas@gmail.com** z tytułem
+Zgłoszenia mają trafiać na **kontakt@pyklyk.pl** z tytułem
 **„Zapytanie ofertowe- strona internetowa PYK ŁYK”**.
 
-Domyślnie działa tryb **mailto** (otwiera program pocztowy). Aby maile przychodziły automatycznie:
+Formularz działa przez **Web3Forms** i wysyła zapytania automatycznie. Jeśli trzeba zmienić klucz:
 
 1. Wejdź na **https://web3forms.com** → podaj e-mail → dostaniesz **Access Key** (za darmo).
 2. Otwórz [`shared/content.js`](shared/content.js) i w `config.form` ustaw:
@@ -81,8 +81,8 @@ Formularz ma **wymagany checkbox RODO** linkujący do `polityka-prywatnosci.html
   drink bar na wesele, barman na wesele mazowieckie, barman na wesele Warszawa*.
 - Dane strukturalne **LocalBusiness/ProfessionalService** oraz **FAQPage** (JSON-LD).
 - `canonical`, Open Graph / Twitter Card, tagi geo, `robots.txt` + `sitemap.xml`.
-- Po podpięciu własnej domeny zaktualizuj adresy `https://…` w `index.html` (canonical, og:url, og:image,
-  JSON-LD) oraz w `robots.txt` i `sitemap.xml`.
+- Własna domena jest ustawiona na `https://pyklyk.pl/`; adresy canonical, Open Graph, JSON-LD, `robots.txt`
+  i `sitemap.xml` powinny wskazywać tę domenę.
 
 ---
 
