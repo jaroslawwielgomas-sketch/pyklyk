@@ -1,0 +1,2018 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator wyceny drink baru na wesele | Pyk Łyk</title>
+  <meta name="description" content="Oblicz orientacyjną wycenę mobilnego drink baru Pyk Łyk na wesele lub event. Wybierz datę, liczbę gości, bar i pakiety dodatkowe.">
+  <link rel="canonical" href="https://pyklyk.pl/kalkulator.html">
+  <style>
+    :root {
+      --pyk-bg: #f4f0e8;
+      --pyk-surface: #fffdf9;
+      --pyk-ink: #161616;
+      --pyk-muted: #6e665d;
+      --pyk-line: #ded4c5;
+      --pyk-gold: #b88a4a;
+      --pyk-gold-dark: #75542d;
+      --pyk-teal: #2f7b73;
+      --pyk-coral: #be4b3f;
+      --pyk-soft: #f0e7da;
+      --pyk-shadow: 0 22px 60px rgba(40, 29, 18, .1);
+      --pyk-radius: 8px;
+      --pyk-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(184, 138, 74, .18), transparent 34rem),
+        linear-gradient(135deg, #fffdf9 0%, var(--pyk-bg) 58%, #eee5d6 100%);
+      color: var(--pyk-ink);
+      font-family: var(--pyk-font);
+      line-height: 1.45;
+    }
+
+    .pyk-calculator {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 46px;
+    }
+
+    .pyk-back-home {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 14px;
+      color: var(--pyk-gold-dark);
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .pyk-back-home:hover {
+      color: var(--pyk-ink);
+    }
+
+    .pyk-shell {
+      display: grid;
+      gap: 16px;
+    }
+
+    .pyk-panel,
+    .pyk-summary,
+    .pyk-menu,
+    .pyk-proof {
+      background: var(--pyk-surface);
+      border: 1px solid var(--pyk-line);
+      border-radius: var(--pyk-radius);
+      box-shadow: var(--pyk-shadow);
+      overflow: hidden;
+    }
+
+    .pyk-panel {
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(255, 253, 249, .98)),
+        var(--pyk-surface);
+    }
+
+    .pyk-brand-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--pyk-line);
+    }
+
+    .pyk-logo {
+      display: block;
+      width: 128px;
+      max-width: 42vw;
+      height: auto;
+    }
+
+    .pyk-heading {
+      margin: 0 0 8px;
+      font-size: clamp(1.85rem, 7vw, 4.1rem);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .pyk-lead {
+      margin: 0;
+      color: var(--pyk-muted);
+      font-size: 1rem;
+    }
+
+    .pyk-eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin: 0 0 10px;
+      color: var(--pyk-gold-dark);
+      font-weight: 800;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .pyk-form {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .pyk-fieldset {
+      min-width: 0;
+      margin: 0;
+      padding: 16px;
+      border: 1px solid rgba(222, 212, 197, .78);
+      border-radius: var(--pyk-radius);
+      background: rgba(255, 255, 255, .58);
+      display: grid;
+      gap: 12px;
+    }
+
+    .pyk-legend {
+      font-size: 1.02rem;
+      font-weight: 850;
+    }
+
+    .pyk-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pyk-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .pyk-field label,
+    .pyk-choice-title,
+    .pyk-consent span {
+      font-size: .92rem;
+      font-weight: 760;
+    }
+
+    .pyk-field small,
+    .pyk-muted {
+      color: var(--pyk-muted);
+      font-size: .82rem;
+    }
+
+    .pyk-location-tools {
+      display: grid;
+      gap: 8px;
+    }
+
+    .pyk-distance-button {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 2px;
+    }
+
+    .pyk-distance-status {
+      min-height: 18px;
+      color: var(--pyk-muted);
+      font-size: .82rem;
+    }
+
+    .pyk-distance-status.is-success {
+      color: var(--pyk-teal);
+      font-weight: 760;
+    }
+
+    .pyk-distance-status.is-error {
+      color: var(--pyk-coral);
+      font-weight: 760;
+    }
+
+    .pyk-input {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--pyk-line);
+      border-radius: var(--pyk-radius);
+      background: rgba(255, 255, 255, .92);
+      color: var(--pyk-ink);
+      font: inherit;
+      padding: 12px 13px;
+      outline: none;
+      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .pyk-input:focus {
+      border-color: var(--pyk-gold);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(184, 138, 74, .16);
+    }
+
+    .pyk-input:invalid:not(:placeholder-shown) { border-color: rgba(190, 75, 63, .75); }
+
+    .pyk-choice-grid,
+    .pyk-package-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pyk-bar-card,
+    .pyk-package-card {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      min-width: 0;
+      border: 1px solid var(--pyk-line);
+      border-radius: var(--pyk-radius);
+      background: rgba(255, 255, 255, .92);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .pyk-bar-card:hover,
+    .pyk-package-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(184, 138, 74, .7);
+      box-shadow: 0 16px 30px rgba(40, 29, 18, .09);
+    }
+
+    .pyk-bar-card input,
+    .pyk-package-card input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pyk-bar-card:has(input:checked),
+    .pyk-package-card:has(input:checked) {
+      border-color: var(--pyk-gold);
+      box-shadow: 0 0 0 3px rgba(184, 138, 74, .2), 0 16px 34px rgba(40, 29, 18, .11);
+    }
+
+    .pyk-bar-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      background: linear-gradient(135deg, #f2eadf, #d8c7ad);
+    }
+
+    .pyk-bar-copy,
+    .pyk-package-copy {
+      padding: 0 13px 13px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .pyk-package-card { padding: 13px; }
+
+    .pyk-package-copy { padding: 0; }
+
+    .pyk-pill {
+      width: fit-content;
+      border-radius: 999px;
+      background: var(--pyk-soft);
+      color: var(--pyk-gold-dark);
+      padding: 5px 9px;
+      font-size: .76rem;
+      font-weight: 850;
+    }
+
+    .pyk-consent {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      border: 1px solid var(--pyk-line);
+      border-radius: var(--pyk-radius);
+      padding: 12px;
+      background: rgba(255, 255, 255, .72);
+    }
+
+    .pyk-consent input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--pyk-gold);
+    }
+
+    .pyk-alert {
+      display: none;
+      border-radius: var(--pyk-radius);
+      padding: 12px;
+      font-size: .92rem;
+      border: 1px solid rgba(190, 75, 63, .26);
+      background: #fff1ef;
+      color: #7e2119;
+    }
+
+    .pyk-alert.is-visible { display: block; }
+
+    .pyk-summary {
+      padding: 20px;
+      position: static;
+      align-self: stretch;
+      background: #fff;
+      border-color: rgba(222, 212, 197, .95);
+      box-shadow: 0 24px 60px rgba(40, 29, 18, .13);
+    }
+
+    .pyk-summary.is-ready {
+      animation: pykRise .38s ease both;
+    }
+
+    @keyframes pykRise {
+      from { opacity: .35; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pyk-lock {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border-radius: var(--pyk-radius);
+      background: linear-gradient(135deg, #f7efe3, #fffaf3);
+      border: 1px solid var(--pyk-line);
+    }
+
+    .pyk-lock-contact {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .pyk-missing-fields {
+      display: grid;
+      gap: 8px;
+      margin: 2px 0 4px;
+      padding: 12px;
+      border-radius: calc(var(--pyk-radius) - 4px);
+      background: rgba(255, 255, 255, .62);
+      border: 1px solid rgba(184, 136, 75, .22);
+      color: var(--pyk-muted);
+      font-size: .9rem;
+    }
+
+    .pyk-missing-fields strong {
+      color: var(--pyk-ink);
+      font-size: .92rem;
+    }
+
+    .pyk-missing-fields ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .pyk-price {
+      display: grid;
+      gap: 8px;
+      margin: 18px 0;
+      padding: 18px 0 12px;
+      border-top: 1px solid var(--pyk-line);
+      border-bottom: 1px solid var(--pyk-line);
+    }
+
+    .pyk-price strong {
+      font-size: clamp(2.8rem, 13vw, 5.35rem);
+      line-height: .9;
+      letter-spacing: 0;
+    }
+
+    .pyk-breakdown {
+      display: grid;
+      gap: 8px;
+      margin: 16px 0 0;
+    }
+
+    .pyk-breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--pyk-line);
+      color: var(--pyk-muted);
+      font-size: .9rem;
+    }
+
+    .pyk-breakdown-row strong { color: var(--pyk-ink); white-space: nowrap; }
+
+    .pyk-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pyk-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border: 0;
+      border-radius: var(--pyk-radius);
+      padding: 12px 14px;
+      font: inherit;
+      font-weight: 850;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .pyk-button:hover { transform: translateY(-1px); }
+    .pyk-button:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+
+    .pyk-button-primary {
+      background: var(--pyk-ink);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(22, 22, 22, .2);
+    }
+
+    .pyk-button-secondary {
+      background: #fff;
+      color: var(--pyk-ink);
+      border: 1px solid var(--pyk-line);
+    }
+
+    .pyk-button-call {
+      flex-direction: column;
+      gap: 3px;
+      min-height: 56px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--pyk-ink);
+      border: 1px solid rgba(184, 136, 75, .34);
+      box-shadow: inset 0 0 0 1px rgba(184, 136, 75, .08);
+      line-height: 1.1;
+    }
+
+    .pyk-call-label {
+      color: var(--pyk-muted);
+      font-size: .78rem;
+      font-weight: 850;
+    }
+
+    .pyk-call-number {
+      color: var(--pyk-ink);
+      font-size: clamp(1rem, 3.2vw, 1.12rem);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .pyk-lock-phone {
+      width: 100%;
+      margin-top: -2px;
+    }
+
+    .pyk-button-quiet {
+      background: var(--pyk-soft);
+      color: var(--pyk-gold-dark);
+    }
+
+    .pyk-summary-actions .pyk-button-primary {
+      grid-column: 1 / -1;
+    }
+
+    .pyk-text-action {
+      min-height: 36px;
+      border: 0;
+      padding: 6px 8px;
+      background: transparent;
+      color: var(--pyk-muted);
+      font: inherit;
+      font-size: .92rem;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+    }
+
+    .pyk-text-action:hover {
+      color: var(--pyk-ink);
+    }
+
+    .pyk-success-message {
+      display: grid;
+      gap: 4px;
+      margin-top: 12px;
+      padding: 14px;
+      border: 1px solid rgba(48, 122, 116, .24);
+      border-radius: var(--pyk-radius);
+      background: #eef8f6;
+      color: var(--pyk-teal);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .24s ease, transform .24s ease;
+    }
+
+    .pyk-success-message.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pyk-success-message strong {
+      color: var(--pyk-ink);
+      font-size: 1rem;
+    }
+
+    .pyk-success-message span {
+      color: var(--pyk-muted);
+      line-height: 1.45;
+    }
+
+    .pyk-proof {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      margin-top: 16px;
+      box-shadow: none;
+      background: #fbf7f0;
+      overflow: hidden;
+    }
+
+    .pyk-proof-kicker {
+      color: var(--pyk-gold-dark);
+      font-size: .76rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .pyk-proof-title {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.1;
+    }
+
+    .pyk-proof-stat {
+      color: var(--pyk-muted);
+      font-size: .9rem;
+    }
+
+    .pyk-testimonial {
+      display: grid;
+      gap: 9px;
+      min-height: 154px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+
+    .pyk-testimonial.is-changing {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .pyk-testimonial blockquote {
+      margin: 0;
+      color: var(--pyk-ink);
+      font-size: 1.03rem;
+      line-height: 1.45;
+    }
+
+    .pyk-testimonial cite {
+      color: var(--pyk-muted);
+      font-size: .88rem;
+      font-style: normal;
+      font-weight: 760;
+    }
+
+    .pyk-proof-dots {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .pyk-proof-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 999px;
+      background: #d6c8b6;
+      padding: 0;
+      cursor: pointer;
+      transition: width .24s ease, background .24s ease;
+    }
+
+    .pyk-proof-dot.is-active {
+      width: 22px;
+      background: var(--pyk-gold);
+    }
+
+    .pyk-offer-bands {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .pyk-band {
+      border: 1px solid var(--pyk-line);
+      border-radius: var(--pyk-radius);
+      padding: 16px;
+      background: rgba(255, 255, 255, .68);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7);
+    }
+
+    .pyk-band h3,
+    .pyk-menu h2,
+    .pyk-summary h2 {
+      margin: 0 0 8px;
+      font-size: 1.12rem;
+      letter-spacing: 0;
+    }
+
+    .pyk-band ul,
+    .pyk-drink-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+
+    .pyk-band li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 8px;
+      color: var(--pyk-muted);
+      font-size: .9rem;
+      line-height: 1.42;
+    }
+
+    .pyk-band li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: var(--pyk-gold);
+    }
+
+    .pyk-menu {
+      margin-top: 18px;
+      padding: 20px;
+      box-shadow: var(--pyk-shadow);
+      min-width: 0;
+    }
+
+    .pyk-menu-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .pyk-menu-card {
+      min-width: 0;
+      border: 1px solid var(--pyk-line);
+      border-radius: var(--pyk-radius);
+      background: rgba(255, 255, 255, .8);
+      overflow: hidden;
+    }
+
+    .pyk-menu-card--standard {
+      grid-column: 1 / -1;
+    }
+
+    .pyk-menu-toggle {
+      width: 100%;
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--pyk-ink);
+      padding: 14px;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .pyk-menu-toggle:hover {
+      background: #f7f0e7;
+    }
+
+    .pyk-menu-toggle-text {
+      min-width: 0;
+      display: grid;
+      gap: 2px;
+    }
+
+    .pyk-menu-toggle-text strong {
+      font-size: 1rem;
+    }
+
+    .pyk-menu-toggle-text span {
+      color: var(--pyk-muted);
+      font-size: .82rem;
+    }
+
+    .pyk-menu-plus {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--pyk-line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--pyk-gold-dark);
+      font-size: 1.45rem;
+      line-height: 1;
+      font-weight: 650;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .pyk-menu-toggle[aria-expanded="true"] .pyk-menu-plus {
+      transform: rotate(45deg);
+      background: var(--pyk-soft);
+    }
+
+    .pyk-menu-panel {
+      display: grid;
+      gap: 10px;
+      padding: 0 14px 14px;
+      min-width: 0;
+    }
+
+    .pyk-menu-panel[hidden] {
+      display: none;
+    }
+
+    .pyk-menu-section {
+      display: grid;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--pyk-line);
+    }
+
+    .pyk-menu-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .pyk-menu-title h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .pyk-menu-title span {
+      color: var(--pyk-muted);
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+
+    .pyk-drink-item {
+      border: 1px solid var(--pyk-line);
+      border-radius: var(--pyk-radius);
+      padding: 10px 12px;
+      background: #fff;
+      min-width: 0;
+    }
+
+    .pyk-drink-item strong { display: block; }
+    .pyk-drink-item span {
+      display: block;
+      color: var(--pyk-muted);
+      font-size: .86rem;
+      overflow-wrap: anywhere;
+    }
+
+    .pyk-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(22, 22, 22, .48);
+      z-index: 99;
+    }
+
+    .pyk-modal.is-open { display: grid; }
+
+    .pyk-modal-box {
+      width: min(520px, 100%);
+      border-radius: var(--pyk-radius);
+      background: var(--pyk-surface);
+      padding: 18px;
+      border: 1px solid var(--pyk-line);
+      box-shadow: var(--pyk-shadow);
+    }
+
+    .pyk-modal-box textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .pyk-sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    a { color: var(--pyk-gold-dark); }
+
+    @media (min-width: 720px) {
+      .pyk-calculator { padding-top: 30px; }
+      .pyk-panel { padding: 24px; }
+      .pyk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pyk-choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pyk-package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pyk-actions { grid-template-columns: 1fr 1fr; }
+      .pyk-actions .pyk-button-quiet { grid-column: 1 / -1; }
+      .pyk-summary-actions .pyk-button-primary { grid-column: 1 / -1; }
+      .pyk-summary-actions .pyk-button-quiet { grid-column: 1 / 2; }
+      .pyk-summary-actions .pyk-text-action { grid-column: 2 / 3; }
+      .pyk-offer-bands { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pyk-drink-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (min-width: 980px) {
+      .pyk-shell { grid-template-columns: minmax(0, 1.45fr) minmax(320px, .72fr); align-items: start; }
+      .pyk-summary { position: sticky; top: 14px; align-self: start; }
+      .pyk-menu { grid-column: 1 / 2; }
+      .pyk-proof { margin-top: 0; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .pyk-calculator { width: 100%; padding: 0; }
+      .pyk-summary, .pyk-panel, .pyk-menu, .pyk-proof { box-shadow: none; }
+      .pyk-actions, .pyk-modal { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="pyk-calculator" id="pykCalculator">
+    <a class="pyk-back-home" href="index.html">← Wróć na stronę główną</a>
+    <div class="pyk-shell">
+      <section class="pyk-panel" aria-labelledby="calculatorTitle">
+        <div class="pyk-brand-top">
+          <img class="pyk-logo" src="assets/logo/logo-dark.png" alt="Pyk Łyk">
+        </div>
+        <p class="pyk-eyebrow">PYK ŁYK DRINK BAR</p>
+        <h1 class="pyk-heading" id="calculatorTitle">Wycena mobilnego baru na Twoje wesele</h1>
+        <p class="pyk-lead">Wypełnij kilka pól, wybierz bar i dodatki. Cena pokaże się dopiero po podaniu danych potrzebnych do przygotowania oferty.</p>
+
+        <form class="pyk-form" id="quoteForm" novalidate>
+          <fieldset class="pyk-fieldset">
+            <legend class="pyk-legend">Dane wydarzenia</legend>
+            <div class="pyk-grid">
+              <div class="pyk-field">
+                <label for="clientEmail">Adres e-mail</label>
+                <input class="pyk-input" id="clientEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="np. anna@email.pl" required>
+                <small>Na ten adres wyślemy podsumowanie oferty.</small>
+              </div>
+
+              <div class="pyk-field">
+                <label for="guestCount">Ilość gości</label>
+                <input class="pyk-input" id="guestCount" name="guests" type="number" inputmode="numeric" min="1" max="230" step="1" placeholder="np. 120" required>
+                <small>Do 230 gości kalkulator podaje wycenę automatycznie.</small>
+              </div>
+
+              <div class="pyk-field">
+                <label for="eventDate">Data wydarzenia</label>
+                <input class="pyk-input" id="eventDate" name="date" type="date" required>
+              </div>
+
+            </div>
+
+            <div class="pyk-field">
+              <label for="eventLocation">Lokalizacja</label>
+              <input class="pyk-input" id="eventLocation" name="location" type="text" autocomplete="street-address" placeholder="Dokładny adres sali lub miejscowość" required>
+              <div class="pyk-location-tools">
+                <button class="pyk-button pyk-button-quiet pyk-distance-button" type="button" id="calculateDistanceBtn">Oblicz dystans od Warszawy</button>
+                <small class="pyk-distance-status" id="distanceStatus" aria-live="polite">Po wpisaniu adresu kliknij przycisk, a dystans uzupełni się automatycznie.</small>
+              </div>
+            </div>
+
+            <div class="pyk-field">
+              <label for="distanceKm">Dystans od Warszawy w km</label>
+              <input class="pyk-input" id="distanceKm" name="distance" type="number" inputmode="decimal" min="0" step="1" placeholder="np. 84" required>
+              <small>Pierwsze 50 km jest w cenie. Możesz też wpisać dystans ręcznie.</small>
+            </div>
+          </fieldset>
+
+          <fieldset class="pyk-fieldset">
+            <legend class="pyk-legend">Wybór baru</legend>
+            <div class="pyk-choice-grid" id="barChoices">
+              <label class="pyk-bar-card">
+                <input type="radio" name="bar" value="Drewniany rustykalny" required>
+                <img class="pyk-bar-image" src="assets/img/bar-drewniany.jpg" alt="Drewniany rustykalny bar">
+                <span class="pyk-bar-copy">
+                  <span class="pyk-choice-title">Drewniany rustykalny</span>
+                  <small>Naturalny klimat do wesel boho, ogrodowych i rustykalnych.</small>
+                </span>
+              </label>
+
+              <label class="pyk-bar-card">
+                <input type="radio" name="bar" value="Biały obity w białą skórę" required>
+                <img class="pyk-bar-image" src="assets/img/bar-bialy.jpg" alt="Biały bar obity białą skórą">
+                <span class="pyk-bar-copy">
+                  <span class="pyk-choice-title">Biały obity w białą skórę</span>
+                  <small>Czysty, elegancki look do sal glamour i nowoczesnych wnętrz.</small>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="pyk-fieldset">
+            <legend class="pyk-legend">Pakiety dodatkowe</legend>
+            <div class="pyk-package-grid" id="packageChoices"></div>
+          </fieldset>
+
+          <label class="pyk-consent">
+            <input type="checkbox" id="privacyConsent" name="privacy" required>
+            <span>Wyrażam zgodę na kontakt w sprawie oferty i akceptuję <a href="polityka-prywatnosci.html" target="_blank" rel="noopener">politykę prywatności</a>.</span>
+          </label>
+
+          <div class="pyk-alert" id="formAlert" role="alert"></div>
+        </form>
+
+        <div class="pyk-offer-bands" aria-label="Zakres oferty">
+          <section class="pyk-band">
+            <h3>Zapewniamy</h3>
+            <ul>
+              <li>Dwuosobową obsługę barmańską od przygotowania baru do godziny 2:00 w nocy.</li>
+              <li>Możliwość przedłużenia obsługi po ustalonym czasie: 400 zł za każdą kolejną godzinę.</li>
+              <li>Mobilny bar w wybranym wariancie: elegancki biały z ekoskóry albo stylowy drewniany.</li>
+              <li>Profesjonalny sprzęt barmański oraz szkło dopasowane do rodzaju drinków.</li>
+              <li>Lód w kostkach i kruszony, a na życzenie także suchy lód.</li>
+              <li>Świeże owoce, warzywa, zioła, syropy, słomki, serwetki i dekoracje do drinków.</li>
+              <li>Napoje, soki, napoje gazowane oraz alkohole i likiery do realizacji menu.</li>
+              <li>Menu drinków alkoholowych, bezalkoholowych oraz shotów.</li>
+              <li>Transport w cenie do 50 km od Warszawy, a dalszy dojazd liczony zgodnie z kalkulatorem.</li>
+            </ul>
+          </section>
+          <section class="pyk-band">
+            <h3>Po stronie klienta</h3>
+            <ul>
+              <li>Dostęp do prądu, miejsce na bar i możliwość podjazdu.</li>
+              <li>Czysta wódka po stronie klienta: około 3-5 litrów.</li>
+              <li>Informacja o godzinach pracy baru i warunkach na sali.</li>
+              <li>Potwierdzenie terminu po kontakcie z zespołem Pyk Łyk.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <aside class="pyk-summary" id="quoteSummary" aria-live="polite">
+        <h2>Podsumowanie</h2>
+        <div class="pyk-lock" id="lockedState">
+          <strong>Cena jest jeszcze ukryta</strong>
+          <span class="pyk-muted">Uzupełnij e-mail, ilość gości, datę, lokalizację, dystans, wybór baru i zgodę kontaktową.</span>
+        </div>
+
+        <div id="readyState" hidden>
+          <div class="pyk-price">
+            <span class="pyk-muted">Szacowana cena brutto</span>
+            <strong id="totalPrice">0 zł</strong>
+            <span class="pyk-muted" id="discountNote">Rabat: 0%</span>
+          </div>
+
+          <div class="pyk-breakdown" id="priceBreakdown"></div>
+
+          <div class="pyk-actions pyk-summary-actions">
+            <button class="pyk-button pyk-button-primary" type="button" id="likeOfferBtn">Oferta mi się podoba - zapytaj o szczegóły</button>
+            <a class="pyk-button pyk-button-call" href="tel:+48513595540" aria-label="Zadzwoń pod numer 513 595 540">
+              <span class="pyk-call-label">Zadzwoń</span>
+              <span class="pyk-call-number">513 595 540</span>
+            </a>
+            <button class="pyk-button pyk-button-quiet" type="button" id="pdfOfferBtn">Pobierz PDF z ofertą</button>
+            <button class="pyk-text-action" type="button" id="dislikeOfferBtn">Nie tego szukam - zostaw opinię</button>
+          </div>
+
+          <div class="pyk-success-message" id="offerSuccessMessage" role="status" aria-live="polite" hidden>
+            <strong>Dziękujemy za zaufanie!</strong>
+            <span>Przygotowaliśmy wiadomość e-mail z podsumowaniem. Jeśli otworzył się program pocztowy, kliknij Wyślij, a wrócimy z informacją o dostępności terminu.</span>
+          </div>
+        </div>
+
+        <div class="pyk-proof" aria-labelledby="trustedTitle">
+          <span class="pyk-proof-kicker">Zaufali nam</span>
+          <h2 class="pyk-proof-title" id="trustedTitle">Opinie klientów</h2>
+          <span class="pyk-proof-stat">Ponad 1000 obsłużonych imprez w całej Polsce</span>
+          <div class="pyk-testimonial" id="testimonialBox" aria-live="polite">
+            <blockquote id="testimonialQuote"></blockquote>
+            <cite id="testimonialAuthor"></cite>
+          </div>
+          <div class="pyk-proof-dots" id="testimonialDots" aria-label="Wybierz opinię"></div>
+        </div>
+      </aside>
+
+      <section class="pyk-menu" aria-labelledby="drinkMenuTitle">
+        <p class="pyk-eyebrow">Menu drinków</p>
+        <h2 id="drinkMenuTitle">Pakiet Standard zawsze w ofercie</h2>
+        <p class="pyk-lead">Po zaznaczeniu pakietów dodatkowych lista drinków rozszerzy się automatycznie.</p>
+        <div class="pyk-menu-grid" id="drinkMenu"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="pyk-modal" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+    <div class="pyk-modal-box">
+      <h2 id="feedbackTitle">Co możemy poprawić w ofercie?</h2>
+      <p class="pyk-muted">Krótka odpowiedź pomoże nam przygotować lepszą propozycję.</p>
+      <div class="pyk-field">
+        <label class="pyk-sr-only" for="feedbackReason">Powód</label>
+        <textarea class="pyk-input" id="feedbackReason" placeholder="Np. za wysoka cena, inny zakres, brak terminu..."></textarea>
+      </div>
+      <div class="pyk-success-message" id="feedbackSuccessMessage" role="status" aria-live="polite" hidden>
+        <strong>Dziękujemy za opinię w sprawie oferty.</strong>
+        <span>Przygotowaliśmy wiadomość e-mail z Twoją opinią. Jeśli otworzył się program pocztowy, kliknij Wyślij.</span>
+      </div>
+      <div class="pyk-actions">
+        <button class="pyk-button pyk-button-primary" type="button" id="sendFeedbackBtn">Wyślij powód</button>
+        <button class="pyk-button pyk-button-secondary" type="button" id="closeFeedbackBtn">Zamknij</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="czarna-lista-konkurencji.js"></script>
+  <script>
+    (() => {
+      "use strict";
+
+      const EXTERNAL_BLACKLIST = window.PYKLYK_BLACKLIST || {};
+      const CONFIG = {
+        contactEmail: "kontakt@pyklyk.pl",
+        leadEndpointUrl: "https://script.google.com/macros/s/AKfycby92vAPUN6wxz-xKTmJr7MyxOrtNgO1EZdtyvnlEJYyma8RBZ-1WXul_42qZv7q0LMsqg/exec", // URL Google Apps Script Web App do zapisu leadów.
+        blockedEmails: Array.isArray(EXTERNAL_BLACKLIST.emails) ? EXTERNAL_BLACKLIST.emails : [],
+        blockedDomains: Array.isArray(EXTERNAL_BLACKLIST.domains) ? EXTERNAL_BLACKLIST.domains : [],
+        geocodingEndpoint: "https://nominatim.openstreetmap.org/search",
+        routingEndpoint: "https://router.project-osrm.org/route/v1/driving",
+        warsaw: { lat: 52.2297, lon: 21.0122 }
+      };
+
+      const PRICE_TIERS = [
+        { min: 1, max: 50, standard: 2994, dolce: 273, gentlemen: 267, meister: 233, fruit: 351 },
+        { min: 51, max: 70, standard: 3841, dolce: 337, gentlemen: 267, meister: 295, fruit: 395 },
+        { min: 71, max: 99, standard: 3855, dolce: 337, gentlemen: 267, meister: 307, fruit: 454 },
+        { min: 100, max: 130, standard: 3922, dolce: 387, gentlemen: 274, meister: 355, fruit: 452 },
+        { min: 131, max: 155, standard: 4231, dolce: 496, gentlemen: 386, meister: 420, fruit: 651 },
+        { min: 156, max: 175, standard: 4467, dolce: 680, gentlemen: 428, meister: 535, fruit: 792 },
+        { min: 176, max: 205, standard: 4787, dolce: 794, gentlemen: 498, meister: 605, fruit: 966 },
+        { min: 206, max: 230, standard: 4796, dolce: 869, gentlemen: 597, meister: 725, fruit: 1113 }
+      ];
+
+      const PACKAGES = [
+        { id: "dolce", name: "Pakiet Dolce Vita", shortName: "Dolce Vita", benefit: "Prosecco, Aperol i lekko włoski klimat przy barze." },
+        { id: "gentlemen", name: "Pakiet Gentlemen's Club", shortName: "Gentlemen's Club", benefit: "Whisky klasyki dla gości, którzy lubią mocniejszy charakter." },
+        { id: "meister", name: "Pakiet Meister’s Selection", shortName: "Meister’s Selection", benefit: "Energetyczne propozycje, które podkręcają parkiet." },
+        { id: "fruit", name: "Pakiet Fruit Star Selection", shortName: "Fruit Star Selection", benefit: "Owocowe, efektowne drinki z tropikalnym twistem." }
+      ];
+
+      const DRINKS = [
+        { package: "Pakiet Standard", name: "Biały/czarny rusek", ingredients: "wódka, śmietanka/cola, likier kawowy", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Blue lagoon", ingredients: "sprite, sok z cytryny, blue curacao, wódka", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Cuba libre", ingredients: "rum, cola, limonka", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Eksplozja", ingredients: "gin, martini, wódka, sprite, blue curacao", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Gin & Tonic", ingredients: "gin, tonic", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Gremlin", ingredients: "wódka, sok pomarańczowy, blue curacao", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Jamaica", ingredients: "malibu, wódka, sok pomarańczowy, sok ananasowy, blue curacao, grenadina", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Martini Bianco Royal", ingredients: "martini, sok z cytryny, mięta, sprite", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Mojito (classic/owocowe)", ingredients: "rum, woda gazowana, mięta, limonka, cukier brązowy", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Pina colada", ingredients: "rum, malibu, sok ananasowy, śmietanka", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Sex on the beach", ingredients: "wódka, likier brzoskwiniowy, sok pomarańczowy, sok żurawinowy", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Tequila sunrise", ingredients: "tequila, sok pomarańczowy, grenadina", type: "Alkoholowe" },
+        { package: "Pakiet Standard", name: "Błękit nieba", ingredients: "sprite, cytryna, blue curacao", type: "Bezalkoholowe" },
+        { package: "Pakiet Standard", name: "Kokosowa przyjemność", ingredients: "sok pomarańczowy, sok cytrynowy, syrop kokosowy, blue curacao", type: "Bezalkoholowe" },
+        { package: "Pakiet Standard", name: "Mint fresh", ingredients: "mięta, limonka, cukier brązowy, sok jabłkowy", type: "Bezalkoholowe" },
+        { package: "Pakiet Standard", name: "Różowa pantera", ingredients: "sok pomarańczowy, sok ananasowy, grenadina, śmietanka", type: "Bezalkoholowe" },
+        { package: "Pakiet Standard", name: "Virgin mojito", ingredients: "sprite, mięta, cukier trzcinowy, limonka", type: "Bezalkoholowe" },
+        { package: "Pakiet Standard", name: "Zielona dróżka", ingredients: "sok pomarańczowy, blue curacao", type: "Bezalkoholowe" },
+        { package: "Pakiet Standard", name: "Kamikaze", ingredients: "wódka, sok cytrynowy, blue curacao", type: "Shoty" },
+        { package: "Pakiet Standard", name: "Tequila", ingredients: "tequila, sól, cytryna", type: "Shoty" },
+        { package: "Pakiet Standard", name: "Wściekły pies", ingredients: "wódka, grenadina, tabasco", type: "Shoty" },
+        { package: "Pakiet Gentlemen's Club", name: "Old Fashioned", ingredients: "whisky, cukier trzcinowy, angostura, woda gazowana, skórka pomarańczy", type: "Alkoholowe" },
+        { package: "Pakiet Gentlemen's Club", name: "Whisky & Cola", ingredients: "whisky, cola", type: "Alkoholowe" },
+        { package: "Pakiet Gentlemen's Club", name: "Whisky Sour", ingredients: "whisky, białko, angostura, sok z cytryny", type: "Alkoholowe" },
+        { package: "Pakiet Gentlemen's Club", name: "Lynchburg Lemonade", ingredients: "whisky, triple sec, sok z cytryny, sprite", type: "Alkoholowe" },
+        { package: "Pakiet Dolce Vita", name: "Aperol Spritz", ingredients: "aperol, prosecco, woda gazowana", type: "Alkoholowe" },
+        { package: "Pakiet Dolce Vita", name: "Hugo", ingredients: "limonka, mięta, prosecco, syrop z czarnego bzu, woda gazowana", type: "Alkoholowe" },
+        { package: "Pakiet Dolce Vita", name: "Aperol sour", ingredients: "aperol, sok z cytryny, syrop cukrowy", type: "Alkoholowe" },
+        { package: "Pakiet Dolce Vita", name: "Mimoza", ingredients: "prosecco, sok pomarańczowy", type: "Alkoholowe" },
+        { package: "Pakiet Meister’s Selection", name: "Jagier Bomb", ingredients: "jägermeister, red bull", type: "Alkoholowe" },
+        { package: "Pakiet Meister’s Selection", name: "Surfer", ingredients: "jägermeister, malibu, sok ananasowy", type: "Alkoholowe" },
+        { package: "Pakiet Meister’s Selection", name: "Black Sunrise", ingredients: "jägermeister, sok pomarańczowy, syrop grenadyna", type: "Alkoholowe" },
+        { package: "Pakiet Meister’s Selection", name: "Jager sour", ingredients: "jägermeister, białko, angostura, sok z cytryny", type: "Alkoholowe" },
+        { package: "Pakiet Fruit Star Selection", name: "Porn star martini", ingredients: "wódka, syrop waniliowy, przecier z marakui, limonka, shot prosecco", type: "Alkoholowe" },
+        { package: "Pakiet Fruit Star Selection", name: "Mango Bay", ingredients: "wódka, przecier z mango, sok żurawinowy, sok z cytryny", type: "Alkoholowe" },
+        { package: "Pakiet Fruit Star Selection", name: "Tropical Punch", ingredients: "wódka, przecier z mango, sok ananasowy, sok z limonki, grenadyna", type: "Alkoholowe" },
+        { package: "Pakiet Fruit Star Selection", name: "Passion Daiquiri", ingredients: "biały rum, przecier z marakui, sok z limonki, syrop cukrowy, świeża mięta", type: "Alkoholowe" }
+      ];
+
+      const form = document.querySelector("#quoteForm");
+      const packageChoices = document.querySelector("#packageChoices");
+      const drinkMenu = document.querySelector("#drinkMenu");
+      const lockedState = document.querySelector("#lockedState");
+      const readyState = document.querySelector("#readyState");
+      const formAlert = document.querySelector("#formAlert");
+      const quoteSummary = document.querySelector("#quoteSummary");
+      const totalPrice = document.querySelector("#totalPrice");
+      const discountNote = document.querySelector("#discountNote");
+      const priceBreakdown = document.querySelector("#priceBreakdown");
+      const likeOfferBtn = document.querySelector("#likeOfferBtn");
+      const dislikeOfferBtn = document.querySelector("#dislikeOfferBtn");
+      const offerSuccessMessage = document.querySelector("#offerSuccessMessage");
+      const feedbackModal = document.querySelector("#feedbackModal");
+      const feedbackReason = document.querySelector("#feedbackReason");
+      const sendFeedbackBtn = document.querySelector("#sendFeedbackBtn");
+      const feedbackSuccessMessage = document.querySelector("#feedbackSuccessMessage");
+      const testimonialBox = document.querySelector("#testimonialBox");
+      const testimonialQuote = document.querySelector("#testimonialQuote");
+      const testimonialAuthor = document.querySelector("#testimonialAuthor");
+      const testimonialDots = document.querySelector("#testimonialDots");
+      const calculateDistanceBtn = document.querySelector("#calculateDistanceBtn");
+      const distanceStatus = document.querySelector("#distanceStatus");
+      let lastQuote = null;
+      let lastLeadEmail = "";
+      const pendingLeadBeacons = [];
+      let activeTestimonial = 0;
+      let testimonialTimer = null;
+      const openMenuPackages = new Set(["Pakiet Standard"]);
+
+      const money = new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", maximumFractionDigits: 0 });
+      const TESTIMONIALS = [
+        {
+          quote: "Goście cały wieczór wracali po kolejne drinki, a bar wyglądał pięknie na zdjęciach.",
+          author: "Anna i Michał, wesele pod Warszawą"
+        },
+        {
+          quote: "Obsługa była konkretna, uśmiechnięta i świetnie ogarniała kolejkę nawet w najbardziej tanecznych momentach.",
+          author: "Kasia, przyjęcie weselne"
+        },
+        {
+          quote: "Menu bezalkoholowe zrobiło ogromne wrażenie. Kierowcy i dzieciaki też mieli coś efektownego dla siebie.",
+          author: "Monika, wesele rodzinne"
+        },
+        {
+          quote: "Bar był jednym z najczęściej komentowanych punktów wieczoru. Wszystko wyglądało premium i bez chaosu.",
+          author: "Piotr, event prywatny"
+        },
+        {
+          quote: "Świetny kontakt przed imprezą, jasne ustalenia i zero stresu w dniu wydarzenia.",
+          author: "Ewelina i Bartek, wesele plenerowe"
+        }
+      ];
+
+      function init() {
+        document.querySelector("#eventDate").min = formatDateForInput(new Date());
+        renderPackageChoices();
+        renderDrinkMenu();
+        initTestimonials();
+        bindEvents();
+        updateQuote();
+      }
+
+      function renderPackageChoices() {
+        packageChoices.innerHTML = PACKAGES.map((item) => `
+          <label class="pyk-package-card">
+            <input type="checkbox" name="packages" value="${item.id}">
+            <span class="pyk-pill">Pakiet dodatkowy</span>
+            <span class="pyk-package-copy">
+              <span class="pyk-choice-title">${item.shortName}</span>
+              <small>${item.benefit}</small>
+            </span>
+          </label>
+        `).join("");
+      }
+
+      function initTestimonials() {
+        testimonialDots.innerHTML = TESTIMONIALS.map((item, index) => `
+          <button class="pyk-proof-dot" type="button" aria-label="Pokaż opinię ${index + 1}" data-testimonial-index="${index}"></button>
+        `).join("");
+        testimonialDots.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-testimonial-index]");
+          if (!button) return;
+          showTestimonial(Number(button.dataset.testimonialIndex));
+          restartTestimonials();
+        });
+        showTestimonial(0, false);
+        restartTestimonials();
+      }
+
+      function restartTestimonials() {
+        window.clearInterval(testimonialTimer);
+        testimonialTimer = window.setInterval(() => {
+          showTestimonial((activeTestimonial + 1) % TESTIMONIALS.length);
+        }, 5200);
+      }
+
+      function showTestimonial(index, animate = true) {
+        const nextIndex = (index + TESTIMONIALS.length) % TESTIMONIALS.length;
+        const updateContent = () => {
+          activeTestimonial = nextIndex;
+          testimonialQuote.textContent = `"${TESTIMONIALS[nextIndex].quote}"`;
+          testimonialAuthor.textContent = TESTIMONIALS[nextIndex].author;
+          [...testimonialDots.children].forEach((dot, dotIndex) => {
+            dot.classList.toggle("is-active", dotIndex === nextIndex);
+          });
+        };
+
+        if (!animate) {
+          updateContent();
+          return;
+        }
+
+        testimonialBox.classList.add("is-changing");
+        window.setTimeout(() => {
+          updateContent();
+          testimonialBox.classList.remove("is-changing");
+        }, 220);
+      }
+
+      function bindEvents() {
+        form.addEventListener("input", handleInput);
+        form.addEventListener("change", handleInput);
+        likeOfferBtn.addEventListener("click", handleLikeOffer);
+        dislikeOfferBtn.addEventListener("click", openFeedbackModal);
+        document.querySelector("#closeFeedbackBtn").addEventListener("click", closeFeedbackModal);
+        sendFeedbackBtn.addEventListener("click", handleDislikeOffer);
+        document.querySelector("#pdfOfferBtn").addEventListener("click", handlePdfOffer);
+        drinkMenu.addEventListener("click", handleDrinkMenuToggle);
+        calculateDistanceBtn.addEventListener("click", handleCalculateDistance);
+        lockedState.addEventListener("click", (event) => {
+          if (event.target.closest("[data-lock-contact]")) handleLockedContactRequest();
+        });
+
+        ["#guestCount", "#distanceKm"].forEach((selector) => {
+          const input = document.querySelector(selector);
+          input.addEventListener("keydown", (event) => {
+            if (["e", "E", "+", "-"].includes(event.key)) event.preventDefault();
+          });
+        });
+      }
+
+      function handleInput(event) {
+        if (event.target.id === "guestCount") {
+          event.target.value = event.target.value.replace(/[^\d]/g, "");
+          if (Number(event.target.value) < 1 && event.target.value !== "") event.target.value = "1";
+        }
+        if (event.target.id === "distanceKm") {
+          event.target.value = event.target.value.replace(/[^\d,.]/g, "").replace(",", ".");
+          if (Number(event.target.value) < 0) event.target.value = "0";
+        }
+        updateQuote();
+      }
+
+      async function handleCalculateDistance() {
+        const address = form.location.value.trim();
+        if (!address) {
+          setDistanceStatus("Najpierw wpisz dokładny adres lub miejscowość.", "error");
+          form.location.focus();
+          return;
+        }
+
+        calculateDistanceBtn.disabled = true;
+        calculateDistanceBtn.textContent = "Liczenie dystansu...";
+        setDistanceStatus("Szukam adresu i liczę trasę od Warszawy.", "");
+
+        try {
+          const point = await geocodeAddress(address);
+          const distanceKm = await calculateDrivingDistanceKm(point);
+          form.distance.value = String(distanceKm);
+          form.distance.dispatchEvent(new Event("input", { bubbles: true }));
+          setDistanceStatus(`Wpisano dystans: ${distanceKm} km od Warszawy.`, "success");
+        } catch (error) {
+          console.warn("Distance calculation error", error);
+          setDistanceStatus("Nie udało się obliczyć dystansu. Doprecyzuj adres albo wpisz kilometry ręcznie.", "error");
+        } finally {
+          calculateDistanceBtn.disabled = false;
+          calculateDistanceBtn.textContent = "Oblicz dystans od Warszawy";
+        }
+      }
+
+      async function geocodeAddress(address) {
+        const query = /\b(polska|poland)\b/i.test(address) ? address : `${address}, Polska`;
+        const url = new URL(CONFIG.geocodingEndpoint);
+        url.searchParams.set("format", "jsonv2");
+        url.searchParams.set("limit", "1");
+        url.searchParams.set("countrycodes", "pl");
+        url.searchParams.set("q", query);
+
+        const response = await fetch(url.toString(), { headers: { "Accept": "application/json" } });
+        if (!response.ok) throw new Error("Nie udało się pobrać współrzędnych adresu.");
+
+        const results = await response.json();
+        if (!Array.isArray(results) || !results.length) throw new Error("Adres nie został znaleziony.");
+
+        return {
+          lat: Number(results[0].lat),
+          lon: Number(results[0].lon)
+        };
+      }
+
+      async function calculateDrivingDistanceKm(point) {
+        const routeUrl = `${CONFIG.routingEndpoint}/${CONFIG.warsaw.lon},${CONFIG.warsaw.lat};${point.lon},${point.lat}?overview=false`;
+        const response = await fetch(routeUrl, { headers: { "Accept": "application/json" } });
+        if (!response.ok) throw new Error("Nie udało się pobrać trasy.");
+
+        const result = await response.json();
+        const meters = result.routes?.[0]?.distance;
+        if (!Number.isFinite(meters)) throw new Error("Brak dystansu w odpowiedzi trasy.");
+
+        return Math.max(0, Math.ceil(meters / 1000));
+      }
+
+      function setDistanceStatus(message, type) {
+        distanceStatus.textContent = message;
+        distanceStatus.classList.toggle("is-success", type === "success");
+        distanceStatus.classList.toggle("is-error", type === "error");
+      }
+
+      function getFormData() {
+        const selectedPackageIds = [...form.querySelectorAll("input[name='packages']:checked")].map((input) => input.value);
+        const selectedBar = form.querySelector("input[name='bar']:checked");
+        return {
+          email: form.email.value.trim().toLowerCase(),
+          guests: Number(form.guests.value),
+          date: form.date.value,
+          location: form.location.value.trim(),
+          distance: Number(form.distance.value),
+          bar: selectedBar ? selectedBar.value : "",
+          packages: selectedPackageIds,
+          privacy: form.privacy.checked
+        };
+      }
+
+      function updateQuote() {
+        const data = getFormData();
+        const validation = validate(data);
+        renderDrinkMenu(data.packages);
+
+        if (!validation.ok) {
+          lastQuote = null;
+          showLocked(validation.message, validation.critical, validation.contactCta, validation.missingFields);
+          return;
+        }
+
+        const quote = calculateQuote(data);
+        if (!quote.ok) {
+          lastQuote = null;
+          showLocked(quote.message, true, quote.contactCta, quote.missingFields);
+          return;
+        }
+
+        lastQuote = quote;
+        showReady(quote);
+        captureLeadOnce(quote, "quote_unlocked");
+      }
+
+      function validate(data) {
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          return { ok: false, message: "Podaj poprawny adres e-mail, aby odblokować wycenę." };
+        }
+        if (isBlockedEmail(data.email)) {
+          return { ok: false, message: "Wycena dla tego adresu wymaga bezpośredniego kontaktu z nami.", critical: true };
+        }
+        if (!Number.isInteger(data.guests) || data.guests <= 0) {
+          return { ok: false, message: "Wpisz liczbę gości większą od 0." };
+        }
+        if (data.guests > 230) {
+          return { ok: false, message: "Wycena indywidualna - skontaktuj się z nami.", critical: true, contactCta: true, missingFields: getMissingContactFields(data) };
+        }
+        if (!data.date) return { ok: false, message: "Wybierz datę wydarzenia." };
+        if (new Date(data.date + "T00:00:00") < startOfToday()) {
+          return { ok: false, message: "Ta data już minęła. Wybierz przyszły termin." };
+        }
+        const year = Number(data.date.slice(0, 4));
+        if (year >= 2029) {
+          return { ok: false, message: "Wycena niedostępna na ten rok - skontaktuj się z nami.", critical: true, contactCta: true, missingFields: getMissingContactFields(data) };
+        }
+        if (!data.location) return { ok: false, message: "Wpisz lokalizację wydarzenia." };
+        if (!Number.isFinite(data.distance) || data.distance < 0) {
+          return { ok: false, message: "Podaj dystans od Warszawy w kilometrach." };
+        }
+        if (!data.bar) return { ok: false, message: "Wybierz bar, którym jesteś zainteresowany/a." };
+        if (!data.privacy) return { ok: false, message: "Zaznacz zgodę na kontakt i politykę prywatności." };
+        return { ok: true };
+      }
+
+      function getMissingContactFields(data) {
+        const missing = [];
+        const distanceValue = form.distance.value.trim();
+
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          missing.push("Adres e-mail");
+        }
+        if (!Number.isInteger(data.guests) || data.guests <= 0) {
+          missing.push("Ilość gości");
+        }
+        if (!data.date || new Date(data.date + "T00:00:00") < startOfToday()) {
+          missing.push("Przyszła data wydarzenia");
+        }
+        if (!data.location) {
+          missing.push("Lokalizacja wydarzenia");
+        }
+        if (!distanceValue || !Number.isFinite(data.distance) || data.distance < 0) {
+          missing.push("Dystans od Warszawy");
+        }
+        if (!data.bar) {
+          missing.push("Wybór baru");
+        }
+        if (!data.privacy) {
+          missing.push("Zgoda na kontakt i politykę prywatności");
+        }
+
+        return missing;
+      }
+
+      function calculateQuote(data) {
+        const tier = PRICE_TIERS.find((item) => data.guests >= item.min && data.guests <= item.max);
+        if (!tier) return { ok: false, message: "Wycena indywidualna - skontaktuj się z nami.", contactCta: true, missingFields: getMissingContactFields(data) };
+
+        const selectedPackages = PACKAGES.filter((item) => data.packages.includes(item.id));
+        const addonsGross = selectedPackages.reduce((sum, item) => sum + tier[item.id], 0);
+        const discountPercent = getDiscountPercent(selectedPackages.length);
+        const discountValue = Math.round(addonsGross * discountPercent);
+        const addonsNet = addonsGross - discountValue;
+        const travelKm = Math.max(0, Math.ceil(data.distance) - 50);
+        const travelCost = travelKm;
+        const year = Number(data.date.slice(0, 4));
+        const yearMultiplier = year === 2027 ? 1.05 : year === 2028 ? 1.10 : 1;
+        const beforeYearMargin = tier.standard + addonsNet + travelCost;
+        const yearMargin = Math.round(beforeYearMargin * (yearMultiplier - 1));
+        const total = Math.round(beforeYearMargin * yearMultiplier);
+
+        return {
+          ok: true,
+          ...data,
+          tier,
+          selectedPackages,
+          addonsGross,
+          discountPercent,
+          discountValue,
+          addonsNet,
+          travelKm,
+          travelCost,
+          year,
+          yearMargin,
+          yearMultiplier,
+          total
+        };
+      }
+
+      function getDiscountPercent(count) {
+        if (count === 2) return .10;
+        if (count === 3) return .20;
+        if (count >= 4) return .30;
+        return 0;
+      }
+
+      function showLocked(message, isCritical = false, showContactButton = false, missingFields = []) {
+        const missingFieldsMarkup = missingFields.length ? `
+          <div class="pyk-missing-fields">
+            <strong>Uzupełnij jeszcze:</strong>
+            <ul>
+              ${missingFields.map((field) => `<li>${field}</li>`).join("")}
+            </ul>
+          </div>
+        ` : "";
+
+        readyState.hidden = true;
+        lockedState.hidden = false;
+        lockedState.innerHTML = `
+          <strong>${isCritical ? "Wycena wymaga kontaktu" : "Cena jest jeszcze ukryta"}</strong>
+          <span class="pyk-muted">${message}</span>
+          ${missingFieldsMarkup}
+          ${showContactButton ? `
+            <button class="pyk-button pyk-button-primary pyk-lock-contact" type="button" data-lock-contact>Wyślij zapytanie indywidualne</button>
+            <a class="pyk-button pyk-button-call pyk-lock-phone" href="tel:+48513595540" aria-label="Zadzwoń pod numer 513 595 540">
+              <span class="pyk-call-label">Lub zadzwoń</span>
+              <span class="pyk-call-number">513 595 540</span>
+            </a>
+          ` : ""}
+        `;
+        setAlert(message, isCritical);
+      }
+
+      function showReady(quote) {
+        lockedState.hidden = true;
+        readyState.hidden = false;
+        quoteSummary.classList.remove("is-ready");
+        void quoteSummary.offsetWidth;
+        quoteSummary.classList.add("is-ready");
+        formAlert.classList.remove("is-visible");
+        resetOfferSuccess();
+
+        totalPrice.textContent = money.format(quote.total);
+        discountNote.textContent = `Rabat na pakiety dodatkowe: ${Math.round(quote.discountPercent * 100)}%`;
+        priceBreakdown.innerHTML = [
+          ["Pakiet Standard", quote.tier.standard],
+          ["Pakiety dodatkowe przed rabatem", quote.addonsGross],
+          [`Rabat ${Math.round(quote.discountPercent * 100)}%`, -quote.discountValue],
+          [`Dojazd (${quote.travelKm} km płatne)`, quote.travelCost]
+        ].map(([label, value]) => `
+          <div class="pyk-breakdown-row">
+            <span>${label}</span>
+            <strong>${money.format(value)}</strong>
+          </div>
+        `).join("");
+      }
+
+      function resetOfferSuccess() {
+        offerSuccessMessage.hidden = true;
+        offerSuccessMessage.classList.remove("is-visible");
+        likeOfferBtn.disabled = false;
+        likeOfferBtn.textContent = "Oferta mi się podoba - zapytaj o szczegóły";
+      }
+
+      function showOfferSuccess() {
+        offerSuccessMessage.hidden = false;
+        offerSuccessMessage.classList.remove("is-visible");
+        void offerSuccessMessage.offsetWidth;
+        offerSuccessMessage.classList.add("is-visible");
+        likeOfferBtn.disabled = true;
+        likeOfferBtn.textContent = "E-mail przygotowany";
+      }
+
+      function setAlert(message, visible) {
+        formAlert.textContent = message;
+        formAlert.classList.toggle("is-visible", Boolean(visible));
+      }
+
+      function renderDrinkMenu(packageIds = []) {
+        const packageOrder = ["Pakiet Standard"];
+        PACKAGES.forEach((item) => {
+          if (packageIds.includes(item.id)) packageOrder.push(item.name);
+        });
+        const selectedNames = new Set(packageOrder);
+
+        const drinksByPackage = DRINKS
+          .filter((drink) => selectedNames.has(drink.package))
+          .reduce((groups, drink) => {
+            groups[drink.package] ||= [];
+            groups[drink.package].push(drink);
+            return groups;
+          }, {});
+
+        drinkMenu.innerHTML = packageOrder.map((packageName) => {
+          const drinks = drinksByPackage[packageName] || [];
+          const byType = drinks.reduce((groups, drink) => {
+            groups[drink.type] ||= [];
+            groups[drink.type].push(drink);
+            return groups;
+          }, {});
+          const panelId = `drink-panel-${slugify(packageName)}`;
+          const isOpen = openMenuPackages.has(packageName);
+
+          const typeHtml = Object.entries(byType).map(([type, typedDrinks]) => `
+            <div class="pyk-menu-section">
+              <div class="pyk-menu-title">
+                <h3>${type}</h3>
+                <span>${typedDrinks.length} poz.</span>
+              </div>
+              <ul class="pyk-drink-list">
+                ${typedDrinks.map((drink) => `
+                  <li class="pyk-drink-item">
+                    <strong>${drink.name}</strong>
+                    <span>${drink.ingredients}</span>
+                  </li>
+                `).join("")}
+              </ul>
+            </div>
+          `).join("");
+
+          return `
+            <article class="pyk-menu-card ${packageName === "Pakiet Standard" ? "pyk-menu-card--standard" : ""}">
+              <button class="pyk-menu-toggle" type="button" aria-expanded="${isOpen}" aria-controls="${panelId}" data-package-name="${escapeAttribute(packageName)}">
+                <span class="pyk-menu-toggle-text">
+                  <strong>${packageName}</strong>
+                  <span>${drinks.length} drinków</span>
+                </span>
+                <span class="pyk-menu-plus" aria-hidden="true">+</span>
+              </button>
+              <div class="pyk-menu-panel" id="${panelId}" ${isOpen ? "" : "hidden"}>
+                ${typeHtml}
+              </div>
+            </article>
+          `;
+        }).join("");
+      }
+
+      function handleDrinkMenuToggle(event) {
+        const button = event.target.closest(".pyk-menu-toggle");
+        if (!button) return;
+
+        const packageName = button.dataset.packageName;
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        const willOpen = button.getAttribute("aria-expanded") !== "true";
+
+        button.setAttribute("aria-expanded", String(willOpen));
+        if (panel) panel.hidden = !willOpen;
+        if (willOpen) openMenuPackages.add(packageName);
+        else openMenuPackages.delete(packageName);
+      }
+
+      function slugify(value) {
+        return value
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-zA-Z0-9]+/g, "-")
+          .replace(/^-|-$/g, "")
+          .toLowerCase();
+      }
+
+      function escapeAttribute(value) {
+        return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function isBlockedEmail(email) {
+        const normalizedEmail = normalizeEmailValue(email);
+        const domain = normalizedEmail.split("@")[1] || "";
+        const blockedEmails = CONFIG.blockedEmails.map(normalizeEmailValue);
+        const blockedDomains = CONFIG.blockedDomains.map(normalizeBlockedDomain).filter(Boolean);
+
+        return blockedEmails.includes(normalizedEmail) || blockedDomains.some((blockedDomain) => (
+          domain === blockedDomain || domain.endsWith(`.${blockedDomain}`)
+        ));
+      }
+
+      function normalizeEmailValue(value) {
+        return String(value || "").trim().toLowerCase();
+      }
+
+      function normalizeBlockedDomain(value) {
+        return normalizeEmailValue(value).replace(/^@/, "");
+      }
+
+      function startOfToday() {
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      }
+
+      function formatDateForInput(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      }
+
+      async function captureLeadOnce(quote, eventName) {
+        if (!CONFIG.leadEndpointUrl || quote.email === lastLeadEmail) return;
+        lastLeadEmail = quote.email;
+        await postLead({ event: eventName, quote });
+      }
+
+      async function postLead(payload) {
+        if (!CONFIG.leadEndpointUrl) return;
+        try {
+          const lead = {
+            createdAt: new Date().toISOString(),
+            email: payload.quote.email,
+            guests: payload.quote.guests,
+            date: payload.quote.date,
+            location: payload.quote.location,
+            distance: payload.quote.distance,
+            bar: payload.quote.bar,
+            packages: payload.quote.selectedPackages.map((item) => item.shortName).join(", "),
+            total: payload.quote.total,
+            event: payload.event,
+            feedback: payload.feedback || ""
+          };
+          submitLeadForm(lead);
+        } catch (error) {
+          console.warn("Lead endpoint error", error);
+        }
+      }
+
+      function submitLeadForm(lead) {
+        const frameName = `leadFrame${Date.now()}`;
+        const frame = document.createElement("iframe");
+        frame.name = frameName;
+        frame.hidden = true;
+
+        const formElement = document.createElement("form");
+        formElement.action = CONFIG.leadEndpointUrl;
+        formElement.method = "POST";
+        formElement.target = frameName;
+        formElement.hidden = true;
+
+        Object.entries(lead).forEach(([name, value]) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = name;
+          input.value = value == null ? "" : String(value);
+          formElement.appendChild(input);
+        });
+
+        document.body.append(frame, formElement);
+        pendingLeadBeacons.push(frame);
+        frame.addEventListener("load", () => {
+          window.setTimeout(() => {
+            formElement.remove();
+            frame.remove();
+            const index = pendingLeadBeacons.indexOf(frame);
+            if (index >= 0) pendingLeadBeacons.splice(index, 1);
+          }, 1500);
+        }, { once: true });
+        formElement.submit();
+      }
+
+      function buildOfferText(quote, feedback = "") {
+        const packages = quote.selectedPackages.map((item) => item.shortName).join(", ") || "brak";
+        return [
+          "Podsumowanie wyceny Pyk Łyk",
+          "",
+          `E-mail klienta: ${quote.email}`,
+          `Ilość gości: ${quote.guests}`,
+          `Data wydarzenia: ${quote.date}`,
+          `Lokalizacja: ${quote.location}`,
+          `Dystans od Warszawy: ${quote.distance} km`,
+          `Wybrany bar: ${quote.bar}`,
+          `Pakiety dodatkowe: ${packages}`,
+          `Rabat na pakiety dodatkowe: ${Math.round(quote.discountPercent * 100)}%`,
+          `Szacowana cena brutto: ${money.format(quote.total)}`,
+          feedback ? "" : null,
+          feedback ? `Powód odmowy: ${feedback}` : null
+        ].filter(Boolean).join("\n");
+      }
+
+      function openMail(subject, body) {
+        const mailto = `mailto:${encodeURIComponent(CONFIG.contactEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailto;
+      }
+
+      async function handleLikeOffer() {
+        if (!lastQuote) return;
+        if (!ensurePrivacyConsent()) return;
+        likeOfferBtn.disabled = true;
+        likeOfferBtn.textContent = "Wysyłamy zapytanie...";
+        await postLead({ event: "offer_liked", quote: lastQuote });
+        showOfferSuccess();
+        openMail(`Zapytanie o ofertę barmańską - ${lastQuote.date}`, buildOfferText(lastQuote));
+      }
+
+      async function handleDislikeOffer() {
+        if (!lastQuote) return;
+        if (!ensurePrivacyConsent()) return;
+        const feedback = feedbackReason.value.trim() || "Brak podanego powodu.";
+        sendFeedbackBtn.disabled = true;
+        sendFeedbackBtn.textContent = "Wysyłamy opinię...";
+        await postLead({ event: "offer_disliked", quote: lastQuote, feedback });
+        showFeedbackSuccess();
+        openMail(`Opinia do oferty barmańskiej - ${lastQuote.date}`, buildOfferText(lastQuote, feedback));
+      }
+
+      async function handleLockedContactRequest() {
+        const data = getFormData();
+        const validationMessage = validateContactRequest(data);
+        if (validationMessage) {
+          setAlert(validationMessage, true);
+          return;
+        }
+
+        if (!ensurePrivacyConsent()) return;
+
+        const reason = getLockedContactReason(data);
+        const quote = buildContactRequestQuote(data, reason);
+        await postLead({ event: "custom_quote_requested", quote, feedback: reason });
+        setAlert("Zapytanie indywidualne zostało przygotowane. Otwieramy wiadomość e-mail z podsumowaniem.", true);
+        openMail(`Zapytanie indywidualne o bar - ${data.date}`, buildContactRequestText(data, reason));
+      }
+
+      function validateContactRequest(data) {
+        const missingFields = getMissingContactFields(data);
+        if (missingFields.length) {
+          focusMissingContactField(missingFields[0]);
+          return `Uzupełnij brakujące pola: ${missingFields.join(", ")}.`;
+        }
+        return "";
+      }
+
+      function focusMissingContactField(fieldName) {
+        const focusMap = {
+          "Adres e-mail": form.email,
+          "Ilość gości": form.guests,
+          "Przyszła data wydarzenia": form.date,
+          "Lokalizacja wydarzenia": form.location,
+          "Dystans od Warszawy": form.distance,
+          "Wybór baru": form.querySelector("input[name='bar']"),
+          "Zgoda na kontakt i politykę prywatności": form.privacy
+        };
+        const field = focusMap[fieldName];
+        if (field) field.focus();
+      }
+
+      function getLockedContactReason(data) {
+        const year = data.date ? Number(data.date.slice(0, 4)) : 0;
+        if (data.guests > 230) return "Wycena indywidualna dla wydarzenia powyżej 230 gości.";
+        if (year >= 2029) return "Wycena indywidualna dla terminu od 2029 roku.";
+        return "Wycena indywidualna wymagająca kontaktu.";
+      }
+
+      function buildContactRequestQuote(data, reason) {
+        return {
+          ...data,
+          selectedPackages: PACKAGES.filter((item) => data.packages.includes(item.id)),
+          total: "Wycena indywidualna",
+          customReason: reason
+        };
+      }
+
+      function buildContactRequestText(data, reason) {
+        const packages = PACKAGES
+          .filter((item) => data.packages.includes(item.id))
+          .map((item) => item.shortName)
+          .join(", ") || "brak";
+        const distanceValue = form.distance.value.trim();
+
+        return [
+          "Zapytanie indywidualne Pyk Łyk",
+          "",
+          reason,
+          "",
+          `E-mail klienta: ${data.email}`,
+          `Ilość gości: ${data.guests}`,
+          `Data wydarzenia: ${data.date}`,
+          `Lokalizacja: ${data.location}`,
+          `Dystans od Warszawy: ${distanceValue && Number.isFinite(data.distance) ? `${data.distance} km` : "brak"}`,
+          `Wybrany bar: ${data.bar}`,
+          `Pakiety dodatkowe: ${packages}`
+        ].join("\n");
+      }
+
+      function ensurePrivacyConsent() {
+        if (form.privacy.checked) {
+          formAlert.classList.remove("is-visible");
+          return true;
+        }
+        setAlert("Zaznacz zgodę na kontakt i politykę prywatności, aby wysłać zapytanie.", true);
+        form.privacy.focus();
+        return false;
+      }
+
+      function openFeedbackModal() {
+        feedbackSuccessMessage.hidden = true;
+        feedbackSuccessMessage.classList.remove("is-visible");
+        sendFeedbackBtn.disabled = false;
+        sendFeedbackBtn.textContent = "Wyślij powód";
+        feedbackModal.classList.add("is-open");
+        feedbackReason.focus();
+      }
+
+      function showFeedbackSuccess() {
+        feedbackSuccessMessage.hidden = false;
+        feedbackSuccessMessage.classList.remove("is-visible");
+        void feedbackSuccessMessage.offsetWidth;
+        feedbackSuccessMessage.classList.add("is-visible");
+        sendFeedbackBtn.textContent = "E-mail przygotowany";
+      }
+
+      function closeFeedbackModal() {
+        feedbackModal.classList.remove("is-open");
+      }
+
+      function handlePdfOffer() {
+        if (!lastQuote) return;
+        if (!ensurePrivacyConsent()) return;
+        const offerWindow = window.open("", "_blank", "width=900,height=1100");
+        if (!offerWindow) {
+          alert("Przeglądarka zablokowała okno PDF. Zezwól na wyskakujące okna i spróbuj ponownie.");
+          return;
+        }
+        offerWindow.document.write(buildPrintableOffer(lastQuote));
+        offerWindow.document.close();
+        offerWindow.focus();
+        setTimeout(() => offerWindow.print(), 350);
+      }
+
+      function buildPrintableOffer(quote) {
+        const packages = escapeHtml(quote.selectedPackages.map((item) => item.shortName).join(", ") || "brak");
+        const selectedDrinkNames = new Set(["Pakiet Standard", ...quote.selectedPackages.map((item) => item.name)]);
+        const drinks = DRINKS.filter((drink) => selectedDrinkNames.has(drink.package));
+        const baseHref = escapeAttribute(document.baseURI);
+        const printable = {
+          date: escapeHtml(quote.date),
+          guests: escapeHtml(quote.guests),
+          location: escapeHtml(quote.location),
+          bar: escapeHtml(quote.bar),
+          distance: escapeHtml(quote.distance)
+        };
+
+        return `<!doctype html>
+          <html lang="pl">
+          <head>
+            <meta charset="utf-8">
+            <base href="${baseHref}">
+            <title>Oferta Pyk Łyk</title>
+            <style>
+              body { margin: 0; padding: 34px; font-family: Arial, sans-serif; color: #171717; background: #f4f0e8; }
+              main { max-width: 860px; margin: 0 auto; background: #fffdf9; border: 1px solid #ded4c5; padding: 34px; }
+              header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; padding-bottom: 20px; border-bottom: 1px solid #ded4c5; }
+              img.logo { width: 132px; height: auto; }
+              .eyebrow { color: #75542d; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+              h1 { font-size: 36px; line-height: 1; margin: 16px 0 8px; }
+              h2 { font-size: 18px; margin: 28px 0 10px; }
+              p { color: #6e665d; }
+              .brand-contact { text-align: right; color: #4b4640; font-size: 13px; line-height: 1.45; }
+              .brand-contact strong { display: block; margin-bottom: 8px; color: #171717; font-size: 15px; }
+              .brand-contact a { color: #75542d; text-decoration: none; font-weight: 700; }
+              .price-box { margin: 22px 0; padding: 20px; border: 1px solid #ded4c5; background: #fff; }
+              .price { display: block; font-size: 58px; line-height: .95; font-weight: 900; margin-top: 8px; }
+              .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+              .box { border: 1px solid #ded4c5; background: #fff; padding: 12px; }
+              .box strong { display: block; margin-bottom: 4px; }
+              .contact-box { margin-top: 28px; padding: 18px; border: 1px solid #ded4c5; background: #f8f2e8; }
+              .contact-box p { margin: 6px 0 0; }
+              .contact-box a { color: #75542d; text-decoration: none; font-weight: 700; }
+              ul { padding-left: 18px; }
+              li { margin: 6px 0; color: #4b4640; }
+              @page { margin: 18mm; }
+            </style>
+          </head>
+          <body>
+            <main>
+              <header>
+                <div>
+                  <div class="eyebrow">Oferta PYK ŁYK DRINK BAR</div>
+                  <h1>Wycena mobilnego baru na Twoje wesele</h1>
+                  <p>Szacunkowe podsumowanie oferty na podstawie danych z kalkulatora.</p>
+                </div>
+                <div class="brand-contact">
+                  <img class="logo" src="assets/logo/logo-dark.png" alt="Pyk Łyk">
+                  <strong>PYK ŁYK DRINK BAR</strong>
+                  <div>tel. <a href="tel:+48513595540">513 595 540</a></div>
+                  <div><a href="mailto:${escapeAttribute(CONFIG.contactEmail)}">${escapeHtml(CONFIG.contactEmail)}</a></div>
+                </div>
+              </header>
+              <div class="price-box">
+                <div class="eyebrow">Szacowana cena brutto</div>
+                <strong class="price">${money.format(quote.total)}</strong>
+              </div>
+              <div class="grid">
+                <div class="box"><strong>Data</strong><br>${printable.date}</div>
+                <div class="box"><strong>Goście</strong><br>${printable.guests}</div>
+                <div class="box"><strong>Lokalizacja</strong><br>${printable.location}</div>
+                <div class="box"><strong>Bar</strong><br>${printable.bar}</div>
+                <div class="box"><strong>Dystans</strong><br>${printable.distance} km</div>
+                <div class="box"><strong>Pakiety</strong><br>${packages}</div>
+              </div>
+              <h2>Rozliczenie</h2>
+              <ul>
+                <li>Pakiet Standard: ${money.format(quote.tier.standard)}</li>
+                <li>Pakiety dodatkowe przed rabatem: ${money.format(quote.addonsGross)}</li>
+                <li>Rabat: ${Math.round(quote.discountPercent * 100)}%, czyli ${money.format(quote.discountValue)}</li>
+                <li>Dojazd: ${money.format(quote.travelCost)}</li>
+              </ul>
+              <h2>Co zapewniamy</h2>
+              <ul>
+                <li>Dwuosobową obsługę barmańską od przygotowania baru do godziny 2:00 w nocy.</li>
+                <li>Możliwość przedłużenia obsługi po ustalonym czasie: 400 zł za każdą kolejną godzinę.</li>
+                <li>Mobilny bar w wybranym wariancie: elegancki biały z ekoskóry albo stylowy drewniany.</li>
+                <li>Profesjonalny sprzęt barmański oraz szkło dopasowane do rodzaju drinków.</li>
+                <li>Lód w kostkach i kruszony, a na życzenie także suchy lód.</li>
+                <li>Świeże owoce, warzywa, zioła, syropy, słomki, serwetki i dekoracje do drinków.</li>
+                <li>Napoje, soki, napoje gazowane oraz alkohole i likiery do realizacji menu.</li>
+                <li>Menu drinków alkoholowych, bezalkoholowych oraz shotów.</li>
+                <li>Transport w cenie do 50 km od Warszawy, a dalszy dojazd liczony zgodnie z kalkulatorem.</li>
+              </ul>
+              <h2>Po stronie klienta</h2>
+              <ul>
+                <li>Dostęp do prądu, miejsce na bar i możliwość podjazdu.</li>
+                <li>Czysta wódka: około 3-5 litrów.</li>
+                <li>Informacja o godzinach pracy baru i warunkach na sali.</li>
+              </ul>
+              <h2>Menu drinków</h2>
+              <ul>
+                ${drinks.map((drink) => `<li><strong>${escapeHtml(drink.name)}</strong> - ${escapeHtml(drink.ingredients)}</li>`).join("")}
+              </ul>
+              <section class="contact-box">
+                <h2>Kontakt</h2>
+                <p><strong>PYK ŁYK DRINK BAR</strong></p>
+                <p>Telefon: <a href="tel:+48513595540">513 595 540</a></p>
+                <p>E-mail: <a href="mailto:${escapeAttribute(CONFIG.contactEmail)}">${escapeHtml(CONFIG.contactEmail)}</a></p>
+              </section>
+            </main>
+          </body>
+          </html>`;
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
+

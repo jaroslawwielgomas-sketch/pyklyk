@@ -62,7 +62,7 @@ window.PYKLYK = {
   stats: [
     { value: 1000, suffix: "+", label: "zrealizowanych imprez" },
     { value: 12,   suffix: "",  label: "lat doświadczenia" },
-    { value: 20,   suffix: "+", label: "drinków w karcie" },
+    { value: 37,   suffix: "", label: "drinków w karcie" },
     { value: 100,  suffix: "+", label: "pozytywnych opinii" }
   ],
 
@@ -124,13 +124,13 @@ window.PYKLYK = {
     menu: {
       kicker: "Menu, które zachwyca",
       title:  "Karta drinków",
-      lead:   "Standardowa karta to 14 klasycznych i autorskich koktajli alkoholowych, 6 orzeźwiających drinków bezalkoholowych oraz 3 rodzaje shotów. Chętnie stworzymy też koktajle spoza karty."
+      lead:   "Pakiet Standard obejmuje 21 pozycji: 12 drinków alkoholowych, 6 bezalkoholowych oraz 3 shoty. Menu możesz rozszerzyć o pakiety dodatkowe: Dolce Vita, Gentlemen's Club, Meister’s Selection i Fruit Star Selection."
     },
 
     packages: {
       kicker: "Pakiety dodatkowe",
       title:  "Chcesz rozszerzyć menu?",
-      lead:   "Z myślą o Tobie stworzyliśmy pakiety dodatkowe, które wprowadzą na Twoje przyjęcie jeszcze więcej smaków. Cena pakietu zależy od liczby gości."
+      lead:   "Pakiety dodatkowe pozwalają rozszerzyć kartę o prosecco, whisky, jägermeistera i efektowne owocowe koktajle. Cena pakietu zależy od liczby gości."
     },
 
     reviews: {
@@ -177,33 +177,31 @@ window.PYKLYK = {
      ------------------------------------------------------------------------- */
   menu: {
     alcoholic: [
-      { name: "Biały Rusek",     ingredients: ["wódka", "mleko", "likier kawowy"] },
-      { name: "Piña Colada",     ingredients: ["rum", "malibu", "sok ananasowy", "mleko"] },
-      { name: "Mojito",          ingredients: ["rum", "sprite / woda", "mięta", "limonka", "cukier brązowy"] },
-      { name: "Martini & Sprite",ingredients: ["martini", "sprite"] },
-      { name: "Jamaica",         ingredients: ["malibu", "wódka", "sok pomarańczowy", "sok ananasowy", "blue curaçao", "grenadina"] },
-      { name: "Blue Lagoon",     ingredients: ["wódka", "sprite", "sok z cytryny", "blue curaçao"] },
-      { name: "Gremlin",         ingredients: ["wódka", "sok pomarańczowy", "blue curaçao"] },
+      { name: "Biały/czarny rusek", ingredients: ["wódka", "śmietanka/cola", "likier kawowy"] },
+      { name: "Blue lagoon",     ingredients: ["sprite", "sok z cytryny", "blue curacao", "wódka"] },
+      { name: "Cuba libre",      ingredients: ["rum", "cola", "limonka"] },
+      { name: "Eksplozja",       ingredients: ["gin", "martini", "wódka", "sprite", "blue curacao"] },
       { name: "Gin & Tonic",     ingredients: ["gin", "tonic"] },
+      { name: "Gremlin",         ingredients: ["wódka", "sok pomarańczowy", "blue curacao"] },
+      { name: "Jamaica",         ingredients: ["malibu", "wódka", "sok pomarańczowy", "sok ananasowy", "blue curaçao", "grenadina"] },
+      { name: "Martini Bianco Royal", ingredients: ["martini", "sok z cytryny", "mięta", "sprite"] },
+      { name: "Mojito (classic/owocowe)", ingredients: ["rum", "woda gazowana", "mięta", "limonka", "cukier brązowy"] },
+      { name: "Pina colada",     ingredients: ["rum", "malibu", "sok ananasowy", "śmietanka"] },
       { name: "Sex on the Beach",ingredients: ["wódka", "likier brzoskwiniowy", "sok pomarańczowy", "sok żurawinowy"] },
-      { name: "Malibu",          ingredients: ["malibu", "mleko"] },
-      { name: "Tequila Sunrise", ingredients: ["tequila", "sok pomarańczowy", "grenadina"] },
-      { name: "Ekstravaganza",   ingredients: ["malibu", "wódka", "blue curaçao", "sok pomarańczowy", "sok truskawkowy"] },
-      { name: "Eksplozja",       ingredients: ["gin", "martini", "wódka", "blue curaçao", "sprite"] },
-      { name: "Cuba Libre",      ingredients: ["rum", "cola", "limonka"] }
+      { name: "Tequila sunrise", ingredients: ["tequila", "sok pomarańczowy", "grenadina"] }
     ],
     nonAlcoholic: [
-      { name: "Mint Fresh",           ingredients: ["mięta", "limonka", "cukier brązowy", "sok jabłkowy"] },
-      { name: "Kokosowa Przyjemność", ingredients: ["sok pomarańczowy", "sok cytrynowy", "syrop kokosowy", "blue curaçao"] },
-      { name: "Różowa Pantera",       ingredients: ["sok pomarańczowy", "sok ananasowy", "grenadina", "mleko"] },
-      { name: "Błękit Nieba",         ingredients: ["sprite", "cytryna", "blue curaçao"] },
-      { name: "Virgin Mojito",        ingredients: ["sprite", "mięta", "cukier trzcinowy", "limonka"] },
-      { name: "Zielona Dróżka",       ingredients: ["sok pomarańczowy", "blue curaçao"] }
+      { name: "Błękit nieba",         ingredients: ["sprite", "cytryna", "blue curacao"] },
+      { name: "Kokosowa przyjemność", ingredients: ["sok pomarańczowy", "sok cytrynowy", "syrop kokosowy", "blue curacao"] },
+      { name: "Mint fresh",           ingredients: ["mięta", "limonka", "cukier brązowy", "sok jabłkowy"] },
+      { name: "Różowa pantera",       ingredients: ["sok pomarańczowy", "sok ananasowy", "grenadina", "śmietanka"] },
+      { name: "Virgin mojito",        ingredients: ["sprite", "mięta", "cukier trzcinowy", "limonka"] },
+      { name: "Zielona dróżka",       ingredients: ["sok pomarańczowy", "blue curacao"] }
     ],
     shots: [
-      { name: "Wściekły Pies", ingredients: ["wódka", "sok malinowy", "tabasco"] },
+      { name: "Kamikaze",      ingredients: ["wódka", "sok cytrynowy", "blue curacao"] },
       { name: "Tequila",       ingredients: ["tequila", "sól", "cytryna"] },
-      { name: "Kamikaze",      ingredients: ["wódka", "sok cytrynowy", "blue curaçao"] }
+      { name: "Wściekły pies", ingredients: ["wódka", "grenadina", "tabasco"] }
     ]
   },
 
@@ -212,28 +210,43 @@ window.PYKLYK = {
      ------------------------------------------------------------------------- */
   packages: [
     {
-      name: "Aperol",
+      name: "Dolce Vita",
       badge: "+",
       drinks: [
         { name: "Aperol Spritz", ingredients: ["aperol", "prosecco", "woda gazowana"] },
-        { name: "Hugo",          ingredients: ["limonka", "mięta", "prosecco", "syrop z czarnego bzu", "woda gazowana"] }
+        { name: "Hugo",          ingredients: ["limonka", "mięta", "prosecco", "syrop z czarnego bzu", "woda gazowana"] },
+        { name: "Aperol sour",   ingredients: ["aperol", "sok z cytryny", "syrop cukrowy"] },
+        { name: "Mimoza",        ingredients: ["prosecco", "sok pomarańczowy"] }
       ]
     },
     {
-      name: "Whisky",
+      name: "Gentlemen's Club",
       badge: "+",
       drinks: [
+        { name: "Old Fashioned", ingredients: ["whisky", "cukier trzcinowy", "angostura", "woda gazowana", "skórka pomarańczy"] },
         { name: "Whisky & Cola", ingredients: ["whisky", "cola"] },
-        { name: "Whisky Sour",   ingredients: ["whisky", "białko", "angostura", "sok z cytryny", "cukier"] },
-        { name: "Old Fashioned", ingredients: ["whisky", "cukier trzcinowy", "angostura", "woda gazowana"] }
+        { name: "Whisky Sour",   ingredients: ["whisky", "białko", "angostura", "sok z cytryny"] },
+        { name: "Lynchburg Lemonade", ingredients: ["whisky", "triple sec", "sok z cytryny", "sprite"] }
       ]
     },
     {
-      name: "Jägermeister",
+      name: "Meister’s Selection",
       badge: "+",
       drinks: [
+        { name: "Jagier Bomb", ingredients: ["jägermeister", "red bull"] },
         { name: "Surfer",     ingredients: ["jägermeister", "malibu", "sok ananasowy"] },
-        { name: "Jäger Bomb", ingredients: ["jägermeister", "redbull"] }
+        { name: "Black Sunrise", ingredients: ["jägermeister", "sok pomarańczowy", "syrop grenadyna"] },
+        { name: "Jager sour", ingredients: ["jägermeister", "białko", "angostura", "sok z cytryny"] }
+      ]
+    },
+    {
+      name: "Fruit Star Selection",
+      badge: "+",
+      drinks: [
+        { name: "Porn star martini", ingredients: ["wódka", "syrop waniliowy", "przecier z marakui", "limonka", "shot prosecco"] },
+        { name: "Mango Bay", ingredients: ["wódka", "przecier z mango", "sok żurawinowy", "sok z cytryny"] },
+        { name: "Tropical Punch", ingredients: ["wódka", "przecier z mango", "sok ananasowy", "sok z limonki", "grenadina"] },
+        { name: "Passion Daiquiri", ingredients: ["biały rum", "przecier z marakui", "sok z limonki", "syrop cukrowy", "świeża mięta"] }
       ]
     }
   ],
