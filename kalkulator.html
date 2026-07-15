@@ -1681,6 +1681,7 @@
         try {
           const lead = {
             createdAt: new Date().toISOString(),
+            leadId: buildLeadId(payload.quote, payload.event),
             email: payload.quote.email,
             guests: payload.quote.guests,
             date: payload.quote.date,
@@ -1690,12 +1691,67 @@
             packages: payload.quote.selectedPackages.map((item) => item.shortName).join(", "),
             total: payload.quote.total,
             event: payload.event,
-            feedback: payload.feedback || ""
+            status: getInitialLeadStatus(payload.event),
+            priority: getLeadPriority(payload.quote, payload.event),
+            nextContact: getNextContactDate(payload.event),
+            lastContact: "",
+            note: buildLeadNote(payload.quote, payload.event),
+            feedback: payload.feedback || "",
+            source: "kalkulator-pyklyk",
+            pageUrl: window.location.href,
+            consent: "tak",
+            userAgent: navigator.userAgent
           };
           submitLeadForm(lead);
         } catch (error) {
           console.warn("Lead endpoint error", error);
         }
+      }
+
+      function buildLeadId(quote, eventName) {
+        const datePart = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
+        const emailPart = (quote.email || "lead").split("@")[0].replace(/[^a-z0-9]/gi, "").slice(0, 10).toUpperCase();
+        const eventPart = String(eventName || "quote").replace(/[^a-z0-9]/gi, "").slice(0, 8).toUpperCase();
+        return `PYK-${datePart}-${eventPart}-${emailPart}`;
+      }
+
+      function getInitialLeadStatus(eventName) {
+        if (eventName === "offer_liked") return "Do kontaktu";
+        if (eventName === "offer_disliked") return "Utracony / feedback";
+        if (eventName === "custom_quote_requested") return "Wycena indywidualna";
+        return "Nowy";
+      }
+
+      function getLeadPriority(quote, eventName) {
+        if (eventName === "offer_disliked") return "Niski";
+        if (eventName === "offer_liked" || eventName === "custom_quote_requested") return "Wysoki";
+        if (quote.guests >= 150 || quote.total >= 6000) return "Wysoki";
+        const eventDate = quote.date ? new Date(`${quote.date}T00:00:00`) : null;
+        if (eventDate && !Number.isNaN(eventDate.getTime())) {
+          const daysToEvent = Math.ceil((eventDate - new Date()) / 86400000);
+          if (daysToEvent >= 0 && daysToEvent <= 45) return "Wysoki";
+        }
+        return "Normalny";
+      }
+
+      function getNextContactDate(eventName) {
+        if (eventName === "offer_disliked") return "";
+        const date = new Date();
+        date.setDate(date.getDate() + (eventName === "offer_liked" || eventName === "custom_quote_requested" ? 1 : 2));
+        return formatDateForInput(date);
+      }
+
+      function buildLeadNote(quote, eventName) {
+        const labels = {
+          quote_calculated: "Klient zobaczyl automatyczna wycene.",
+          offer_liked: "Klient kliknal, ze oferta mu sie podoba.",
+          offer_disliked: "Klient odrzucil oferte i zostawil feedback.",
+          custom_quote_requested: "Klient wymaga wyceny indywidualnej."
+        };
+        const packageText = quote.selectedPackages.length
+          ? `Pakiety: ${quote.selectedPackages.map((item) => item.shortName).join(", ")}.`
+          : "Bez pakietow dodatkowych.";
+        return `${labels[eventName] || "Nowy lead z kalkulatora"} ${packageText}`;
       }
 
       function submitLeadForm(lead) {
