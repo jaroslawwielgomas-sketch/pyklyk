@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kalkulator wyceny drink baru na wesele | Pyk Łyk</title>
-  <meta name="description" content="Oblicz orientacyjną wycenę mobilnego drink baru Pyk Łyk na wesele lub event. Wybierz datę, liczbę gości, bar i pakiety dodatkowe.">
+  <meta name="description" content="Oblicz orientacyjną wycenę mobilnego baru na wesele w Warszawie i okolicach. Pyk Łyk zapewnia barmańską obsługę wesel. Eventy firmowe i inne imprezy wyceniamy indywidualnie.">
   <link rel="canonical" href="https://pyklyk.pl/kalkulator.html">
   <style>
     :root {
@@ -95,6 +95,11 @@
       width: 128px;
       max-width: 42vw;
       height: auto;
+    }
+
+    .pyk-logo-link {
+      display: inline-flex;
+      align-items: center;
     }
 
     .pyk-heading {
@@ -400,6 +405,17 @@
 
     .pyk-breakdown-row strong { color: var(--pyk-ink); white-space: nowrap; }
 
+    .pyk-breakdown-row--term {
+      margin: 0 -8px;
+      padding: 8px;
+      border-radius: 10px;
+      background: rgba(216, 185, 131, .16);
+      border-bottom-color: rgba(184, 136, 75, .28);
+      color: var(--pyk-gold-dark);
+    }
+
+    .pyk-breakdown-row--term strong { color: var(--pyk-gold-dark); }
+
     .pyk-actions {
       display: grid;
       gap: 10px;
@@ -476,22 +492,21 @@
       grid-column: 1 / -1;
     }
 
-    .pyk-text-action {
-      min-height: 36px;
-      border: 0;
-      padding: 6px 8px;
-      background: transparent;
-      color: var(--pyk-muted);
-      font: inherit;
-      font-size: .92rem;
-      font-weight: 800;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      cursor: pointer;
+    .pyk-summary-actions .pyk-individual-button {
+      grid-column: 1 / -1;
+      width: 100%;
     }
 
-    .pyk-text-action:hover {
-      color: var(--pyk-ink);
+    .pyk-summary-contact-actions {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pyk-summary-contact-actions > * {
+      min-width: 0;
+      width: 100%;
     }
 
     .pyk-success-message {
@@ -552,6 +567,42 @@
       font-size: .9rem;
     }
 
+    .pyk-proof-stats {
+      display: grid;
+      gap: 4px;
+    }
+
+    .pyk-proof-rating {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--pyk-ink);
+      font-size: .9rem;
+    }
+
+    .pyk-proof-stars {
+      color: var(--pyk-gold-dark);
+      font-size: 1.15rem;
+      letter-spacing: .12em;
+      line-height: 1;
+    }
+
+    .pyk-proof-rating strong {
+      font-size: 1rem;
+    }
+
+    .pyk-proof-rating-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+    }
+
+    .pyk-proof-rating span:last-child {
+      color: var(--pyk-muted);
+    }
+
     .pyk-testimonial {
       display: grid;
       gap: 9px;
@@ -578,6 +629,25 @@
       font-size: .88rem;
       font-style: normal;
       font-weight: 760;
+    }
+
+    .pyk-proof-source {
+      display: grid;
+      gap: 7px;
+      color: var(--pyk-muted);
+      font-size: .8rem;
+      line-height: 1.35;
+    }
+
+    .pyk-proof-source a {
+      color: var(--pyk-gold-dark);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .pyk-proof-source a:hover {
+      color: var(--pyk-ink);
     }
 
     .pyk-proof-dots {
@@ -792,12 +862,19 @@
       padding: 18px;
       background: rgba(22, 22, 22, .48);
       z-index: 99;
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
     .pyk-modal.is-open { display: grid; }
 
+    body.pyk-modal-open { overflow: hidden; }
+
     .pyk-modal-box {
       width: min(520px, 100%);
+      max-height: calc(100vh - 36px);
+      max-height: calc(100dvh - 36px);
+      overflow-y: auto;
       border-radius: var(--pyk-radius);
       background: var(--pyk-surface);
       padding: 18px;
@@ -831,10 +908,8 @@
       .pyk-choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pyk-package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pyk-actions { grid-template-columns: 1fr 1fr; }
-      .pyk-actions .pyk-button-quiet { grid-column: 1 / -1; }
+      .pyk-actions > .pyk-button-quiet { grid-column: 1 / -1; }
       .pyk-summary-actions .pyk-button-primary { grid-column: 1 / -1; }
-      .pyk-summary-actions .pyk-button-quiet { grid-column: 1 / 2; }
-      .pyk-summary-actions .pyk-text-action { grid-column: 2 / 3; }
       .pyk-offer-bands { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pyk-drink-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
@@ -860,11 +935,14 @@
     <div class="pyk-shell">
       <section class="pyk-panel" aria-labelledby="calculatorTitle">
         <div class="pyk-brand-top">
-          <img class="pyk-logo" src="assets/logo/logo-dark.png" alt="Pyk Łyk">
+          <a class="pyk-logo-link" href="index.html" aria-label="Pyk Łyk — strona główna">
+            <img class="pyk-logo" src="assets/logo/logo-dark.png" alt="Pyk Łyk">
+          </a>
         </div>
         <p class="pyk-eyebrow">PYK ŁYK DRINK BAR</p>
         <h1 class="pyk-heading" id="calculatorTitle">Wycena mobilnego baru na Twoje wesele</h1>
-        <p class="pyk-lead">Wypełnij kilka pól, wybierz bar i dodatki. Cena pokaże się dopiero po podaniu danych potrzebnych do przygotowania oferty.</p>
+         <p class="pyk-lead">Planujecie wesele w Warszawie lub okolicach? Zastanawiacie się, ile kosztuje drink bar na wesele? W kilka chwil sprawdzicie orientacyjną cenę mobilnego baru Pyk Łyk z profesjonalną obsługą barmańską.</p>
+         <p class="pyk-lead">Kalkulator został przygotowany z myślą o parach młodych planujących wesele. Eventy firmowe i inne imprezy wyceniane są indywidualnie — w celu przygotowania dopasowanej oferty prosimy o kontakt.</p>
 
         <form class="pyk-form" id="quoteForm" novalidate>
           <fieldset class="pyk-fieldset">
@@ -959,10 +1037,10 @@
           <section class="pyk-band">
             <h3>Po stronie klienta</h3>
             <ul>
-              <li>Dostęp do prądu, miejsce na bar i możliwość podjazdu.</li>
-              <li>Czysta wódka po stronie klienta: około 3-5 litrów.</li>
-              <li>Informacja o godzinach pracy baru i warunkach na sali.</li>
-              <li>Potwierdzenie terminu po kontakcie z zespołem Pyk Łyk.</li>
+              <li><span>Przygotowanie około <strong>3–5 litrów czystej wódki weselnej.</strong></span></li>
+              <li><span>Przekazanie informacji o planowanym przyjeździe gości na salę.</span></li>
+              <li><span>Zgłoszenie przed weselem ewentualnych indywidualnych życzeń dotyczących menu.</span></li>
+              <li><span>Uśmiech, dobry humor i gotowość do zabawy — resztą zajmiemy się my.</span></li>
             </ul>
           </section>
         </div>
@@ -971,8 +1049,8 @@
       <aside class="pyk-summary" id="quoteSummary" aria-live="polite">
         <h2>Podsumowanie</h2>
         <div class="pyk-lock" id="lockedState">
-          <strong>Cena jest jeszcze ukryta</strong>
-          <span class="pyk-muted">Uzupełnij e-mail, ilość gości, datę, lokalizację, dystans, wybór baru i zgodę kontaktową.</span>
+          <strong>Uzupełnij dane do wyceny</strong>
+          <span class="pyk-muted">Wypełnij wymagane pola, aby zobaczyć cenę swojej oferty.</span>
         </div>
 
         <div id="readyState" hidden>
@@ -984,31 +1062,47 @@
 
           <div class="pyk-breakdown" id="priceBreakdown"></div>
 
+          <div class="pyk-field pyk-lead-description">
+            <label for="leadEventDescription">Opisz krótko swoje wydarzenie <span class="pyk-muted">(opcjonalnie)</span></label>
+            <textarea class="pyk-input" id="leadEventDescription" rows="4" placeholder="Np. wesele w plenerze, przyjazd gości około 18:00, zależy nam na bezalkoholowych drinkach dla dzieci..."></textarea>
+          </div>
+
           <div class="pyk-actions pyk-summary-actions">
-            <button class="pyk-button pyk-button-primary" type="button" id="likeOfferBtn">Oferta mi się podoba - zapytaj o szczegóły</button>
-            <a class="pyk-button pyk-button-call" href="tel:+48513595540" aria-label="Zadzwoń pod numer 513 595 540">
-              <span class="pyk-call-label">Zadzwoń</span>
-              <span class="pyk-call-number">513 595 540</span>
-            </a>
-            <button class="pyk-button pyk-button-quiet" type="button" id="pdfOfferBtn">Pobierz PDF z ofertą</button>
-            <button class="pyk-text-action" type="button" id="dislikeOfferBtn">Nie tego szukam - zostaw opinię</button>
+            <button class="pyk-button pyk-button-primary" type="button" id="likeOfferBtn">Wyślij zapytanie o dostępność terminu</button>
+            <div class="pyk-summary-contact-actions">
+              <a class="pyk-button pyk-button-call" href="tel:+48513595540" aria-label="Zadzwoń pod numer 513 595 540">
+                <span class="pyk-call-label">Zadzwoń</span>
+                <span class="pyk-call-number">513 595 540</span>
+              </a>
+              <button class="pyk-button pyk-button-quiet" type="button" id="pdfOfferBtn">Zapisz PDF</button>
+            </div>
+            <button class="pyk-button pyk-button-secondary pyk-individual-button" type="button" id="individualQuoteBtn">Potrzebujesz innego zakresu? Poproś o wycenę indywidualną</button>
           </div>
 
           <div class="pyk-success-message" id="offerSuccessMessage" role="status" aria-live="polite" hidden>
-            <strong>Dziękujemy za zaufanie!</strong>
-            <span>Przygotowaliśmy wiadomość e-mail z podsumowaniem. Jeśli otworzył się program pocztowy, kliknij Wyślij, a wrócimy z informacją o dostępności terminu.</span>
+            <strong>Dziękujemy, otrzymaliśmy Twoje zapytanie</strong>
+            <span>Sprawdzimy dostępność terminu i skontaktujemy się z Tobą.</span>
           </div>
         </div>
 
         <div class="pyk-proof" aria-labelledby="trustedTitle">
           <span class="pyk-proof-kicker">Zaufali nam</span>
-          <h2 class="pyk-proof-title" id="trustedTitle">Opinie klientów</h2>
-          <span class="pyk-proof-stat">Ponad 1000 obsłużonych imprez w całej Polsce</span>
+          <h2 class="pyk-proof-title" id="trustedTitle">Pary młode polecają Pyk Łyk</h2>
+          <div class="pyk-proof-stats">
+            <span class="pyk-proof-stat">Ponad 1000 zrealizowanych wesel i eventów</span>
+          </div>
+          <div class="pyk-proof-rating" aria-label="Ocena 5,00 na 5 i 149 opinii klientów">
+            <strong class="pyk-proof-rating-line"><span class="pyk-proof-stars" aria-hidden="true">★★★★★</span> 5,00/5 · 149 opinii</strong>
+          </div>
           <div class="pyk-testimonial" id="testimonialBox" aria-live="polite">
             <blockquote id="testimonialQuote"></blockquote>
             <cite id="testimonialAuthor"></cite>
           </div>
           <div class="pyk-proof-dots" id="testimonialDots" aria-label="Wybierz opinię"></div>
+          <div class="pyk-proof-source">
+            <em>Opinie z Facebooka i serwisu Wesele z Klasą</em>
+            <a href="index.html#opinie">Zobacz więcej opinii ↗</a>
+          </div>
         </div>
       </aside>
 
@@ -1021,21 +1115,34 @@
     </div>
   </main>
 
-  <div class="pyk-modal" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+  <div class="pyk-modal" id="individualModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="individualTitle">
     <div class="pyk-modal-box">
-      <h2 id="feedbackTitle">Co możemy poprawić w ofercie?</h2>
-      <p class="pyk-muted">Krótka odpowiedź pomoże nam przygotować lepszą propozycję.</p>
+      <h2 id="individualTitle">Potrzebujesz innego zakresu?</h2>
+      <p class="pyk-muted">Opisz, czego potrzebujesz. Przygotujemy indywidualną propozycję na podstawie Twojej wyceny.</p>
       <div class="pyk-field">
-        <label class="pyk-sr-only" for="feedbackReason">Powód</label>
-        <textarea class="pyk-input" id="feedbackReason" placeholder="Np. za wysoka cena, inny zakres, brak terminu..."></textarea>
+        <label for="individualReasonType">Powód prośby</label>
+        <select class="pyk-input" id="individualReasonType">
+          <option value="">Wybierz opcję</option>
+          <option value="Personalizacja karty drinków">Personalizacja karty drinków</option>
+          <option value="Nietypowy charakter wydarzenia">Nietypowy charakter wydarzenia</option>
+          <option value="Impreza okolicznościowa">Impreza okolicznościowa</option>
+          <option value="Event firmowy lub integracja">Event firmowy lub integracja</option>
+          <option value="Dodatkowe atrakcje lub rozszerzenie usługi">Dodatkowe atrakcje lub rozszerzenie usługi</option>
+          <option value="Niestandardowy czas obsługi">Niestandardowy czas obsługi</option>
+          <option value="Inna potrzeba — opiszę poniżej">Inna potrzeba — opiszę poniżej</option>
+        </select>
       </div>
-      <div class="pyk-success-message" id="feedbackSuccessMessage" role="status" aria-live="polite" hidden>
-        <strong>Dziękujemy za opinię w sprawie oferty.</strong>
-        <span>Przygotowaliśmy wiadomość e-mail z Twoją opinią. Jeśli otworzył się program pocztowy, kliknij Wyślij.</span>
+      <div class="pyk-field">
+        <label for="individualReasonDetails">Dodatkowe informacje <span class="pyk-muted">(opcjonalnie)</span></label>
+        <textarea class="pyk-input" id="individualReasonDetails" placeholder="Np. interesuje mnie krótsza obsługa albo dodatkowe atrakcje..."></textarea>
+      </div>
+      <div class="pyk-success-message" id="individualSuccessMessage" role="status" aria-live="polite" hidden>
+        <strong>Prośba została wysłana</strong>
+        <span>Wrócimy z indywidualną propozycją na podany adres e-mail.</span>
       </div>
       <div class="pyk-actions">
-        <button class="pyk-button pyk-button-primary" type="button" id="sendFeedbackBtn">Wyślij powód</button>
-        <button class="pyk-button pyk-button-secondary" type="button" id="closeFeedbackBtn">Zamknij</button>
+        <button class="pyk-button pyk-button-primary" type="button" id="sendIndividualBtn">Wyślij prośbę</button>
+        <button class="pyk-button pyk-button-secondary" type="button" id="closeIndividualBtn">Zamknij</button>
       </div>
     </div>
   </div>
@@ -1052,6 +1159,7 @@
         blockedEmails: Array.isArray(EXTERNAL_BLACKLIST.emails) ? EXTERNAL_BLACKLIST.emails : [],
         blockedDomains: Array.isArray(EXTERNAL_BLACKLIST.domains) ? EXTERNAL_BLACKLIST.domains : [],
         geocodingEndpoint: "https://nominatim.openstreetmap.org/search",
+        photonGeocodingEndpoint: "https://photon.komoot.io/api/",
         routingEndpoint: "https://router.project-osrm.org/route/v1/driving",
         warsaw: { lat: 52.2297, lon: 21.0122 }
       };
@@ -1069,8 +1177,8 @@
 
       const PACKAGES = [
         { id: "dolce", name: "Pakiet Dolce Vita", shortName: "Dolce Vita", benefit: "Prosecco, Aperol i lekko włoski klimat przy barze." },
-        { id: "gentlemen", name: "Pakiet Gentlemen's Club", shortName: "Gentlemen's Club", benefit: "Whisky klasyki dla gości, którzy lubią mocniejszy charakter." },
-        { id: "meister", name: "Pakiet Meister’s Selection", shortName: "Meister’s Selection", benefit: "Energetyczne propozycje, które podkręcają parkiet." },
+        { id: "gentlemen", name: "Pakiet Gentlemen's Club", shortName: "Gentlemen's Club", benefit: "Klasyczne koktajle na bazie whisky dla gości, którzy lubią mocniejszy charakter." },
+        { id: "meister", name: "Pakiet Meister’s Selection", shortName: "Meister’s Selection", benefit: "Wyrazisty ziołowy likier Jägermeister dla miłośników intensywnych smaków." },
         { id: "fruit", name: "Pakiet Fruit Star Selection", shortName: "Fruit Star Selection", benefit: "Owocowe, efektowne drinki z tropikalnym twistem." }
       ];
 
@@ -1088,12 +1196,12 @@
         { package: "Pakiet Standard", name: "Sex on the beach", ingredients: "wódka, likier brzoskwiniowy, sok pomarańczowy, sok żurawinowy", type: "Alkoholowe" },
         { package: "Pakiet Standard", name: "Tequila sunrise", ingredients: "tequila, sok pomarańczowy, grenadina", type: "Alkoholowe" },
         { package: "Pakiet Standard", name: "Błękit nieba", ingredients: "sprite, cytryna, blue curacao", type: "Bezalkoholowe" },
-        { package: "Pakiet Standard", name: "Kokosowa przyjemność", ingredients: "sok pomarańczowy, sok cytrynowy, syrop kokosowy, blue curacao", type: "Bezalkoholowe" },
+        { package: "Pakiet Standard", name: "Kokosowa przyjemność", ingredients: "sok pomarańczowy, sok z cytryny, syrop kokosowy, blue curacao", type: "Bezalkoholowe" },
         { package: "Pakiet Standard", name: "Mint fresh", ingredients: "mięta, limonka, cukier brązowy, sok jabłkowy", type: "Bezalkoholowe" },
         { package: "Pakiet Standard", name: "Różowa pantera", ingredients: "sok pomarańczowy, sok ananasowy, grenadina, śmietanka", type: "Bezalkoholowe" },
         { package: "Pakiet Standard", name: "Virgin mojito", ingredients: "sprite, mięta, cukier trzcinowy, limonka", type: "Bezalkoholowe" },
         { package: "Pakiet Standard", name: "Zielona dróżka", ingredients: "sok pomarańczowy, blue curacao", type: "Bezalkoholowe" },
-        { package: "Pakiet Standard", name: "Kamikaze", ingredients: "wódka, sok cytrynowy, blue curacao", type: "Shoty" },
+        { package: "Pakiet Standard", name: "Kamikaze", ingredients: "wódka, sok z cytryny, blue curacao", type: "Shoty" },
         { package: "Pakiet Standard", name: "Tequila", ingredients: "tequila, sól, cytryna", type: "Shoty" },
         { package: "Pakiet Standard", name: "Wściekły pies", ingredients: "wódka, grenadina, tabasco", type: "Shoty" },
         { package: "Pakiet Gentlemen's Club", name: "Old Fashioned", ingredients: "whisky, cukier trzcinowy, angostura, woda gazowana, skórka pomarańczy", type: "Alkoholowe" },
@@ -1106,11 +1214,11 @@
         { package: "Pakiet Dolce Vita", name: "Mimoza", ingredients: "prosecco, sok pomarańczowy", type: "Alkoholowe" },
         { package: "Pakiet Meister’s Selection", name: "Jagier Bomb", ingredients: "jägermeister, red bull", type: "Alkoholowe" },
         { package: "Pakiet Meister’s Selection", name: "Surfer", ingredients: "jägermeister, malibu, sok ananasowy", type: "Alkoholowe" },
-        { package: "Pakiet Meister’s Selection", name: "Black Sunrise", ingredients: "jägermeister, sok pomarańczowy, syrop grenadyna", type: "Alkoholowe" },
+        { package: "Pakiet Meister’s Selection", name: "Black Sunrise", ingredients: "jägermeister, sok pomarańczowy, grenadina", type: "Alkoholowe" },
         { package: "Pakiet Meister’s Selection", name: "Jager sour", ingredients: "jägermeister, białko, angostura, sok z cytryny", type: "Alkoholowe" },
         { package: "Pakiet Fruit Star Selection", name: "Porn star martini", ingredients: "wódka, syrop waniliowy, przecier z marakui, limonka, shot prosecco", type: "Alkoholowe" },
         { package: "Pakiet Fruit Star Selection", name: "Mango Bay", ingredients: "wódka, przecier z mango, sok żurawinowy, sok z cytryny", type: "Alkoholowe" },
-        { package: "Pakiet Fruit Star Selection", name: "Tropical Punch", ingredients: "wódka, przecier z mango, sok ananasowy, sok z limonki, grenadyna", type: "Alkoholowe" },
+        { package: "Pakiet Fruit Star Selection", name: "Tropical Punch", ingredients: "wódka, przecier z mango, sok ananasowy, sok z limonki, grenadina", type: "Alkoholowe" },
         { package: "Pakiet Fruit Star Selection", name: "Passion Daiquiri", ingredients: "biały rum, przecier z marakui, sok z limonki, syrop cukrowy, świeża mięta", type: "Alkoholowe" }
       ];
 
@@ -1124,13 +1232,16 @@
       const totalPrice = document.querySelector("#totalPrice");
       const discountNote = document.querySelector("#discountNote");
       const priceBreakdown = document.querySelector("#priceBreakdown");
+      const leadEventDescription = document.querySelector("#leadEventDescription");
       const likeOfferBtn = document.querySelector("#likeOfferBtn");
-      const dislikeOfferBtn = document.querySelector("#dislikeOfferBtn");
+      const individualQuoteBtn = document.querySelector("#individualQuoteBtn");
       const offerSuccessMessage = document.querySelector("#offerSuccessMessage");
-      const feedbackModal = document.querySelector("#feedbackModal");
-      const feedbackReason = document.querySelector("#feedbackReason");
-      const sendFeedbackBtn = document.querySelector("#sendFeedbackBtn");
-      const feedbackSuccessMessage = document.querySelector("#feedbackSuccessMessage");
+      const individualModal = document.querySelector("#individualModal");
+      const individualReasonType = document.querySelector("#individualReasonType");
+      const individualReasonDetails = document.querySelector("#individualReasonDetails");
+      const individualSuccessMessage = document.querySelector("#individualSuccessMessage");
+      const sendIndividualBtn = document.querySelector("#sendIndividualBtn");
+      const closeIndividualBtn = document.querySelector("#closeIndividualBtn");
       const testimonialBox = document.querySelector("#testimonialBox");
       const testimonialQuote = document.querySelector("#testimonialQuote");
       const testimonialAuthor = document.querySelector("#testimonialAuthor");
@@ -1139,6 +1250,7 @@
       const distanceStatus = document.querySelector("#distanceStatus");
       let lastQuote = null;
       let lastLeadEmail = "";
+      let individualModalPreviousFocus = null;
       const pendingLeadBeacons = [];
       let activeTestimonial = 0;
       let testimonialTimer = null;
@@ -1147,24 +1259,29 @@
       const money = new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", maximumFractionDigits: 0 });
       const TESTIMONIALS = [
         {
-          quote: "Goście cały wieczór wracali po kolejne drinki, a bar wyglądał pięknie na zdjęciach.",
-          author: "Anna i Michał, wesele pod Warszawą"
+          quote: "Fantastyczne drinki, eleganckie serwowanie i sprawna obsługa — goście przez całe wesele chętnie wracali do baru.",
+          author: "Olaf i Agata",
+          meta: "Wesele · 11.07.2026 · Warszawa"
         },
         {
-          quote: "Obsługa była konkretna, uśmiechnięta i świetnie ogarniała kolejkę nawet w najbardziej tanecznych momentach.",
-          author: "Kasia, przyjęcie weselne"
+          quote: "Każdy koktajl był dopracowany, a goście czuli się zaopiekowani. Było smacznie, sprawnie i z uśmiechem.",
+          author: "Karolina",
+          meta: "Wesele · 25.10.2025 · Warszawa"
         },
         {
-          quote: "Menu bezalkoholowe zrobiło ogromne wrażenie. Kierowcy i dzieciaki też mieli coś efektownego dla siebie.",
-          author: "Monika, wesele rodzinne"
+          quote: "Goście byli bardzo zadowoleni, a drink bar stał się jedną z atrakcji wesela.",
+          author: "Agata",
+          meta: "Wesele · 29.08.2025 · Parzno"
         },
         {
-          quote: "Bar był jednym z najczęściej komentowanych punktów wieczoru. Wszystko wyglądało premium i bez chaosu.",
-          author: "Piotr, event prywatny"
+          quote: "Goście zachwyceni — pełen profesjonalizm i świetna obsługa podczas całego wesela.",
+          author: "Klaudia",
+          meta: "Wesele · 13.09.2025 · Warszawa"
         },
         {
-          quote: "Świetny kontakt przed imprezą, jasne ustalenia i zero stresu w dniu wydarzenia.",
-          author: "Ewelina i Bartek, wesele plenerowe"
+          quote: "Goście byli bardzo zadowoleni, a drinki smaczne i pięknie podane.",
+          author: "Anna",
+          meta: "Wesele · 16.08.2025 · Warszawa"
         }
       ];
 
@@ -1216,7 +1333,7 @@
         const updateContent = () => {
           activeTestimonial = nextIndex;
           testimonialQuote.textContent = `"${TESTIMONIALS[nextIndex].quote}"`;
-          testimonialAuthor.textContent = TESTIMONIALS[nextIndex].author;
+          testimonialAuthor.textContent = `${TESTIMONIALS[nextIndex].author} · ${TESTIMONIALS[nextIndex].meta}`;
           [...testimonialDots.children].forEach((dot, dotIndex) => {
             dot.classList.toggle("is-active", dotIndex === nextIndex);
           });
@@ -1238,9 +1355,13 @@
         form.addEventListener("input", handleInput);
         form.addEventListener("change", handleInput);
         likeOfferBtn.addEventListener("click", handleLikeOffer);
-        dislikeOfferBtn.addEventListener("click", openFeedbackModal);
-        document.querySelector("#closeFeedbackBtn").addEventListener("click", closeFeedbackModal);
-        sendFeedbackBtn.addEventListener("click", handleDislikeOffer);
+        individualQuoteBtn.addEventListener("click", openIndividualModal);
+        sendIndividualBtn.addEventListener("click", handleIndividualOffer);
+        closeIndividualBtn.addEventListener("click", closeIndividualModal);
+        individualModal.addEventListener("click", (event) => {
+          if (event.target === individualModal) closeIndividualModal();
+        });
+        document.addEventListener("keydown", handleIndividualModalKeydown);
         document.querySelector("#pdfOfferBtn").addEventListener("click", handlePdfOffer);
         drinkMenu.addEventListener("click", handleDrinkMenuToggle);
         calculateDistanceBtn.addEventListener("click", handleCalculateDistance);
@@ -1296,23 +1417,70 @@
       }
 
       async function geocodeAddress(address) {
-        const query = /\b(polska|poland)\b/i.test(address) ? address : `${address}, Polska`;
+        const queries = buildGeocodeQueries(address);
+        let lastError = null;
+
+        for (const query of queries) {
+          try {
+            const point = await geocodeWithNominatim(query);
+            if (point) return point;
+          } catch (error) {
+            lastError = error;
+          }
+        }
+
+        try {
+          const point = await geocodeWithPhoton(queries[0]);
+          if (point) return point;
+        } catch (error) {
+          lastError = error;
+        }
+
+        throw lastError || new Error("Adres nie został znaleziony.");
+      }
+
+      function buildGeocodeQueries(address) {
+        const normalized = address.replace(/\s+/g, " ").trim();
+        const withoutStreetPrefix = normalized.replace(/^(ulica|ul\.)\s+/i, "");
+        return [...new Set([normalized, withoutStreetPrefix])].map((query) => {
+          return /\b(polska|poland)\b/i.test(query) ? query : `${query}, Polska`;
+        });
+      }
+
+      async function geocodeWithNominatim(query) {
         const url = new URL(CONFIG.geocodingEndpoint);
         url.searchParams.set("format", "jsonv2");
         url.searchParams.set("limit", "1");
         url.searchParams.set("countrycodes", "pl");
+        url.searchParams.set("addressdetails", "1");
+        url.searchParams.set("accept-language", "pl");
+        url.searchParams.set("email", CONFIG.contactEmail);
         url.searchParams.set("q", query);
 
-        const response = await fetch(url.toString(), { headers: { "Accept": "application/json" } });
-        if (!response.ok) throw new Error("Nie udało się pobrać współrzędnych adresu.");
+        const response = await fetch(url.toString(), { headers: { "Accept": "application/json", "Accept-Language": "pl" } });
+        if (!response.ok) throw new Error("Nominatim nie zwrócił współrzędnych adresu.");
 
         const results = await response.json();
-        if (!Array.isArray(results) || !results.length) throw new Error("Adres nie został znaleziony.");
+        const result = Array.isArray(results) ? results[0] : null;
+        const lat = Number(result?.lat);
+        const lon = Number(result?.lon);
+        return Number.isFinite(lat) && Number.isFinite(lon) ? { lat, lon } : null;
+      }
 
-        return {
-          lat: Number(results[0].lat),
-          lon: Number(results[0].lon)
-        };
+      async function geocodeWithPhoton(query) {
+        const url = new URL(CONFIG.photonGeocodingEndpoint);
+        url.searchParams.set("q", query);
+        url.searchParams.set("limit", "1");
+        url.searchParams.set("lang", "pl");
+
+        const response = await fetch(url.toString(), { headers: { "Accept": "application/json" } });
+        if (!response.ok) throw new Error("Photon nie zwrócił współrzędnych adresu.");
+
+        const result = await response.json();
+        const coordinates = result?.features?.[0]?.geometry?.coordinates;
+        const lon = Number(coordinates?.[0]);
+        const lat = Number(coordinates?.[1]);
+        return Number.isFinite(lat) && Number.isFinite(lon) ? { lat, lon } : null;
       }
 
       async function calculateDrivingDistanceKm(point) {
@@ -1373,7 +1541,7 @@
 
       function validate(data) {
         if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-          return { ok: false, message: "Podaj poprawny adres e-mail, aby odblokować wycenę." };
+          return { ok: false, message: "Wypełnij wymagane pola, aby zobaczyć cenę swojej oferty." };
         }
         if (isBlockedEmail(data.email)) {
           return { ok: false, message: "Wycena dla tego adresu wymaga bezpośredniego kontaktu z nami.", critical: true };
@@ -1510,13 +1678,21 @@
 
         totalPrice.textContent = money.format(quote.total);
         discountNote.textContent = `Rabat na pakiety dodatkowe: ${Math.round(quote.discountPercent * 100)}%`;
-        priceBreakdown.innerHTML = [
+        const breakdownRows = [
           ["Pakiet Standard", quote.tier.standard],
           ["Pakiety dodatkowe przed rabatem", quote.addonsGross],
           [`Rabat ${Math.round(quote.discountPercent * 100)}%`, -quote.discountValue],
           [`Dojazd (${quote.travelKm} km płatne)`, quote.travelCost]
-        ].map(([label, value]) => `
-          <div class="pyk-breakdown-row">
+        ];
+        if (quote.yearMargin > 0) {
+          breakdownRows.push([
+            `Termin w ${quote.year} r. (+${Math.round((quote.yearMultiplier - 1) * 100)}%)`,
+            quote.yearMargin,
+            "pyk-breakdown-row--term"
+          ]);
+        }
+        priceBreakdown.innerHTML = breakdownRows.map(([label, value, rowClass = ""]) => `
+          <div class="pyk-breakdown-row ${rowClass}">
             <span>${label}</span>
             <strong>${money.format(value)}</strong>
           </div>
@@ -1527,7 +1703,7 @@
         offerSuccessMessage.hidden = true;
         offerSuccessMessage.classList.remove("is-visible");
         likeOfferBtn.disabled = false;
-        likeOfferBtn.textContent = "Oferta mi się podoba - zapytaj o szczegóły";
+        likeOfferBtn.textContent = "Wyślij zapytanie o dostępność terminu";
       }
 
       function showOfferSuccess() {
@@ -1536,7 +1712,7 @@
         void offerSuccessMessage.offsetWidth;
         offerSuccessMessage.classList.add("is-visible");
         likeOfferBtn.disabled = true;
-        likeOfferBtn.textContent = "E-mail przygotowany";
+        likeOfferBtn.textContent = "Zapytanie zapisane";
       }
 
       function setAlert(message, visible) {
@@ -1787,49 +1963,87 @@
         formElement.submit();
       }
 
-      function buildOfferText(quote, feedback = "") {
-        const packages = quote.selectedPackages.map((item) => item.shortName).join(", ") || "brak";
-        return [
-          "Podsumowanie wyceny Pyk Łyk",
-          "",
-          `E-mail klienta: ${quote.email}`,
-          `Ilość gości: ${quote.guests}`,
-          `Data wydarzenia: ${quote.date}`,
-          `Lokalizacja: ${quote.location}`,
-          `Dystans od Warszawy: ${quote.distance} km`,
-          `Wybrany bar: ${quote.bar}`,
-          `Pakiety dodatkowe: ${packages}`,
-          `Rabat na pakiety dodatkowe: ${Math.round(quote.discountPercent * 100)}%`,
-          `Szacowana cena brutto: ${money.format(quote.total)}`,
-          feedback ? "" : null,
-          feedback ? `Powód odmowy: ${feedback}` : null
-        ].filter(Boolean).join("\n");
-      }
-
-      function openMail(subject, body) {
-        const mailto = `mailto:${encodeURIComponent(CONFIG.contactEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailto;
-      }
-
       async function handleLikeOffer() {
         if (!lastQuote) return;
         if (!ensurePrivacyConsent()) return;
         likeOfferBtn.disabled = true;
         likeOfferBtn.textContent = "Wysyłamy zapytanie...";
-        await postLead({ event: "offer_liked", quote: lastQuote });
+        const eventDescription = leadEventDescription.value.trim();
+        await postLead({ event: "offer_liked", quote: lastQuote, feedback: eventDescription });
         showOfferSuccess();
-        openMail(`Zapytanie o ofertę barmańską - ${lastQuote.date}`, buildOfferText(lastQuote));
       }
 
-      async function handleDislikeOffer() {
+      function openIndividualModal() {
+        if (!lastQuote) return;
+        individualModalPreviousFocus = document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : individualQuoteBtn;
+        individualReasonType.value = "";
+        individualReasonDetails.value = "";
+        individualSuccessMessage.hidden = true;
+        individualSuccessMessage.classList.remove("is-visible");
+        sendIndividualBtn.disabled = false;
+        sendIndividualBtn.textContent = "Wyślij prośbę";
+        individualModal.classList.add("is-open");
+        individualModal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("pyk-modal-open");
+        window.requestAnimationFrame(() => individualReasonType.focus());
+      }
+
+      async function handleIndividualOffer() {
         if (!lastQuote) return;
         if (!ensurePrivacyConsent()) return;
-        const feedback = feedbackReason.value.trim() || "Brak podanego powodu.";
-        sendFeedbackBtn.disabled = true;
-        sendFeedbackBtn.textContent = "Wysyłamy opinię...";
-        await postLead({ event: "offer_disliked", quote: lastQuote, feedback });
-        showFeedbackSuccess();
-        openMail(`Opinia do oferty barmańskiej - ${lastQuote.date}`, buildOfferText(lastQuote, feedback));
+        const reasonType = individualReasonType.value.trim();
+        const details = individualReasonDetails.value.trim();
+        if (!reasonType && !details) {
+          individualReasonType.focus();
+          return;
+        }
+        const reason = [reasonType, details].filter(Boolean).join(" — ");
+        sendIndividualBtn.disabled = true;
+        sendIndividualBtn.textContent = "Wysyłamy prośbę...";
+        await postLead({ event: "custom_quote_requested", quote: lastQuote, feedback: reason });
+        individualSuccessMessage.hidden = false;
+        individualSuccessMessage.classList.add("is-visible");
+        sendIndividualBtn.textContent = "Prośba wysłana";
+      }
+
+      function closeIndividualModal() {
+        if (!individualModal.classList.contains("is-open")) return;
+        individualModal.classList.remove("is-open");
+        individualModal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("pyk-modal-open");
+        const focusTarget = individualModalPreviousFocus || individualQuoteBtn;
+        individualModalPreviousFocus = null;
+        if (focusTarget && document.contains(focusTarget)) {
+          window.requestAnimationFrame(() => focusTarget.focus());
+        }
+      }
+
+      function handleIndividualModalKeydown(event) {
+        if (!individualModal.classList.contains("is-open")) return;
+
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeIndividualModal();
+          return;
+        }
+
+        if (event.key !== "Tab") return;
+        const focusable = [...individualModal.querySelectorAll(
+          "button:not([disabled]), select, textarea, input, a[href]"
+        )].filter((element) => element.offsetParent !== null);
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
 
       async function handleLockedContactRequest() {
@@ -1845,8 +2059,7 @@
         const reason = getLockedContactReason(data);
         const quote = buildContactRequestQuote(data, reason);
         await postLead({ event: "custom_quote_requested", quote, feedback: reason });
-        setAlert("Zapytanie indywidualne zostało przygotowane. Otwieramy wiadomość e-mail z podsumowaniem.", true);
-        openMail(`Zapytanie indywidualne o bar - ${data.date}`, buildContactRequestText(data, reason));
+        setAlert("Zapytanie indywidualne zostało zapisane. Skontaktujemy się z Tobą z indywidualną propozycją.", true);
       }
 
       function validateContactRequest(data) {
@@ -1888,28 +2101,6 @@
         };
       }
 
-      function buildContactRequestText(data, reason) {
-        const packages = PACKAGES
-          .filter((item) => data.packages.includes(item.id))
-          .map((item) => item.shortName)
-          .join(", ") || "brak";
-        const distanceValue = form.distance.value.trim();
-
-        return [
-          "Zapytanie indywidualne Pyk Łyk",
-          "",
-          reason,
-          "",
-          `E-mail klienta: ${data.email}`,
-          `Ilość gości: ${data.guests}`,
-          `Data wydarzenia: ${data.date}`,
-          `Lokalizacja: ${data.location}`,
-          `Dystans od Warszawy: ${distanceValue && Number.isFinite(data.distance) ? `${data.distance} km` : "brak"}`,
-          `Wybrany bar: ${data.bar}`,
-          `Pakiety dodatkowe: ${packages}`
-        ].join("\n");
-      }
-
       function ensurePrivacyConsent() {
         if (form.privacy.checked) {
           formAlert.classList.remove("is-visible");
@@ -1918,27 +2109,6 @@
         setAlert("Zaznacz zgodę na kontakt i politykę prywatności, aby wysłać zapytanie.", true);
         form.privacy.focus();
         return false;
-      }
-
-      function openFeedbackModal() {
-        feedbackSuccessMessage.hidden = true;
-        feedbackSuccessMessage.classList.remove("is-visible");
-        sendFeedbackBtn.disabled = false;
-        sendFeedbackBtn.textContent = "Wyślij powód";
-        feedbackModal.classList.add("is-open");
-        feedbackReason.focus();
-      }
-
-      function showFeedbackSuccess() {
-        feedbackSuccessMessage.hidden = false;
-        feedbackSuccessMessage.classList.remove("is-visible");
-        void feedbackSuccessMessage.offsetWidth;
-        feedbackSuccessMessage.classList.add("is-visible");
-        sendFeedbackBtn.textContent = "E-mail przygotowany";
-      }
-
-      function closeFeedbackModal() {
-        feedbackModal.classList.remove("is-open");
       }
 
       function handlePdfOffer() {
@@ -1967,6 +2137,9 @@
           bar: escapeHtml(quote.bar),
           distance: escapeHtml(quote.distance)
         };
+        const yearAdjustment = quote.yearMargin > 0
+          ? `<li>Termin w ${quote.year} r. (+${Math.round((quote.yearMultiplier - 1) * 100)}%): ${money.format(quote.yearMargin)}</li>`
+          : "";
 
         return `<!doctype html>
           <html lang="pl">
@@ -2032,6 +2205,7 @@
                 <li>Pakiety dodatkowe przed rabatem: ${money.format(quote.addonsGross)}</li>
                 <li>Rabat: ${Math.round(quote.discountPercent * 100)}%, czyli ${money.format(quote.discountValue)}</li>
                 <li>Dojazd: ${money.format(quote.travelCost)}</li>
+                ${yearAdjustment}
               </ul>
               <h2>Co zapewniamy</h2>
               <ul>
@@ -2047,9 +2221,10 @@
               </ul>
               <h2>Po stronie klienta</h2>
               <ul>
-                <li>Dostęp do prądu, miejsce na bar i możliwość podjazdu.</li>
-                <li>Czysta wódka: około 3-5 litrów.</li>
-                <li>Informacja o godzinach pracy baru i warunkach na sali.</li>
+                <li>Przygotowanie około 3–5 litrów czystej wódki weselnej.</li>
+                <li>Przekazanie informacji o planowanym przyjeździe gości na salę.</li>
+                <li>Zgłoszenie przed weselem ewentualnych indywidualnych życzeń dotyczących menu.</li>
+                <li>Uśmiech, dobry humor i gotowość do zabawy — resztą zajmiemy się my.</li>
               </ul>
               <h2>Menu drinków</h2>
               <ul>

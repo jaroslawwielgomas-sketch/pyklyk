@@ -11,6 +11,8 @@ Ten folder zawiera gotowa paczke plikow do podmiany na GitHubie.
 - Zaktualizowana polityka prywatnosci pod formularz/kalkulator.
 - Zaktualizowany `sitemap.xml`.
 - Oficjalny widget opinii Wesele z Klasa w sekcji opinii.
+- Rozbudowany zapis leadow do arkusza CRM: `google-apps-script-leady-crm.gs`.
+- Osobna instrukcja konfiguracji arkusza: `INSTRUKCJA-ARKUSZ-CRM.md`.
 
 ## Jak wdrozyc
 
@@ -30,6 +32,7 @@ Ten folder zawiera gotowa paczke plikow do podmiany na GitHubie.
 - Czy pobieranie PDF zawiera dane kontaktowe.
 - Czy polityka prywatnosci otwiera sie z linku przy zgodzie.
 - Czy widget Wesele z Klasa laduje opinie w sekcji opinii.
+- Czy po aktualizacji Apps Script leady wpadaja do arkusza z kolumnami CRM.
 
 ## Wazne
 

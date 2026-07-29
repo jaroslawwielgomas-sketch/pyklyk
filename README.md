@@ -1,116 +1,63 @@
-# Pyk Łyk — strona internetowa
+# Pyk Łyk — aktualizacja z dnia 29.07.2026
 
-Strona-wizytówka (one-page) firmy **Pyk Łyk** — mobilny bar / obsługa barmańska (barman na wesele, drink bar) na wesela i eventy.
-Cel: pozyskiwanie zapytań ofertowych (formularz) i telefonów oraz wysokie pozycjonowanie w Google.
+## Wersja gotowa do przeniesienia na GitHub
 
-> **Wybrana wersja:** *Rustykalny Glam* (dawne `v4`) — została promowana na stronę główną (`index.html` + `styles.css` w katalogu głównym).
-> Pozostałe warianty (`v1`–`v3`) oraz stary rozdzielacz leżą lokalnie w `archiwum/` (folder jest w `.gitignore`, więc **nie** trafia na GitHub Pages). Ich historia jest też zachowana we wcześniejszych commitach.
+Ten folder zawiera finalną wersję strony i kalkulatora Pyk Łyk, przetestowaną 29.07.2026.
+Pakiet został odchudzony do 97 plików, aby można było przesłać go przez GitHub bez przekraczania limitu 100 plików.
 
----
+Kalkulator został sprawdzony w dwóch scenariuszach:
 
-## 📁 Struktura
+- klient wysyła prośbę o sprawdzenie dostępności terminu,
+- klient prosi o wycenę indywidualną, gdy standardowa cena mu nie odpowiada.
 
-```
-Strona/
-├── index.html                  ← STRONA GŁÓWNA (wybrana wersja Rustykalny Glam)
-├── styles.css                  ← style wybranej wersji
-├── polityka-prywatnosci.html   ← polityka prywatności / RODO (UZUPEŁNIJ dane firmy)
-├── robots.txt                  ← SEO: wskazuje sitemapę, pozwala indeksować
-├── sitemap.xml                 ← SEO: mapa strony dla Google
-│
-├── shared/                     ← WSPÓLNY FUNDAMENT
-│   ├── content.js              ← 🟢 CAŁA TREŚĆ w jednym miejscu (menu, oferta, FAQ, kontakt…)
-│   ├── app.js                  ← silnik: formularz, ikony, animacje, renderery sekcji
-│   └── base.css                ← reset + kontrakt zmiennych + style formularza
-│
-├── assets/
-│   ├── logo/                   ← logo-light.png, logo-dark.png, favicon, apple-touch-icon
-│   └── img/                    ← zoptymalizowane zdjęcia (WebP + JPG) + og-image
-│
-└── archiwum/  (lokalnie, poza repo)  ← niewybrane wersje v1–v3 + stary rozdzielacz
-```
+W obu przypadkach:
 
----
+- zgłoszenie zapisuje się w arkuszu leadów,
+- na `kontakt@pyklyk.pl` przychodzi automatyczne powiadomienie,
+- kalkulator nie otwiera programu pocztowego,
+- opis wydarzenia i podsumowanie wyceny są przekazywane do zgłoszenia.
 
-## ✏️ Jak zmieniać treść (najważniejsze!)
+## Co znajduje się w folderze
 
-**Prawie wszystko zmienia się w jednym pliku: [`shared/content.js`](shared/content.js).**
-Znajdziesz tam m.in.:
+- `index.html` — strona główna,
+- `kalkulator.html` — finalny kalkulator z automatycznym zapisem leadów,
+- `styles.css` i `shared/` — wygląd oraz wspólne elementy strony,
+- `assets/` — zdjęcia, logo i ikony,
+- `polityka-prywatnosci.html` — polityka prywatności,
+- `google-apps-script-leady-crm.gs` — kod obsługi arkusza i powiadomień e-mail,
+- instrukcje wdrożenia arkusza i powiadomień.
 
-- **telefon, e-mail, temat maila z formularza, linki social** — sekcja `config`
-- **liczniki** (1000+ imprez, 12 lat…) — `stats`
-- **karta drinków** (14 / 6 / 3) — `menu`
-- **pakiety dodatkowe** — `packages`
-- **opinie** — `reviews` *(parafrazy publicznych opinii z profilu Wesele z Klasą)*
-- **FAQ** — `faq`
-- **typy imprez i województwa w formularzu** — `eventTypes`, `voivodeships`
+## Jak przenieść stronę na GitHub
 
-> Nagłówki, teksty hero/sekcji i stopkę zmienia się bezpośrednio w `index.html`.
-> Dane strukturalne FAQ (SEO) generują się automatycznie z `content.js` (`faq`).
+Skopiuj **zawartość tego folderu** do głównego katalogu repozytorium GitHub. Nie twórz dodatkowego folderu wewnątrz repozytorium.
 
-### Opinie
-W `content.js` (`reviews`) są krótkie, źródłowe podsumowania publicznych opinii z profilu Wesele z Klasą.
-Nie są to fikcyjne cytaty. Jeśli dodajesz nowe opinie, używaj prawdziwych źródeł i nie kopiuj długich tekstów bez zgody autora.
+Nie zmieniaj nazw folderów:
 
----
+- `assets`
+- `shared`
 
-## 📨 Formularz — jak włączyć realną wysyłkę maili
+Po przesłaniu plików na GitHub strona powinna działać pod adresem:
 
-Zgłoszenia mają trafiać na **kontakt@pyklyk.pl** z tytułem
-**„Zapytanie ofertowe- strona internetowa PYK ŁYK”**.
-
-Formularz działa przez **Web3Forms** i wysyła zapytania automatycznie. Jeśli trzeba zmienić klucz:
-
-1. Wejdź na **https://web3forms.com** → podaj e-mail → dostaniesz **Access Key** (za darmo).
-2. Otwórz [`shared/content.js`](shared/content.js) i w `config.form` ustaw:
-   ```js
-   form: {
-     mode:      "web3forms",
-     accessKey: "TWÓJ-KLUCZ-Z-WEB3FORMS"
-   }
-   ```
-3. Gotowe. *(Alternatywnie Formspree — `mode: "formspree"`, endpoint w `accessKey`.)*
-
-Formularz ma **wymagany checkbox RODO** linkujący do `polityka-prywatnosci.html`.
-
----
-
-## 🔎 SEO
-
-- Zoptymalizowane `<title>` i `<meta name="description">` pod frazy: *barman na wesele, barman do wynajęcia,
-  drink bar na wesele, barman na wesele mazowieckie, barman na wesele Warszawa*.
-- Dane strukturalne **LocalBusiness/ProfessionalService** oraz **FAQPage** (JSON-LD).
-- `canonical`, Open Graph / Twitter Card, tagi geo, `robots.txt` + `sitemap.xml`.
-- Własna domena jest ustawiona na `https://pyklyk.pl/`; adresy canonical, Open Graph, JSON-LD, `robots.txt`
-  i `sitemap.xml` powinny wskazywać tę domenę.
-
----
-
-## 🚀 Publikacja na GitHub Pages
-
-Repozytorium: **jaroslawwielgomas-sketch/pyklyk**. Deploy przez GitHub Pages (branch `main`, katalog `/root`).
-Po `git push` do `origin` strona aktualizuje się pod:
 `https://pyklyk.pl/`
 
-Plik `.nojekyll` wymusza serwowanie plików bez przetwarzania przez Jekyll.
+## Ważne — arkusz i automatyczne maile
 
----
+Kod `google-apps-script-leady-crm.gs` jest częścią zaplecza. Nie trzeba go uruchamiać na GitHubie.
 
-## 🔧 Podgląd lokalny
+W Google Apps Script musi być aktywna wdrożona **Wersja 5 z 29 lipca 2026**. To właśnie ona wysyła powiadomienia o nowych leadach i zawiera statusy `Umowa` oraz `Konkurencja`.
 
-Otwórz `index.html` w przeglądarce (dwuklik). Dla pełni funkcji (fonty Google, formularz)
-najlepiej przez prosty serwer w katalogu `Strona/`:
+Szczegółowa instrukcja znajduje się w pliku:
 
-```
-python -m http.server 8080
-```
-…i wejdź na `http://localhost:8080/`.
+`INSTRUKCJA-WDROZENIA-POWIADOMIENIA.md`
 
----
+## Szybki test po publikacji
 
-## ℹ️ Uwagi techniczne
+Po opublikowaniu strony:
 
-- **Zależności**: brak buildu — czysty HTML/CSS/JS. Nic nie trzeba kompilować.
-- **Zdjęcia**: WebP z fallbackiem JPG, lazy-loading. Nowe zdjęcia wrzucaj do `assets/img/`
-  i dopisz nazwę w `content.js` (`images`).
-- **Dostępność**: kontrast, focus klawiatury, `prefers-reduced-motion`.
+1. Otwórz `https://pyklyk.pl/kalkulator.html`.
+2. Wpisz testowe dane.
+3. Przejdź do wyceny.
+4. Kliknij przycisk dostępności terminu albo wyceny indywidualnej.
+5. Sprawdź arkusz oraz skrzynkę `kontakt@pyklyk.pl`.
+
+Po teście usuń testowy wpis z arkusza.
