@@ -979,7 +979,7 @@
             <div class="pyk-field">
               <label for="distanceKm">Dystans od Warszawy w km</label>
               <input class="pyk-input" id="distanceKm" name="distance" type="number" inputmode="decimal" min="0" step="1" placeholder="np. 84" required>
-              <small>Pierwsze 50 km jest w cenie. Możesz też wpisać dystans ręcznie.</small>
+              <small>Pierwsze 50 km jest w cenie. Każdy kolejny kilometr: 1,50 zł przed podwyżką za rok wesela. Możesz też wpisać dystans ręcznie.</small>
             </div>
           </fieldset>
 
@@ -1256,7 +1256,7 @@
       let testimonialTimer = null;
       const openMenuPackages = new Set(["Pakiet Standard"]);
 
-      const money = new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", maximumFractionDigits: 0 });
+      const money = new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", minimumFractionDigits: 0, maximumFractionDigits: 2 });
       const TESTIMONIALS = [
         {
           quote: "Fantastyczne drinki, eleganckie serwowanie i sprawna obsługa — goście przez całe wesele chętnie wracali do baru.",
@@ -1608,7 +1608,7 @@
         const discountValue = Math.round(addonsGross * discountPercent);
         const addonsNet = addonsGross - discountValue;
         const travelKm = Math.max(0, Math.ceil(data.distance) - 50);
-        const travelCost = travelKm;
+        const travelCost = travelKm * 1.5;
         const year = Number(data.date.slice(0, 4));
         const yearMultiplier = year === 2027 ? 1.05 : year === 2028 ? 1.10 : 1;
         const beforeYearMargin = tier.standard + addonsNet + travelCost;
