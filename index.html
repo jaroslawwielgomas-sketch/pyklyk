@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+  <script>
+    if (window.location.pathname === "/index.html") {
+      window.location.replace("/" + window.location.search + window.location.hash);
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -114,7 +119,7 @@
       <a class="nav__link" data-navlink href="#menu">Menu</a>
       <a class="nav__link" data-navlink href="#opinie">Opinie</a>
       <a class="nav__link" data-navlink href="#faq">FAQ</a>
-      <a class="nav__link" href="kalkulator.html">Kalkulator</a>
+      <a class="nav__link" href="/kalkulator/">Kalkulator</a>
       <a class="nav__link" data-navlink href="#kontakt">Kontakt</a>
     </nav>
 
@@ -123,7 +128,7 @@
         <span class="phone__ico" aria-hidden="true"></span>
         <span class="phone__txt"><span class="phone__label">Zadzwoń</span><span class="phone__num">513 595 540</span></span>
       </a>
-      <a class="btn btn--accent hdr__cta" href="kalkulator.html">Kalkulator wyceny</a>
+      <a class="btn btn--accent hdr__cta" href="/kalkulator/">Kalkulator wyceny</a>
       <button class="burger" data-nav-toggle aria-label="Otwórz menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -150,7 +155,7 @@
     <h1 class="hero__title"><span class="hero__title-main">Barman na wesele</span><span class="hero__accent">drink bar</span></h1>
     <p class="hero__sub">Mobilny bar, autorskie koktajle i barmani z pasją — sprawimy, że Twoje wesele lub event zapamiętają wszyscy goście.</p>
     <div class="hero__cta">
-      <a class="btn btn--accent" href="kalkulator.html">Oblicz wycenę</a>
+      <a class="btn btn--accent" href="/kalkulator/">Oblicz wycenę</a>
       <a class="btn btn--ghost" href="#oferta">Zobacz ofertę</a>
     </div>
     <div class="hero__stats" data-render="stats"></div>
@@ -241,7 +246,7 @@
       <div class="offer__note" data-reveal data-reveal-delay="2">
         <p><strong>Cena zależy głównie od liczby gości i terminu.</strong> Obsługa barmańska jest wliczona w cenę.</p>
         <p class="muted">To tylko punkt wyjścia — ofertę w pełni personalizujemy pod Twoje oczekiwania. Jesteśmy elastyczni i zawsze gotowi dopasować się w 100%.</p>
-        <a class="btn btn--accent" href="kalkulator.html">Przejdź do kalkulatora wyceny</a>
+        <a class="btn btn--accent" href="/kalkulator/">Przejdź do kalkulatora wyceny</a>
       </div>
     </div>
   </div>
@@ -370,7 +375,7 @@
     </div>
     <nav class="footer__nav" aria-label="Stopka">
       <a href="#o-nas">O nas</a><a href="#oferta">Oferta</a><a href="#menu">Menu</a>
-      <a href="#opinie">Opinie</a><a href="#faq">FAQ</a><a href="kalkulator.html">Kalkulator</a><a href="#kontakt">Kontakt</a>
+      <a href="#opinie">Opinie</a><a href="#faq">FAQ</a><a href="/kalkulator/">Kalkulator</a><a href="#kontakt">Kontakt</a>
     </nav>
     <div class="footer__contact">
       <a class="footer__phone" href="tel:+48513595540">513 595 540</a>
@@ -390,7 +395,7 @@
 <!-- ============================ MOBILE ACTION BAR ============================ -->
 <div class="mobilebar">
   <a class="mobilebar__call" href="tel:+48513595540"><span class="phone__ico" aria-hidden="true"></span> Zadzwoń</a>
-  <a class="mobilebar__ask" href="kalkulator.html">Kalkulator</a>
+  <a class="mobilebar__ask" href="/kalkulator/">Kalkulator</a>
 </div>
 
 <script src="shared/content.js"></script>
