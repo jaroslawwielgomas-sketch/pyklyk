@@ -279,6 +279,15 @@
     .pyk-package-card { padding: 13px; }
 
     .pyk-package-copy { padding: 0; }
+    .pyk-package-hint { margin: 0; color: var(--pyk-muted); font-size: .9rem; }
+    .pyk-selected-menu-link { color: var(--pyk-gold-dark); font-weight: 760; width: fit-content; padding: 10px 0; }
+    .pyk-package-card { cursor: default; }
+    .pyk-package-select { display: flex; align-items: center; gap: 10px; cursor: pointer; min-height: 44px; }
+    .pyk-package-select input { position: static; opacity: 1; pointer-events: auto; width: 18px; height: 18px; margin: 0; accent-color: var(--pyk-gold); flex-shrink: 0; }
+    .pyk-package-select .pyk-pill { font-size: .92rem; overflow-wrap: anywhere; }
+    .pyk-package-details summary { cursor: pointer; color: var(--pyk-gold-dark); padding: 12px 0; font-weight: 760; }
+    .pyk-package-details .pyk-drink-list { margin-top: 6px; }
+    #selectedDrinkMenu { scroll-margin-top: 20px; }
 
     .pyk-pill {
       width: fit-content;
@@ -1010,6 +1019,8 @@
 
           <fieldset class="pyk-fieldset">
             <legend class="pyk-legend">Pakiety dodatkowe</legend>
+            <p class="pyk-package-hint">Wybierz pakiety dodatkowe, aby rozszerzyć menu. Podejrzyj drinki w każdym pakiecie lub zobacz całe wybrane menu poniżej.</p>
+            <a class="pyk-selected-menu-link" href="#selectedDrinkMenu">Zobacz wybrane menu ↓</a>
             <div class="pyk-package-grid" id="packageChoices"></div>
           </fieldset>
 
@@ -1108,7 +1119,7 @@
         </div>
       </aside>
 
-      <section class="pyk-menu" aria-labelledby="drinkMenuTitle">
+      <section class="pyk-menu" id="selectedDrinkMenu" aria-labelledby="drinkMenuTitle">
         <p class="pyk-eyebrow">Menu drinków</p>
         <h2 id="drinkMenuTitle">Pakiet Standard zawsze w ofercie</h2>
         <p class="pyk-lead">Po zaznaczeniu pakietów dodatkowych lista drinków rozszerzy się automatycznie.</p>
@@ -1298,14 +1309,21 @@
 
       function renderPackageChoices() {
         packageChoices.innerHTML = PACKAGES.map((item) => `
-          <label class="pyk-package-card">
-            <input type="checkbox" name="packages" value="${item.id}">
-            <span class="pyk-pill">Pakiet dodatkowy</span>
-            <span class="pyk-package-copy">
-              <span class="pyk-choice-title">${item.shortName}</span>
-              <small>${item.benefit}</small>
-            </span>
-          </label>
+          <article class="pyk-package-card">
+            <label class="pyk-package-select">
+              <input type="checkbox" name="packages" value="${item.id}">
+              <span class="pyk-pill">${escapeHtml(item.shortName)}</span>
+            </label>
+            <span class="pyk-package-copy"><small>${escapeHtml(item.benefit)}</small></span>
+            <details class="pyk-package-details">
+              <summary>Zobacz drinki</summary>
+              <ul class="pyk-drink-list">
+                ${DRINKS.filter((drink) => drink.package === item.name).map((drink) => `
+                  <li class="pyk-drink-item"><strong>${escapeHtml(drink.name)}</strong><span>${escapeHtml(drink.ingredients)}</span></li>
+                `).join("")}
+              </ul>
+            </details>
+          </article>
         `).join("");
       }
 
