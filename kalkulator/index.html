@@ -733,10 +733,42 @@
     }
 
     .pyk-menu {
-      margin-top: 18px;
-      padding: 20px;
-      box-shadow: var(--pyk-shadow);
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+      background: var(--pyk-soft);
       min-width: 0;
+    }
+
+    .pyk-menu-summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 80px;
+      padding: 16px;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .pyk-menu-summary::-webkit-details-marker { display: none; }
+    .pyk-menu-summary:focus-visible { outline: 3px solid var(--pyk-gold); outline-offset: -3px; }
+    .pyk-menu-icon { width: 32px; height: 32px; flex-shrink: 0; color: var(--pyk-gold-dark); }
+    .pyk-menu-summary-copy { display: grid; gap: 3px; min-width: 0; flex: 1; }
+    .pyk-menu-summary-copy strong { font-size: 1.02rem; }
+    .pyk-menu-summary-copy > span { font-size: .82rem; color: var(--pyk-muted); }
+    .pyk-menu-action { display: flex; align-items: center; gap: 6px; flex-shrink: 0; color: var(--pyk-gold-dark); font-size: .82rem; font-weight: 760; }
+    .pyk-menu-chevron { width: 18px; height: 18px; }
+    .pyk-menu-collapse { display: none; }
+    .pyk-menu[open] .pyk-menu-expand { display: none; }
+    .pyk-menu[open] .pyk-menu-collapse { display: inline; }
+    .pyk-menu[open] .pyk-menu-chevron { transform: rotate(180deg); }
+    .pyk-menu-content { padding: 0 16px 16px; }
+    .pyk-menu-package-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 14px; }
+
+    @media (max-width: 440px) {
+      .pyk-menu-summary { gap: 8px; padding: 13px 10px; }
+      .pyk-menu-icon { width: 24px; height: 24px; }
+      .pyk-menu-action { gap: 3px; }
     }
 
     .pyk-menu-grid {
@@ -1017,10 +1049,24 @@
             </div>
           </fieldset>
 
+          <details class="pyk-menu" id="selectedDrinkMenu">
+            <summary class="pyk-menu-summary">
+              <svg class="pyk-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/></svg>
+              <span class="pyk-menu-summary-copy">
+                <strong id="drinkMenuTitle">Karta drinków</strong>
+                <span id="drinkMenuCount" aria-live="polite">21 pozycji w cenie · Pakiet Standard</span>
+              </span>
+              <span class="pyk-menu-action"><span class="pyk-menu-expand">Rozwiń</span><span class="pyk-menu-collapse">Zwiń</span><svg class="pyk-menu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+            </summary>
+            <div class="pyk-menu-content">
+              <div class="pyk-menu-grid" id="drinkMenu"></div>
+            </div>
+          </details>
+
           <fieldset class="pyk-fieldset">
             <legend class="pyk-legend">Pakiety dodatkowe</legend>
-            <p class="pyk-package-hint">Wybierz pakiety dodatkowe, aby rozszerzyć menu. Podejrzyj drinki w każdym pakiecie lub zobacz całe wybrane menu poniżej.</p>
-            <a class="pyk-selected-menu-link" href="#selectedDrinkMenu">Zobacz wybrane menu ↓</a>
+            <p class="pyk-package-hint">Po zaznaczeniu pakietów dodatkowych lista drinków rozszerzy się automatycznie.</p>
+            <a class="pyk-selected-menu-link" href="#selectedDrinkMenu">Zobacz wybrane menu ↑</a>
             <div class="pyk-package-grid" id="packageChoices"></div>
           </fieldset>
 
@@ -1119,12 +1165,6 @@
         </div>
       </aside>
 
-      <section class="pyk-menu" id="selectedDrinkMenu" aria-labelledby="drinkMenuTitle">
-        <p class="pyk-eyebrow">Menu drinków</p>
-        <h2 id="drinkMenuTitle">Pakiet Standard zawsze w ofercie</h2>
-        <p class="pyk-lead">Po zaznaczeniu pakietów dodatkowych lista drinków rozszerzy się automatycznie.</p>
-        <div class="pyk-menu-grid" id="drinkMenu"></div>
-      </section>
     </div>
   </main>
 
@@ -1238,6 +1278,8 @@
       const form = document.querySelector("#quoteForm");
       const packageChoices = document.querySelector("#packageChoices");
       const drinkMenu = document.querySelector("#drinkMenu");
+      const selectedDrinkMenu = document.querySelector("#selectedDrinkMenu");
+      const drinkMenuCount = document.querySelector("#drinkMenuCount");
       const lockedState = document.querySelector("#lockedState");
       const readyState = document.querySelector("#readyState");
       const formAlert = document.querySelector("#formAlert");
@@ -1267,7 +1309,6 @@
       const pendingLeadBeacons = [];
       let activeTestimonial = 0;
       let testimonialTimer = null;
-      const openMenuPackages = new Set(["Pakiet Standard"]);
 
       const money = new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", minimumFractionDigits: 0, maximumFractionDigits: 2 });
       const TESTIMONIALS = [
@@ -1383,7 +1424,9 @@
         });
         document.addEventListener("keydown", handleIndividualModalKeydown);
         document.querySelector("#pdfOfferBtn").addEventListener("click", handlePdfOffer);
-        drinkMenu.addEventListener("click", handleDrinkMenuToggle);
+        document.querySelector(".pyk-selected-menu-link").addEventListener("click", () => {
+          selectedDrinkMenu.open = true;
+        });
         calculateDistanceBtn.addEventListener("click", handleCalculateDistance);
         lockedState.addEventListener("click", (event) => {
           if (event.target.closest("[data-lock-contact]")) handleLockedContactRequest();
@@ -1746,6 +1789,10 @@
           if (packageIds.includes(item.id)) packageOrder.push(item.name);
         });
         const selectedNames = new Set(packageOrder);
+        const selectedDrinkCount = DRINKS.filter((drink) => selectedNames.has(drink.package)).length;
+        drinkMenuCount.textContent = packageOrder.length === 1
+          ? `${selectedDrinkCount} pozycji w cenie · Pakiet Standard`
+          : `${selectedDrinkCount} pozycji w wybranym menu`;
 
         const drinksByPackage = DRINKS
           .filter((drink) => selectedNames.has(drink.package))
@@ -1762,8 +1809,6 @@
             groups[drink.type].push(drink);
             return groups;
           }, {});
-          const panelId = `drink-panel-${slugify(packageName)}`;
-          const isOpen = openMenuPackages.has(packageName);
 
           const typeHtml = Object.entries(byType).map(([type, typedDrinks]) => `
             <div class="pyk-menu-section">
@@ -1784,33 +1829,18 @@
 
           return `
             <article class="pyk-menu-card ${packageName === "Pakiet Standard" ? "pyk-menu-card--standard" : ""}">
-              <button class="pyk-menu-toggle" type="button" aria-expanded="${isOpen}" aria-controls="${panelId}" data-package-name="${escapeAttribute(packageName)}">
+              <div class="pyk-menu-package-heading">
                 <span class="pyk-menu-toggle-text">
                   <strong>${packageName}</strong>
-                  <span>${drinks.length} drinków</span>
+                  <span>${drinks.length} pozycji${packageName === "Pakiet Standard" ? " · W cenie" : ""}</span>
                 </span>
-                <span class="pyk-menu-plus" aria-hidden="true">+</span>
-              </button>
-              <div class="pyk-menu-panel" id="${panelId}" ${isOpen ? "" : "hidden"}>
+              </div>
+              <div class="pyk-menu-panel">
                 ${typeHtml}
               </div>
             </article>
           `;
         }).join("");
-      }
-
-      function handleDrinkMenuToggle(event) {
-        const button = event.target.closest(".pyk-menu-toggle");
-        if (!button) return;
-
-        const packageName = button.dataset.packageName;
-        const panel = document.getElementById(button.getAttribute("aria-controls"));
-        const willOpen = button.getAttribute("aria-expanded") !== "true";
-
-        button.setAttribute("aria-expanded", String(willOpen));
-        if (panel) panel.hidden = !willOpen;
-        if (willOpen) openMenuPackages.add(packageName);
-        else openMenuPackages.delete(packageName);
       }
 
       function slugify(value) {
@@ -2266,4 +2296,5 @@
   </script>
 </body>
 </html>
+
 
