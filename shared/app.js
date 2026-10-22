@@ -669,13 +669,93 @@
     "koktajle-mojito-i-sour": [1024, 1536], "koktajl-owocowa-dekoracja": [1024, 1536]
   };
 
+  var GAL_FEATURED = [
+    "koktajle-owocowy-toast", "cocktails-13", "bartender-01", "koktajl-zachod-slonca",
+    "bar-lights", "wesele-goscie-z-drinkami", "koktajle-mojito-i-sour", "barman-shakery-koktajle",
+    "cocktails-06", "cocktails-10", "bartender-04", "wesele-goscie-przy-barze"
+  ];
+  var GAL_ALT = {
+    "cocktails-13": "Mojito z miętą i limonką na tle Pałacu Kultury i Nauki w Warszawie",
+    "bartender-01": "Barman Pyk Łyk nalewa koktajl z shakera",
+    "bar-lights": "Podświetlony mobilny bar Pyk Łyk podczas wesela",
+    "cocktails-06": "Koktajle z efektowną mgiełką suchego lodu",
+    "cocktails-10": "Wieczorne koktajle z dekoracjami z cytrusów",
+    "bartender-04": "Uśmiechnięty barman Pyk Łyk podaje koktajle"
+  };
+  var galleryInstance = 0;
   PL.renderGallery = function (target) {
     var t = el(target); if (!t) return;
-    t.innerHTML = C.images.gallery.map(function (name, i) {
-      var d = GAL_DIMS[name] || [3, 4];   // brak wpisu → proporcje 3/4; miejsce i tak jest rezerwowane
-      return '<figure class="pl-gal__item" data-reveal data-reveal-delay="' + (i % 4) + '">' +
-        PL.img(name, { className: "pl-gal__pic", alt: (C.images.galleryAlt || {})[name] || "Pyk Łyk — realizacja", width: d[0], height: d[1] }) + "</figure>";
-    }).join("");
+    if (t._galleryCleanup) t._galleryCleanup();
+    var all = C.images.gallery;
+    var featured = GAL_FEATURED.filter(function (name, i, list) {
+      return all.indexOf(name) !== -1 && list.indexOf(name) === i;
+    });
+    var remaining = all.filter(function (name) { return featured.indexOf(name) === -1; });
+    var extraId = "gallery-extra-" + (++galleryInstance);
+
+    function pictures(names) {
+      return names.map(function (name) {
+        var d = GAL_DIMS[name] || [3, 4];
+        return '<figure class="pl-gal__item">' +
+          PL.img(name, { className: "pl-gal__pic", alt: (C.images.galleryAlt || {})[name] || GAL_ALT[name] || "Pyk Łyk — realizacja", width: d[0], height: d[1] }) + "</figure>";
+      }).join("");
+    }
+
+    t.innerHTML = '<div class="gal-grid" data-gallery-featured>' + pictures(featured) + '</div>' +
+      '<div class="gal-grid" id="' + extraId + '" data-gallery-extra hidden></div>' +
+      (remaining.length ? '<div class="gallery__actions"><button class="btn btn--ghost gallery__toggle" type="button" aria-expanded="false" aria-controls="' + extraId + '">' +
+        '<span>Pokaż więcej zdjęć</span>' + PL.icon("chevron", { size: 18 }) + '</button>' +
+        '<p class="gallery__count" aria-live="polite">' + featured.length + ' z ' + all.length + ' zdjęć</p></div>' : '');
+
+    var grids = t.querySelectorAll(".gal-grid");
+    var extra = t.querySelector("[data-gallery-extra]");
+    var toggle = t.querySelector(".gallery__toggle");
+    var renderedExtra = false;
+
+    // Wysokość wynika z wymiarów źródłowych, również przed pobraniem zdjęcia.
+    function layout() {
+      var rows = [];
+      grids.forEach(function (grid) {
+        if (grid.hidden || !grid.clientWidth) return;
+        grid.querySelectorAll(".pl-gal__item").forEach(function (item) {
+          var img = item.querySelector("img");
+          var style = window.getComputedStyle(item);
+          var border = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+          var height = item.clientWidth * Number(img.getAttribute("height")) / Number(img.getAttribute("width"));
+          rows.push({ item: item, span: "span " + Math.ceil(height + border + parseFloat(style.marginBottom)) });
+        });
+      });
+      rows.forEach(function (row) {
+        if (row.item.style.gridRowEnd !== row.span) row.item.style.gridRowEnd = row.span;
+      });
+    }
+
+    if (toggle) toggle.addEventListener("click", function () {
+      var open = toggle.getAttribute("aria-expanded") !== "true";
+      if (open && !renderedExtra) {
+        extra.innerHTML = pictures(remaining);
+        renderedExtra = true;
+      }
+      extra.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.querySelector("span").textContent = open ? "Zwiń galerię" : "Pokaż więcej zdjęć";
+      t.querySelector(".gallery__count").textContent = (open ? all.length : featured.length) + " z " + all.length + " zdjęć";
+      layout();
+      if (!open) {
+        var rect = toggle.getBoundingClientRect();
+        if (rect.top < 0 || rect.bottom > window.innerHeight) toggle.scrollIntoView({ block: "center" });
+      }
+    });
+
+    layout();
+    if (window.ResizeObserver) {
+      var observer = new ResizeObserver(layout);
+      grids.forEach(function (grid) { observer.observe(grid); });
+      t._galleryCleanup = function () { observer.disconnect(); };
+    } else {
+      window.addEventListener("resize", layout);
+      t._galleryCleanup = function () { window.removeEventListener("resize", layout); };
+    }
   };
 
   function autoRender() {
