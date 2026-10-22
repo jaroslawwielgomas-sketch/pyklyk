@@ -371,10 +371,25 @@ window.PYKLYK = {
     bartenders: ["bartender-01","bartender-02","bartender-03","bartender-fire","bartender-04","bartender-05","bartender-06","bartender-07"],
     couples: ["couple-01","couple-02","couple-03","couple-04"],
     gallery: [
+      "wesele-para-przy-barze","wesele-barmanka","koktajl-zachod-slonca","wesele-goscie-przy-barze",
+      "wesele-goscie-z-drinkami","koktajl-blekitny","koktajle-owocowy-toast","barman-shakery-koktajle",
+      "koktajle-mojito-i-sour","koktajl-owocowa-dekoracja",
       "cocktails-01","cocktails-02","cocktails-03","cocktails-04","cocktails-05","cocktails-06",
       "cocktails-07","cocktails-08","cocktails-09","cocktails-10","cocktails-11","cocktails-12",
       "cocktails-13","detail-mojito","detail-whisky","bar-lights",
       "bartender-01","bartender-fire","bartender-04","bar-wood-01","couple-01","couple-03"
-    ]
+    ],
+    galleryAlt: {
+      "wesele-para-przy-barze": "Para młoda przy drewnianym barze Pyk Łyk podczas wesela",
+      "wesele-barmanka": "Barmanka Pyk Łyk przygotowuje koktajle przy drewnianym barze",
+      "koktajl-zachod-slonca": "Różowy koktajl z karambolą na tle zachodu słońca",
+      "wesele-goscie-przy-barze": "Goście weselni przy mobilnym drink barze Pyk Łyk",
+      "wesele-goscie-z-drinkami": "Goście weselni z pomarańczowymi koktajlami w dłoniach",
+      "koktajl-blekitny": "Błękitny koktajl z lodem i cytryną podawany przy barze",
+      "koktajle-owocowy-toast": "Toast kolorowymi koktajlami z dekoracjami ze świeżych owoców",
+      "barman-shakery-koktajle": "Barman Pyk Łyk z shakerami za barem pełnym kolorowych koktajli",
+      "koktajle-mojito-i-sour": "Mojito z miętą i limonką oraz koktajle z pianką i karambolą",
+      "koktajl-owocowa-dekoracja": "Warstwowy koktajl z dekoracją z arbuza, pitai i cytrusów"
+    }
   }
 };

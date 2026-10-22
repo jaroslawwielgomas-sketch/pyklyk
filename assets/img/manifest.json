@@ -270,5 +270,85 @@
   "w": 1464,
   "h": 1800,
   "orientation": "portrait"
+ },
+ {
+  "name": "wesele-para-przy-barze",
+  "jpg": "wesele-para-przy-barze.jpg",
+  "webp": "wesele-para-przy-barze.webp",
+  "w": 1536,
+  "h": 1024,
+  "orientation": "landscape"
+ },
+ {
+  "name": "wesele-barmanka",
+  "jpg": "wesele-barmanka.jpg",
+  "webp": "wesele-barmanka.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
+ },
+ {
+  "name": "koktajl-zachod-slonca",
+  "jpg": "koktajl-zachod-slonca.jpg",
+  "webp": "koktajl-zachod-slonca.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
+ },
+ {
+  "name": "wesele-goscie-przy-barze",
+  "jpg": "wesele-goscie-przy-barze.jpg",
+  "webp": "wesele-goscie-przy-barze.webp",
+  "w": 1536,
+  "h": 1024,
+  "orientation": "landscape"
+ },
+ {
+  "name": "wesele-goscie-z-drinkami",
+  "jpg": "wesele-goscie-z-drinkami.jpg",
+  "webp": "wesele-goscie-z-drinkami.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
+ },
+ {
+  "name": "koktajl-blekitny",
+  "jpg": "koktajl-blekitny.jpg",
+  "webp": "koktajl-blekitny.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
+ },
+ {
+  "name": "koktajle-owocowy-toast",
+  "jpg": "koktajle-owocowy-toast.jpg",
+  "webp": "koktajle-owocowy-toast.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
+ },
+ {
+  "name": "barman-shakery-koktajle",
+  "jpg": "barman-shakery-koktajle.jpg",
+  "webp": "barman-shakery-koktajle.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
+ },
+ {
+  "name": "koktajle-mojito-i-sour",
+  "jpg": "koktajle-mojito-i-sour.jpg",
+  "webp": "koktajle-mojito-i-sour.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
+ },
+ {
+  "name": "koktajl-owocowa-dekoracja",
+  "jpg": "koktajl-owocowa-dekoracja.jpg",
+  "webp": "koktajl-owocowa-dekoracja.webp",
+  "w": 1024,
+  "h": 1536,
+  "orientation": "portrait"
  }
 ]

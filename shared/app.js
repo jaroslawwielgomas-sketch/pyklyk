@@ -661,7 +661,12 @@
     "cocktails-13": [1083, 1800], "detail-mojito": [1440, 1800], "detail-whisky": [1350, 1800],
     "bar-lights": [1477, 1800], "bartender-01": [1620, 1080], "bartender-fire": [960, 638],
     "bartender-04": [1470, 1800], "bar-wood-01": [1350, 1800], "couple-01": [1350, 1800],
-    "couple-03": [1125, 1800]
+    "couple-03": [1125, 1800],
+    "wesele-para-przy-barze": [1536, 1024], "wesele-barmanka": [1024, 1536],
+    "koktajl-zachod-slonca": [1024, 1536], "wesele-goscie-przy-barze": [1536, 1024],
+    "wesele-goscie-z-drinkami": [1024, 1536], "koktajl-blekitny": [1024, 1536],
+    "koktajle-owocowy-toast": [1024, 1536], "barman-shakery-koktajle": [1024, 1536],
+    "koktajle-mojito-i-sour": [1024, 1536], "koktajl-owocowa-dekoracja": [1024, 1536]
   };
 
   PL.renderGallery = function (target) {
@@ -669,7 +674,7 @@
     t.innerHTML = C.images.gallery.map(function (name, i) {
       var d = GAL_DIMS[name] || [3, 4];   // brak wpisu → proporcje 3/4; miejsce i tak jest rezerwowane
       return '<figure class="pl-gal__item" data-reveal data-reveal-delay="' + (i % 4) + '">' +
-        PL.img(name, { className: "pl-gal__pic", alt: "Pyk Łyk — realizacja", width: d[0], height: d[1] }) + "</figure>";
+        PL.img(name, { className: "pl-gal__pic", alt: (C.images.galleryAlt || {})[name] || "Pyk Łyk — realizacja", width: d[0], height: d[1] }) + "</figure>";
     }).join("");
   };
 
