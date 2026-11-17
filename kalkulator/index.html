@@ -686,6 +686,8 @@
     .pyk-package-card:has(input[value="allbest"]) { border-color: rgba(184, 138, 74, .72); box-shadow: 0 0 0 2px rgba(184, 138, 74, .12); }
     .pyk-all-best-section { margin-top: 16px; }
     .pyk-all-best-menu { background: var(--pyk-soft); border-color: rgba(184, 138, 74, .48); }
+    .pyk-premium-menu-icon { width: 32px; height: 32px; display: grid; place-items: center; flex-shrink: 0; color: var(--pyk-gold-dark); font-size: 2rem; line-height: 1; }
+    .pyk-all-best-menu .pyk-menu-summary-copy strong { color: var(--pyk-gold-dark); }
     .pyk-all-best-select { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--pyk-line); border-radius: var(--pyk-radius); background: rgba(255, 255, 255, .72); cursor: pointer; }
     .pyk-all-best-select input { width: 18px; height: 18px; accent-color: var(--pyk-gold); }
     .pyk-all-best-select span { display: grid; gap: 2px; }
@@ -1421,10 +1423,10 @@
         allBestChoice.innerHTML = `
           <details class="pyk-menu pyk-all-best-menu">
             <summary class="pyk-menu-summary">
-              <svg class="pyk-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/></svg>
+              <span class="pyk-premium-menu-icon" aria-hidden="true">✦</span>
               <span class="pyk-menu-summary-copy">
-                <strong>Karta drinków</strong>
-                <span>21 pozycji w cenie · All The Best</span>
+                <strong>Karta premium · All The Best</strong>
+                <span>21 pozycji w cenie · wyselekcjonowana karta premium</span>
               </span>
               <span class="pyk-menu-action"><span class="pyk-menu-expand">Rozwiń</span><span class="pyk-menu-collapse">Zwiń</span><svg class="pyk-menu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
             </summary>
@@ -1872,9 +1874,9 @@
         const selectedNames = new Set(packageOrder);
         const selectedDrinkCount = DRINKS.filter((drink) => selectedNames.has(drink.package)).length;
         drinkMenuCount.textContent = isAllBest
-          ? `${selectedDrinkCount} pozycji w cenie · All The Best`
+          ? `Karta premium · ${selectedDrinkCount} pozycji w cenie`
           : packageOrder.length === 1
-          ? `${selectedDrinkCount} pozycji w cenie · Pakiet Standard`
+          ? `Pakiet Standard · zawsze w cenie · ${selectedDrinkCount} pozycji`
           : `${selectedDrinkCount} pozycji w wybranym menu`;
 
         const drinksByPackage = DRINKS
