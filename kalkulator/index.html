@@ -1397,6 +1397,22 @@
             </details>
           </article>
         `).join("");
+        const allBestDrinks = DRINKS.filter((drink) => drink.package === "All The Best");
+        const allBestByType = allBestDrinks.reduce((groups, drink) => {
+          groups[drink.type] ||= [];
+          groups[drink.type].push(drink);
+          return groups;
+        }, {});
+        const allBestSections = Object.entries(allBestByType).map(([type, drinks]) => `
+          <div class="pyk-menu-section">
+            <div class="pyk-menu-title"><h3>${escapeHtml(type)}</h3><span>${drinks.length} poz.</span></div>
+            <ul class="pyk-drink-list">
+              ${drinks.map((drink) => `
+                <li class="pyk-drink-item"><strong>${escapeHtml(drink.name)}</strong><span>${escapeHtml(drink.ingredients)}</span></li>
+              `).join("")}
+            </ul>
+          </div>
+        `).join("");
         allBestChoice.innerHTML = `
           <article class="pyk-package-card pyk-all-best-card">
             <label class="pyk-package-select">
@@ -1406,11 +1422,7 @@
             <span class="pyk-package-copy"><small>21 pozycji: 12 alkoholowych, 6 bezalkoholowych i 3 shoty. Nie łączy się z pakietami dodatkowymi.</small></span>
             <details class="pyk-package-details">
               <summary>Zobacz pełną kartę</summary>
-              <ul class="pyk-drink-list">
-                ${DRINKS.filter((drink) => drink.package === "All The Best").map((drink) => `
-                  <li class="pyk-drink-item"><strong>${escapeHtml(drink.name)}</strong><span>${escapeHtml(drink.ingredients)}</span></li>
-                `).join("")}
-              </ul>
+              <div class="pyk-menu-panel">${allBestSections}</div>
             </details>
           </article>
         `;
