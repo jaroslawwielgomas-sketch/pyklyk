@@ -692,8 +692,8 @@
     .pyk-all-best-select input { width: 18px; height: 18px; accent-color: var(--pyk-gold); }
     .pyk-all-best-select span { display: grid; gap: 2px; }
     .pyk-all-best-select small { color: var(--pyk-muted); font-size: .82rem; }
-    .pyk-standard-summary-toggle { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; color: var(--pyk-gold-dark); font-size: .82rem; font-weight: 800; cursor: pointer; }
-    .pyk-standard-summary-toggle input { width: 18px; height: 18px; margin: 0; accent-color: var(--pyk-gold); }
+    .pyk-standard-summary-toggle, .pyk-premium-summary-toggle { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; color: var(--pyk-gold-dark); font-size: .82rem; font-weight: 800; cursor: pointer; }
+    .pyk-standard-summary-toggle input, .pyk-premium-summary-toggle input { width: 18px; height: 18px; margin: 0; accent-color: var(--pyk-gold); }
 
     .pyk-offer-bands {
       display: grid;
@@ -1063,11 +1063,11 @@
 
           <details class="pyk-menu" id="selectedDrinkMenu">
             <summary class="pyk-menu-summary">
-              <svg class="pyk-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/></svg>
               <label class="pyk-standard-summary-toggle" title="Wybierz Pakiet Standard">
                 <input id="standardCardToggle" type="checkbox" name="packages" value="standard" checked>
                 <span>Standard</span>
               </label>
+              <svg class="pyk-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/></svg>
               <span class="pyk-menu-summary-copy">
                 <strong id="drinkMenuTitle">Karta drinków</strong>
                 <span id="drinkMenuCount" aria-live="polite">21 pozycji w cenie · Pakiet Standard</span>
@@ -1430,6 +1430,10 @@
         allBestChoice.innerHTML = `
           <details class="pyk-menu pyk-all-best-menu">
             <summary class="pyk-menu-summary">
+              <label class="pyk-premium-summary-toggle" title="Wybierz All The Best">
+                <input id="allBestCardToggle" type="checkbox" name="packages" value="allbest">
+                <span>Premium</span>
+              </label>
               <svg class="pyk-menu-icon pyk-premium-menu-icon" viewBox="0 0 24 24" fill="none" overflow="visible" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/><path fill="currentColor" stroke="none" d="M15 -1.8 17.3 .2 19.5 -2.2 21.7 .2 24 -1.8 23 1.3H16L15 -1.8Z"/></svg>
               <span class="pyk-menu-summary-copy">
                 <strong>Karta premium · All The Best</strong>
@@ -1438,10 +1442,6 @@
               <span class="pyk-menu-action"><span class="pyk-menu-expand">Rozwiń</span><span class="pyk-menu-collapse">Zwiń</span><svg class="pyk-menu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
             </summary>
             <div class="pyk-menu-content">
-              <label class="pyk-all-best-select">
-                <input type="checkbox" name="packages" value="allbest">
-                <span><strong>Wybierz All The Best</strong><small>Nie łączy się z pakietami dodatkowymi.</small></span>
-              </label>
               <div class="pyk-menu-grid">${allBestSections}</div>
             </div>
           </details>
@@ -1508,6 +1508,8 @@
           selectedDrinkMenu.open = true;
         });
         standardCardToggle.addEventListener("click", (event) => event.stopPropagation());
+        const premiumCardToggle = document.querySelector("#allBestCardToggle");
+        if (premiumCardToggle) premiumCardToggle.addEventListener("click", (event) => event.stopPropagation());
         calculateDistanceBtn.addEventListener("click", handleCalculateDistance);
         lockedState.addEventListener("click", (event) => {
           if (event.target.closest("[data-lock-contact]")) handleLockedContactRequest();
@@ -1668,6 +1670,8 @@
       function updateQuote() {
         const data = getFormData();
         standardCardToggle.checked = !data.packages.includes("allbest");
+        const allBestCardToggle = document.querySelector("#allBestCardToggle");
+        if (allBestCardToggle) allBestCardToggle.checked = data.packages.includes("allbest");
         const validation = validate(data);
         renderDrinkMenu(data.packages);
 
