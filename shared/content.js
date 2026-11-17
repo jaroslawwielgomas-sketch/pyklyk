@@ -202,7 +202,35 @@ window.PYKLYK = {
       { name: "Kamikaze",      ingredients: ["wódka", "sok cytrynowy", "blue curacao"] },
       { name: "Tequila",       ingredients: ["tequila", "sól", "cytryna"] },
       { name: "Wściekły pies", ingredients: ["wódka", "grenadina", "tabasco"] }
-    ]
+    ],
+    allBest: {
+      alcoholic: [
+        { name: "Aperol Spritz", ingredients: ["aperol", "prosecco", "woda gazowana"] },
+        { name: "Porn star martini", ingredients: ["wódka", "syrop waniliowy", "przecier z marakui", "limonka", "shot prosecco"] },
+        { name: "Whisky Sour", ingredients: ["whisky", "białko", "angostura", "sok z cytryny"] },
+        { name: "Mojito", ingredients: ["rum", "woda gazowana", "mięta", "limonka", "cukier brązowy"] },
+        { name: "Sex on the beach", ingredients: ["wódka", "likier brzoskwiniowy", "sok pomarańczowy", "sok żurawinowy"] },
+        { name: "Hugo", ingredients: ["limonka", "mięta", "prosecco", "syrop z czarnego bzu", "woda gazowana"] },
+        { name: "Cuba libre", ingredients: ["rum", "cola", "limonka"] },
+        { name: "Jamaica", ingredients: ["malibu", "wódka", "sok pomarańczowy", "sok ananasowy", "blue curacao", "grenadina"] },
+        { name: "Margarita", ingredients: ["Tequila", "Triple Sec", "sok z cytryny"] },
+        { name: "Gin & Tonic", ingredients: ["gin", "tonic"] },
+        { name: "Blue lagoon", ingredients: ["sprite", "sok z cytryny", "blue curacao", "wódka"] },
+        { name: "Pina colada", ingredients: ["rum", "malibu", "sok ananasowy", "śmietanka"] }
+      ],
+      nonAlcoholic: [
+        { name: "Błękit nieba", ingredients: ["sprite", "cytryna", "blue curacao"] },
+        { name: "Kokosowa przyjemność", ingredients: ["sok pomarańczowy", "sok z cytryny", "syrop kokosowy", "blue curacao"] },
+        { name: "Mint fresh", ingredients: ["mięta", "limonka", "cukier brązowy", "sok jabłkowy"] },
+        { name: "Różowa pantera", ingredients: ["sok pomarańczowy", "sok ananasowy", "grenadina", "śmietanka"] },
+        { name: "Virgin mojito", ingredients: ["sprite", "mięta", "cukier trzcinowy", "limonka"] },
+        { name: "Zielona dróżka", ingredients: ["sok pomarańczowy", "blue curacao"] }
+      ],
+      shots: [
+        { name: "Kamikaze", ingredients: ["wódka", "sok z cytryny", "blue curacao"] },
+        { name: "Tequila", ingredients: ["tequila", "sól", "cytryna"] },
+        { name: "Wściekły pies", ingredients: ["wódka", "grenadina", "tabasco"] }
+      ]
   },
 
   /* -------------------------------------------------------------------------
