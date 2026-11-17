@@ -5,6 +5,7 @@
 window.PYKLYK_BLACKLIST = {
   // Konkretne adresy e-mail.
   emails: [
+    "jaroslaw.wielgomas@gmail.com"
   ],
 
   // Cale domeny. Wpis "konkurencja.pl" blokuje tez subdomeny,
