@@ -686,7 +686,7 @@
     .pyk-package-card:has(input[value="allbest"]) { border-color: rgba(184, 138, 74, .72); box-shadow: 0 0 0 2px rgba(184, 138, 74, .12); }
     .pyk-all-best-section { margin-top: 16px; }
     .pyk-all-best-menu { background: var(--pyk-soft); border-color: rgba(184, 138, 74, .48); }
-    .pyk-premium-menu-icon { width: 32px; height: 32px; display: grid; place-items: center; flex-shrink: 0; color: var(--pyk-gold-dark); font-size: 2rem; line-height: 1; }
+    .pyk-premium-menu-icon { color: var(--pyk-gold-dark); }
     .pyk-all-best-menu .pyk-menu-summary-copy strong { color: var(--pyk-gold-dark); }
     .pyk-all-best-select { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--pyk-line); border-radius: var(--pyk-radius); background: rgba(255, 255, 255, .72); cursor: pointer; }
     .pyk-all-best-select input { width: 18px; height: 18px; accent-color: var(--pyk-gold); }
@@ -1423,7 +1423,7 @@
         allBestChoice.innerHTML = `
           <details class="pyk-menu pyk-all-best-menu">
             <summary class="pyk-menu-summary">
-              <span class="pyk-premium-menu-icon" aria-hidden="true">✦</span>
+              <svg class="pyk-menu-icon pyk-premium-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/><path d="m18 1 .45 1.45L20 3l-1.55.55L18 5l-.45-1.45L16 3l1.55-.55L18 1Z"/><path d="m22 5 .3.95L23.25 6l-.95.3L22 7.25l-.3-.95L20.75 6l.95-.3L22 5Z"/></svg>
               <span class="pyk-menu-summary-copy">
                 <strong>Karta premium · All The Best</strong>
                 <span>21 pozycji w cenie · wyselekcjonowana karta premium</span>
