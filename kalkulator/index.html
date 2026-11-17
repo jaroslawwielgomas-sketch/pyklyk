@@ -692,6 +692,10 @@
     .pyk-all-best-select input { width: 18px; height: 18px; accent-color: var(--pyk-gold); }
     .pyk-all-best-select span { display: grid; gap: 2px; }
     .pyk-all-best-select small { color: var(--pyk-muted); font-size: .82rem; }
+    .pyk-standard-select { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--pyk-line); border-radius: var(--pyk-radius); background: rgba(255, 255, 255, .72); cursor: pointer; }
+    .pyk-standard-select input { width: 18px; height: 18px; accent-color: var(--pyk-gold); }
+    .pyk-standard-select span { display: grid; gap: 2px; }
+    .pyk-standard-select small { color: var(--pyk-muted); font-size: .82rem; }
 
     .pyk-offer-bands {
       display: grid;
@@ -1423,7 +1427,7 @@
         allBestChoice.innerHTML = `
           <details class="pyk-menu pyk-all-best-menu">
             <summary class="pyk-menu-summary">
-              <svg class="pyk-menu-icon pyk-premium-menu-icon" viewBox="0 0 24 24" fill="none" overflow="visible" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/><path fill="currentColor" stroke="none" d="m21.4 -2.2 .9 1.7 1.7.9-1.7.9-.9 1.7-.9-1.7-1.7-.9 1.7-.9.9-1.7Z"/><path fill="currentColor" stroke="none" d="m18.4 -2.7 .4 .8.8.4-.8.4-.4 .8-.4-.8-.8-.4.8-.4.4-.8Z"/><path fill="currentColor" stroke="none" d="m23.9 -2.85 .375 .75.75 .375-.75 .375-.375 .75-.375-.75-.75-.375.75-.375.375-.75Z"/></svg>
+              <svg class="pyk-menu-icon pyk-premium-menu-icon" viewBox="0 0 24 24" fill="none" overflow="visible" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/><path fill="currentColor" stroke="none" d="M15 -1.8 17.3 .2 19.5 -2.2 21.7 .2 24 -1.8 23 1.3H16L15 -1.8Z"/></svg>
               <span class="pyk-menu-summary-copy">
                 <strong>Karta premium · All The Best</strong>
                 <span>21 pozycji w cenie · wyselekcjonowana karta premium</span>
@@ -1867,15 +1871,13 @@
 
       function renderDrinkMenu(packageIds = []) {
         const isAllBest = packageIds.includes("allbest");
-        const packageOrder = isAllBest ? ["All The Best"] : ["Pakiet Standard"];
+        const packageOrder = ["Pakiet Standard"];
         if (!isAllBest) PACKAGES.forEach((item) => {
           if (packageIds.includes(item.id)) packageOrder.push(item.name);
         });
         const selectedNames = new Set(packageOrder);
         const selectedDrinkCount = DRINKS.filter((drink) => selectedNames.has(drink.package)).length;
-        drinkMenuCount.textContent = isAllBest
-          ? `Karta premium · ${selectedDrinkCount} pozycji w cenie`
-          : packageOrder.length === 1
+        drinkMenuCount.textContent = packageOrder.length === 1
           ? `Pakiet Standard · zawsze w cenie · ${selectedDrinkCount} pozycji`
           : `${selectedDrinkCount} pozycji w wybranym menu`;
 
@@ -1920,6 +1922,12 @@
                   <span>${drinks.length} poz.${packageName === "Pakiet Standard" ? " · W cenie" : ""}</span>
                 </span>
               </div>
+              ${packageName === "Pakiet Standard" ? `
+                <label class="pyk-standard-select">
+                  <input type="checkbox" name="packages" value="standard" ${isAllBest ? "" : "checked"}>
+                  <span><strong>Wybierz Pakiet Standard</strong><small>Pakiet bazowy · zawsze w cenie</small></span>
+                </label>
+              ` : ""}
               <div class="pyk-menu-panel">
                 ${typeHtml}
               </div>
