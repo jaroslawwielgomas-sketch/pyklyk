@@ -683,6 +683,8 @@
       background: var(--pyk-gold);
     }
 
+    .pyk-package-card:has(input[value="allbest"]) { border-color: rgba(184, 138, 74, .72); box-shadow: 0 0 0 2px rgba(184, 138, 74, .12); }
+
     .pyk-offer-bands {
       display: grid;
       gap: 14px;
@@ -1218,17 +1220,18 @@
       };
 
       const PRICE_TIERS = [
-        { min: 1, max: 50, standard: 2994, dolce: 273, gentlemen: 267, meister: 233, fruit: 351 },
-        { min: 51, max: 70, standard: 3841, dolce: 337, gentlemen: 267, meister: 295, fruit: 395 },
-        { min: 71, max: 99, standard: 3855, dolce: 337, gentlemen: 267, meister: 307, fruit: 454 },
-        { min: 100, max: 130, standard: 3922, dolce: 387, gentlemen: 274, meister: 355, fruit: 452 },
-        { min: 131, max: 155, standard: 4231, dolce: 496, gentlemen: 386, meister: 420, fruit: 651 },
-        { min: 156, max: 175, standard: 4467, dolce: 680, gentlemen: 428, meister: 535, fruit: 792 },
-        { min: 176, max: 205, standard: 4787, dolce: 794, gentlemen: 498, meister: 605, fruit: 966 },
-        { min: 206, max: 230, standard: 4950, dolce: 869, gentlemen: 597, meister: 725, fruit: 1113 }
+        { min: 1, max: 50, standard: 2994, allBest: 3646, dolce: 273, gentlemen: 267, meister: 233, fruit: 351 },
+        { min: 51, max: 70, standard: 3841, allBest: 4484, dolce: 337, gentlemen: 267, meister: 295, fruit: 395 },
+        { min: 71, max: 99, standard: 3855, allBest: 4808, dolce: 337, gentlemen: 267, meister: 307, fruit: 454 },
+        { min: 100, max: 130, standard: 3922, allBest: 4850, dolce: 387, gentlemen: 274, meister: 355, fruit: 452 },
+        { min: 131, max: 155, standard: 4231, allBest: 5300, dolce: 496, gentlemen: 386, meister: 420, fruit: 651 },
+        { min: 156, max: 175, standard: 4467, allBest: 5750, dolce: 680, gentlemen: 428, meister: 535, fruit: 792 },
+        { min: 176, max: 205, standard: 4787, allBest: 6400, dolce: 794, gentlemen: 498, meister: 605, fruit: 966 },
+        { min: 206, max: 230, standard: 4950, allBest: 6850, dolce: 869, gentlemen: 597, meister: 725, fruit: 1113 }
       ];
 
       const PACKAGES = [
+        { id: "allbest", name: "All The Best", shortName: "Karta premium · All The Best", benefit: "21 pozycji: 12 alkoholowych, 6 bezalkoholowych i 3 shoty. Nie łączy się z pakietami dodatkowymi." },
         { id: "dolce", name: "Pakiet Dolce Vita", shortName: "Dolce Vita", benefit: "Prosecco, Aperol i lekko włoski klimat przy barze." },
         { id: "gentlemen", name: "Pakiet Gentlemen's Club", shortName: "Gentlemen's Club", benefit: "Klasyczne koktajle na bazie whisky dla gości, którzy lubią mocniejszy charakter." },
         { id: "meister", name: "Pakiet Meister’s Selection", shortName: "Meister’s Selection", benefit: "Wyrazisty ziołowy likier Jägermeister dla miłośników intensywnych smaków." },
@@ -1236,6 +1239,27 @@
       ];
 
       const DRINKS = [
+        { package: "All The Best", name: "Aperol Spritz", ingredients: "prosecco, Aperol, woda gazowana", type: "Alkoholowe" },
+        { package: "All The Best", name: "Pornstar Martini", ingredients: "wódka waniliowa, marakuja, limonka, prosecco", type: "Alkoholowe" },
+        { package: "All The Best", name: "Whisky Sour", ingredients: "whisky, cytryna, syrop cukrowy", type: "Alkoholowe" },
+        { package: "All The Best", name: "Mojito", ingredients: "rum, mięta, limonka, woda gazowana", type: "Alkoholowe" },
+        { package: "All The Best", name: "Sex on the Beach", ingredients: "wódka, likier brzoskwiniowy, soki owocowe", type: "Alkoholowe" },
+        { package: "All The Best", name: "Hugo", ingredients: "prosecco, bez, mięta, limonka", type: "Alkoholowe" },
+        { package: "All The Best", name: "Cuba Libre", ingredients: "rum, cola, limonka", type: "Alkoholowe" },
+        { package: "All The Best", name: "Jamaica", ingredients: "malibu, wódka, soki owocowe", type: "Alkoholowe" },
+        { package: "All The Best", name: "Margarita", ingredients: "tequila, triple sec, limonka", type: "Alkoholowe" },
+        { package: "All The Best", name: "Gin & Tonic", ingredients: "gin, tonic, limonka", type: "Alkoholowe" },
+        { package: "All The Best", name: "Blue Lagoon", ingredients: "wódka, blue curacao, lemoniada", type: "Alkoholowe" },
+        { package: "All The Best", name: "Piña Colada", ingredients: "rum, malibu, ananas, śmietanka", type: "Alkoholowe" },
+        { package: "All The Best", name: "Błękit Nieba", ingredients: "sprite, cytryna, blue curacao", type: "Bezalkoholowe" },
+        { package: "All The Best", name: "Kokosowa Przyjemność", ingredients: "soki, syrop kokosowy", type: "Bezalkoholowe" },
+        { package: "All The Best", name: "Mint Fresh", ingredients: "mięta, limonka, sok jabłkowy", type: "Bezalkoholowe" },
+        { package: "All The Best", name: "Różowa Pantera", ingredients: "soki owocowe, grenadina, śmietanka", type: "Bezalkoholowe" },
+        { package: "All The Best", name: "Virgin Mojito", ingredients: "sprite, mięta, limonka, cukier", type: "Bezalkoholowe" },
+        { package: "All The Best", name: "Zielona Dróżka", ingredients: "sok pomarańczowy, blue curacao", type: "Bezalkoholowe" },
+        { package: "All The Best", name: "Kamikaze", ingredients: "wódka, cytryna, blue curacao", type: "Shoty" },
+        { package: "All The Best", name: "Tequila", ingredients: "tequila, sól, cytryna", type: "Shoty" },
+        { package: "All The Best", name: "Wściekły Pies", ingredients: "wódka, grenadina, tabasco", type: "Shoty" },
         { package: "Pakiet Standard", name: "Biały/czarny rusek", ingredients: "wódka, śmietanka/cola, likier kawowy", type: "Alkoholowe" },
         { package: "Pakiet Standard", name: "Blue lagoon", ingredients: "sprite, sok z cytryny, blue curacao, wódka", type: "Alkoholowe" },
         { package: "Pakiet Standard", name: "Cuba libre", ingredients: "rum, cola, limonka", type: "Alkoholowe" },
@@ -1441,6 +1465,11 @@
       }
 
       function handleInput(event) {
+        if (event.target.name === "packages") {
+          const inputs = form.querySelectorAll("input[name=\"packages\"]");
+          if (event.target.value === "allbest" && event.target.checked) inputs.forEach((input) => { if (input !== event.target) input.checked = false; });
+          if (event.target.value !== "allbest" && event.target.checked) { const allBest = form.querySelector("input[name=\"packages\"][value=\"allbest\"]"); if (allBest) allBest.checked = false; }
+        }
         if (event.target.id === "guestCount") {
           event.target.value = event.target.value.replace(/[^\d]/g, "");
           if (Number(event.target.value) < 1 && event.target.value !== "") event.target.value = "1";
@@ -1665,16 +1694,18 @@
         const tier = PRICE_TIERS.find((item) => data.guests >= item.min && data.guests <= item.max);
         if (!tier) return { ok: false, message: "Wycena indywidualna - skontaktuj się z nami.", contactCta: true, missingFields: getMissingContactFields(data) };
 
+        const isAllBest = data.packages.includes("allbest");
         const selectedPackages = PACKAGES.filter((item) => data.packages.includes(item.id));
-        const addonsGross = selectedPackages.reduce((sum, item) => sum + tier[item.id], 0);
-        const discountPercent = getDiscountPercent(selectedPackages.length);
+        const addonsGross = isAllBest ? 0 : selectedPackages.filter((item) => item.id !== "allbest").reduce((sum, item) => sum + tier[item.id], 0);
+        const discountPercent = isAllBest ? 0 : getDiscountPercent(selectedPackages.filter((item) => item.id !== "allbest").length);
         const discountValue = Math.round(addonsGross * discountPercent);
         const addonsNet = addonsGross - discountValue;
         const travelKm = Math.max(0, Math.ceil(data.distance) - 50);
         const travelCost = travelKm * 1.5;
         const year = Number(data.date.slice(0, 4));
         const yearMultiplier = year === 2027 ? 1.05 : year === 2028 ? 1.10 : 1;
-        const beforeYearMargin = tier.standard + addonsNet + travelCost;
+        const basePrice = isAllBest ? tier.allBest : tier.standard;
+        const beforeYearMargin = basePrice + addonsNet + travelCost;
         const yearMargin = Math.round(beforeYearMargin * (yearMultiplier - 1));
         const total = Math.round(beforeYearMargin * yearMultiplier);
 
@@ -1683,6 +1714,8 @@
           ...data,
           tier,
           selectedPackages,
+          isAllBest,
+          basePrice,
           addonsGross,
           discountPercent,
           discountValue,
@@ -1740,9 +1773,9 @@
         resetOfferSuccess();
 
         totalPrice.textContent = money.format(quote.total);
-        discountNote.textContent = `Rabat na pakiety dodatkowe: ${Math.round(quote.discountPercent * 100)}%`;
+        discountNote.textContent = quote.isAllBest ? "Finalny cennik All The Best" : `Rabat na pakiety dodatkowe: ${Math.round(quote.discountPercent * 100)}%`;
         const breakdownRows = [
-          ["Pakiet Standard", quote.tier.standard],
+          [quote.isAllBest ? "All The Best" : "Pakiet Standard", quote.basePrice],
           ["Pakiety dodatkowe przed rabatem", quote.addonsGross],
           [`Rabat ${Math.round(quote.discountPercent * 100)}%`, -quote.discountValue],
           [`Dojazd (${quote.travelKm} km płatne)`, quote.travelCost]
@@ -1784,13 +1817,16 @@
       }
 
       function renderDrinkMenu(packageIds = []) {
-        const packageOrder = ["Pakiet Standard"];
-        PACKAGES.forEach((item) => {
+        const isAllBest = packageIds.includes("allbest");
+        const packageOrder = isAllBest ? ["All The Best"] : ["Pakiet Standard"];
+        if (!isAllBest) PACKAGES.forEach((item) => {
           if (packageIds.includes(item.id)) packageOrder.push(item.name);
         });
         const selectedNames = new Set(packageOrder);
         const selectedDrinkCount = DRINKS.filter((drink) => selectedNames.has(drink.package)).length;
-        drinkMenuCount.textContent = packageOrder.length === 1
+        drinkMenuCount.textContent = isAllBest
+          ? `${selectedDrinkCount} pozycji w cenie · All The Best`
+          : packageOrder.length === 1
           ? `${selectedDrinkCount} pozycji w cenie · Pakiet Standard`
           : `${selectedDrinkCount} pozycji w wybranym menu`;
 
@@ -2177,7 +2213,7 @@
 
       function buildPrintableOffer(quote) {
         const packages = escapeHtml(quote.selectedPackages.map((item) => item.shortName).join(", ") || "brak");
-        const selectedDrinkNames = new Set(["Pakiet Standard", ...quote.selectedPackages.map((item) => item.name)]);
+        const selectedDrinkNames = new Set([quote.isAllBest ? "All The Best" : "Pakiet Standard", ...quote.selectedPackages.filter((item) => item.id !== "allbest").map((item) => item.name)]);
         const drinks = DRINKS.filter((drink) => selectedDrinkNames.has(drink.package));
         const baseHref = escapeAttribute(document.baseURI);
         const printable = {
@@ -2251,7 +2287,7 @@
               </div>
               <h2>Rozliczenie</h2>
               <ul>
-                <li>Pakiet Standard: ${money.format(quote.tier.standard)}</li>
+                <li>${quote.isAllBest ? "All The Best" : "Pakiet Standard"}: ${money.format(quote.basePrice)}</li>
                 <li>Pakiety dodatkowe przed rabatem: ${money.format(quote.addonsGross)}</li>
                 <li>Rabat: ${Math.round(quote.discountPercent * 100)}%, czyli ${money.format(quote.discountValue)}</li>
                 <li>Dojazd: ${money.format(quote.travelCost)}</li>
