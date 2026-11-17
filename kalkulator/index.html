@@ -685,6 +685,11 @@
 
     .pyk-package-card:has(input[value="allbest"]) { border-color: rgba(184, 138, 74, .72); box-shadow: 0 0 0 2px rgba(184, 138, 74, .12); }
     .pyk-all-best-section { margin-top: 16px; }
+    .pyk-all-best-menu { background: var(--pyk-soft); border-color: rgba(184, 138, 74, .48); }
+    .pyk-all-best-select { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--pyk-line); border-radius: var(--pyk-radius); background: rgba(255, 255, 255, .72); cursor: pointer; }
+    .pyk-all-best-select input { width: 18px; height: 18px; accent-color: var(--pyk-gold); }
+    .pyk-all-best-select span { display: grid; gap: 2px; }
+    .pyk-all-best-select small { color: var(--pyk-muted); font-size: .82rem; }
 
     .pyk-offer-bands {
       display: grid;
@@ -1414,17 +1419,23 @@
           </div>
         `).join("");
         allBestChoice.innerHTML = `
-          <article class="pyk-package-card pyk-all-best-card">
-            <label class="pyk-package-select">
-              <input type="checkbox" name="packages" value="allbest">
-              <span class="pyk-pill">Karta premium · All The Best</span>
-            </label>
-            <span class="pyk-package-copy"><small>21 pozycji: 12 alkoholowych, 6 bezalkoholowych i 3 shoty. Nie łączy się z pakietami dodatkowymi.</small></span>
-            <details class="pyk-package-details">
-              <summary>Zobacz pełną kartę</summary>
-              <div class="pyk-menu-panel">${allBestSections}</div>
-            </details>
-          </article>
+          <details class="pyk-menu pyk-all-best-menu">
+            <summary class="pyk-menu-summary">
+              <svg class="pyk-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18l-9 9-9-9Z M12 12v9 M8 21h8 M6 6h12"/></svg>
+              <span class="pyk-menu-summary-copy">
+                <strong>Karta drinków</strong>
+                <span>21 pozycji w cenie · All The Best</span>
+              </span>
+              <span class="pyk-menu-action"><span class="pyk-menu-expand">Rozwiń</span><span class="pyk-menu-collapse">Zwiń</span><svg class="pyk-menu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+            </summary>
+            <div class="pyk-menu-content">
+              <label class="pyk-all-best-select">
+                <input type="checkbox" name="packages" value="allbest">
+                <span><strong>Wybierz All The Best</strong><small>Nie łączy się z pakietami dodatkowymi.</small></span>
+              </label>
+              <div class="pyk-menu-grid">${allBestSections}</div>
+            </div>
+          </details>
         `;
       }
 
