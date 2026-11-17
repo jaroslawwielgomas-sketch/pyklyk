@@ -684,6 +684,7 @@
     }
 
     .pyk-package-card:has(input[value="allbest"]) { border-color: rgba(184, 138, 74, .72); box-shadow: 0 0 0 2px rgba(184, 138, 74, .12); }
+    .pyk-all-best-section { margin-top: 16px; }
 
     .pyk-offer-bands {
       display: grid;
@@ -1072,6 +1073,10 @@
             <div class="pyk-package-grid" id="packageChoices"></div>
           </fieldset>
 
+          <section class="pyk-all-best-section" aria-label="Karta All The Best">
+            <div id="allBestChoice"></div>
+          </section>
+
           <label class="pyk-consent">
             <input type="checkbox" id="privacyConsent" name="privacy" required>
             <span>Wyrażam zgodę na kontakt w sprawie oferty i akceptuję <a href="/polityka-prywatnosci.html" target="_blank" rel="noopener">politykę prywatności</a>.</span>
@@ -1301,6 +1306,7 @@
 
       const form = document.querySelector("#quoteForm");
       const packageChoices = document.querySelector("#packageChoices");
+      const allBestChoice = document.querySelector("#allBestChoice");
       const drinkMenu = document.querySelector("#drinkMenu");
       const selectedDrinkMenu = document.querySelector("#selectedDrinkMenu");
       const drinkMenuCount = document.querySelector("#drinkMenuCount");
@@ -1373,7 +1379,8 @@
       }
 
       function renderPackageChoices() {
-        packageChoices.innerHTML = PACKAGES.map((item) => `
+        const addonPackages = PACKAGES.filter((item) => item.id !== "allbest");
+        packageChoices.innerHTML = addonPackages.map((item) => `
           <article class="pyk-package-card">
             <label class="pyk-package-select">
               <input type="checkbox" name="packages" value="${item.id}">
@@ -1390,6 +1397,23 @@
             </details>
           </article>
         `).join("");
+        allBestChoice.innerHTML = `
+          <article class="pyk-package-card pyk-all-best-card">
+            <label class="pyk-package-select">
+              <input type="checkbox" name="packages" value="allbest">
+              <span class="pyk-pill">Karta premium · All The Best</span>
+            </label>
+            <span class="pyk-package-copy"><small>21 pozycji: 12 alkoholowych, 6 bezalkoholowych i 3 shoty. Nie łączy się z pakietami dodatkowymi.</small></span>
+            <details class="pyk-package-details">
+              <summary>Zobacz pełną kartę</summary>
+              <ul class="pyk-drink-list">
+                ${DRINKS.filter((drink) => drink.package === "All The Best").map((drink) => `
+                  <li class="pyk-drink-item"><strong>${escapeHtml(drink.name)}</strong><span>${escapeHtml(drink.ingredients)}</span></li>
+                `).join("")}
+              </ul>
+            </details>
+          </article>
+        `;
       }
 
       function initTestimonials() {
