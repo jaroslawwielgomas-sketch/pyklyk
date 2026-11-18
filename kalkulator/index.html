@@ -2562,6 +2562,7 @@
             var results=[];
             try{results=await photon(query,controller.signal)}catch(error){if(error.name==="AbortError")throw error}
             try{results=results.concat(await nominatim(query,controller.signal))}catch(error){if(error.name==="AbortError")throw error}
+            try{results=results.concat(await nominatim(query + ", województwo mazowieckie",controller.signal))}catch(error){if(error.name==="AbortError")throw error}
             showResults(results);
           }catch(error){
             if(error.name!=="AbortError"){list.innerHTML='<li class="pyk-location-empty">Nie udało się pobrać podpowiedzi. Wpisz miejscowość ręcznie.</li>';list.classList.add("is-visible")}
