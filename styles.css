@@ -465,16 +465,3 @@ body { background: var(--cream); color: var(--ink); }
   .pl-container { width: min(100% - 1.6rem, 1200px); }
   .hero__inner { padding-top: 7rem; }
 }
-
-
-/* Karta Standard / All The Best na stronie głównej */
-.pl-menu__card-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 24px}
-.pl-menu__card-tab{border:1px solid var(--pyk-gold,#b08b57);background:transparent;color:inherit;border-radius:999px;padding:.7rem 1rem;font:inherit;font-weight:700;cursor:pointer}
-.pl-menu__card-tab.is-active{background:var(--pyk-gold,#b08b57);color:#fff}
-.pl-menu__card{display:none}
-.pl-menu__card.is-active{display:block}
-.pl-menu__card-title{font-weight:700;font-size:1.1rem;margin:0 0 14px}
-.pl-menu__premium-badge{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--pyk-gold,#b08b57)}
-.pl-menu__card [data-card-panel]{display:block}
-.pl-menu__card.is-active{display:block}
-.pl-menu__card:not(.is-active){display:none}
