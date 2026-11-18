@@ -1028,6 +1028,14 @@
     .pyk-summary.is-ready{animation:homepageReveal .5s ease both}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
   </style>
+  <style id="location-autocomplete-style">
+    .pyk-location-field{position:relative}
+    .pyk-location-suggestions{position:absolute;z-index:20;left:0;right:0;top:100%;margin:4px 0 0;padding:4px;list-style:none;background:var(--pyk-surface);border:1px solid var(--pyk-line);border-radius:14px;box-shadow:0 16px 32px rgba(91,67,42,.16);display:none}
+    .pyk-location-suggestions.is-visible{display:grid;gap:2px}
+    .pyk-location-suggestion{display:block;width:100%;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:var(--pyk-ink);font:inherit;text-align:left;cursor:pointer}
+    .pyk-location-suggestion:hover,.pyk-location-suggestion:focus{background:var(--pyk-soft);outline:none}
+    .pyk-location-help{display:block;margin-top:6px;color:var(--pyk-muted);font-size:.8rem}
+  </style>
 </head>
 <body>
   <main class="pyk-calculator" id="pykCalculator">
@@ -2428,7 +2436,73 @@
                 <p>E-mail: <a href="mailto:${escapeAttribute(CONFIG.contactEmail)}">${escapeHtml(CONFIG.contactEmail)}</a></p>
               </section>
             </main>
-          </body>
+            <script>
+    (function () {
+      var input = document.querySelector("#eventLocation");
+      if (!input) return;
+      var field = input.closest(".pyk-field");
+      if (!field) return;
+      field.classList.add("pyk-location-field");
+      var list = document.createElement("ul");
+      list.className = "pyk-location-suggestions";
+      list.setAttribute("role", "listbox");
+      field.appendChild(list);
+      var help = document.createElement("small");
+      help.className = "pyk-location-help";
+      help.textContent = "Wybierz konkretny adres z podpowiedzi, aby dokładnie obliczyć dystans.";
+      input.insertAdjacentElement("afterend", help);
+      var timer = null;
+      var controller = null;
+      function closeList(){ list.innerHTML = ""; list.classList.remove("is-visible"); }
+      function label(result){
+        var a = result.address || {};
+        var parts = [a.road && ((a.house_number ? a.road + " " + a.house_number : a.road)), a.postcode, a.city || a.town || a.village || a.municipality, a.state].filter(Boolean);
+        return parts.join(", ") || result.display_name;
+      }
+      function showResults(results){
+        list.innerHTML = "";
+        results.slice(0,6).forEach(function(result){
+          var item = document.createElement("li");
+          var button = document.createElement("button");
+          button.type = "button";
+          button.className = "pyk-location-suggestion";
+          button.setAttribute("role","option");
+          button.textContent = label(result);
+          button.addEventListener("mousedown", function(event){ event.preventDefault(); });
+          button.addEventListener("click", function(){
+            input.value = label(result);
+            input.dataset.latitude = result.lat;
+            input.dataset.longitude = result.lon;
+            input.dataset.locationSelected = "true";
+            closeList();
+          });
+          item.appendChild(button); list.appendChild(item);
+        });
+        list.classList.toggle("is-visible", results.length > 0);
+      }
+      input.addEventListener("input", function(){
+        input.dataset.locationSelected = "false";
+        delete input.dataset.latitude; delete input.dataset.longitude;
+        var query = input.value.trim();
+        clearTimeout(timer); if (controller) controller.abort();
+        if (query.length < 3){ closeList(); return; }
+        timer = setTimeout(async function(){
+          controller = new AbortController();
+          try{
+            var url = new URL("https://nominatim.openstreetmap.org/search");
+            url.searchParams.set("format","jsonv2"); url.searchParams.set("addressdetails","1");
+            url.searchParams.set("countrycodes","pl"); url.searchParams.set("limit","6");
+            url.searchParams.set("accept-language","pl"); url.searchParams.set("q",query);
+            var response = await fetch(url,{headers:{"Accept":"application/json","Accept-Language":"pl"},signal:controller.signal});
+            if (!response.ok) throw new Error("autocomplete");
+            showResults(await response.json());
+          }catch(error){ if(error.name !== "AbortError") closeList(); }
+        },350);
+      });
+      document.addEventListener("click", function(event){ if(!field.contains(event.target)) closeList(); });
+    })();
+  </script>
+</body>
           </html>`;
       }
 
