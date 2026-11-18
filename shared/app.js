@@ -573,10 +573,17 @@
 
   PL.renderPackages = function (target) {
     var t = el(target); if (!t) return;
+    var descriptions = {
+      "Dolce Vita": "Lekkie i świeże koktajle na bazie prosecco, idealne na eleganckie przyjęcia.",
+      "Gentlemen's Club": "Klasyczne, mocniejsze smaki dla miłośników whisky.",
+      "Meister’s Selection": "Wyraziste drinki z jägermeisterem i energetycznym charakterem.",
+      "Fruity Star Selection": "Kolorowe, owocowe koktajle, które przyciągają wzrok i smakują wyjątkowo."
+    };
     t.innerHTML = C.packages.map(function (p, i) {
       return '<article class="pl-pkg" data-reveal data-reveal-delay="' + i + '">' +
         '<header class="pl-pkg__head"><h3 class="pl-pkg__name">' + p.name +
-          '<sup class="pl-pkg__badge">' + p.badge + "</sup></h3></header>" +
+          '<sup class="pl-pkg__badge">' + p.badge + "</sup></h3>" +
+          '<p class="pl-pkg__desc">' + (descriptions[p.name] || "") + "</p></header>" +
         '<ul class="pl-pkg__drinks">' +
           p.drinks.map(function (d) {
             return '<li class="pl-pkg__drink"><span class="pl-pkg__dname">' + d.name +
