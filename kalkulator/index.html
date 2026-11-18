@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Caveat:wght@600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="512x512" href="/assets/logo/favicon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/logo/favicon.png">
   <style>
     :root {
       --pyk-bg: #f4f0e8;
@@ -1036,6 +1036,20 @@
     .pyk-location-suggestion:hover,.pyk-location-suggestion:focus{background:var(--pyk-soft);outline:none}
     .pyk-location-help{display:block;margin-top:6px;color:var(--pyk-muted);font-size:.8rem}
   </style>
+  <style id="homepage-visual-polish">
+    .pyk-eyebrow{position:relative;gap:.55rem}
+    .pyk-eyebrow:before,.pyk-eyebrow:after{content:"-";font-family:var(--pyk-font);font-weight:700;color:var(--pyk-gold);font-size:1rem}
+    .pyk-lead{max-width:68ch}
+    .pyk-lead + .pyk-lead{margin-top:.65rem}
+    .pyk-proof{margin-top:26px;border-top:1px solid rgba(216,201,176,.8);background:linear-gradient(180deg,rgba(238,227,210,.42),rgba(255,253,249,.88));box-shadow:none}
+    .pyk-proof-kicker{font-family:"Caveat",cursive;font-size:1.35rem;color:var(--pyk-gold-dark)}
+    .pyk-proof-title{font-family:var(--pyk-font-display);font-weight:400;color:var(--pyk-ink)}
+    .pyk-price{padding:20px 0 22px;border-bottom:1px solid rgba(216,201,176,.75);margin-bottom:20px}
+    .pyk-breakdown{padding:4px 0 14px}
+    .pyk-summary-contact-actions{gap:12px}
+    .pyk-bar-image{border-radius:14px;transition:transform .55s cubic-bezier(.2,.7,.2,1),filter .35s}
+    .pyk-bar-card:hover .pyk-bar-image{transform:scale(1.035);filter:saturate(1.04)}
+  </style>
 </head>
 <body>
   <main class="pyk-calculator" id="pykCalculator">
@@ -1044,7 +1058,7 @@
       <section class="pyk-panel" aria-labelledby="calculatorTitle">
         <div class="pyk-brand-top">
           <a class="pyk-logo-link" href="/" aria-label="Pyk Łyk - strona główna">
-            <img class="pyk-logo" src="/assets/logo/logo-dark.png" alt="Pyk Łyk">
+            <img class="pyk-logo" src="../assets/logo/logo-dark.png" alt="Pyk Łyk">
           </a>
         </div>
         <p class="pyk-eyebrow">PYK ŁYK DRINK BAR</p>
@@ -1096,7 +1110,7 @@
             <div class="pyk-choice-grid" id="barChoices">
               <label class="pyk-bar-card">
                 <input type="radio" name="bar" value="Drewniany rustykalny" required>
-                <img class="pyk-bar-image" src="/assets/img/bar-drewniany.jpg" alt="Drewniany rustykalny bar">
+                <img class="pyk-bar-image" src="../assets/img/bar-drewniany.jpg" alt="Drewniany rustykalny bar">
                 <span class="pyk-bar-copy">
                   <span class="pyk-choice-title">Drewniany rustykalny</span>
                   <small>Naturalny klimat do wesel boho, ogrodowych i rustykalnych.</small>
@@ -1105,7 +1119,7 @@
 
               <label class="pyk-bar-card">
                 <input type="radio" name="bar" value="Biały obity w białą skórę" required>
-                <img class="pyk-bar-image" src="/assets/img/bar-bialy.jpg" alt="Biały bar obity białą skórą">
+                <img class="pyk-bar-image" src="../assets/img/bar-bialy.jpg" alt="Biały bar obity białą skórą">
                 <span class="pyk-bar-copy">
                   <span class="pyk-choice-title">Biały obity w białą skórę</span>
                   <small>Czysty, elegancki look do sal glamour i nowoczesnych wnętrz.</small>
@@ -2380,7 +2394,7 @@
                   <p>Szacunkowe podsumowanie oferty na podstawie danych z kalkulatora.</p>
                 </div>
                 <div class="brand-contact">
-                  <img class="logo" src="/assets/logo/logo-dark.png" alt="Pyk Łyk">
+                  <img class="logo" src="../assets/logo/logo-dark.png" alt="Pyk Łyk">
                   <strong>PYK ŁYK DRINK BAR</strong>
                   <div>tel. <a href="tel:+48513595540">513 595 540</a></div>
                   <div><a href="mailto:${escapeAttribute(CONFIG.contactEmail)}">${escapeHtml(CONFIG.contactEmail)}</a></div>
