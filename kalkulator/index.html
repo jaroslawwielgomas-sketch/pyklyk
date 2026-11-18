@@ -2502,7 +2502,9 @@
         var place = [city, postcode, state].filter(Boolean).join(", ");
         var road = a.road || a.street, number = a.house_number || a.housenumber;
         var street = road && number ? road + " " + number + ", " : "";
-        return { label: street + place, key: [city,postcode,state].map(normalize).join("|"), hasPlace: Boolean(city), hasPostcode: Boolean(postcode), lat: result.lat || result.geometry?.coordinates?.[1], lon: result.lon || result.geometry?.coordinates?.[0] };
+        var venue = a.name || result.name || result.properties?.name || "";
+        var label = (venue ? venue + ", " : "") + street + place;
+        return { label: label, key: [venue,city,postcode,state].map(normalize).join("|"), hasPlace: Boolean(city), hasPostcode: Boolean(postcode), lat: result.lat || result.geometry?.coordinates?.[1], lon: result.lon || result.geometry?.coordinates?.[0] };
       }
       function resultsFromPhoton(data){ return (data.features || []).filter(function(result){var p=result.properties||{};return !p.countrycode||String(p.countrycode).toLowerCase()==="pl"}).map(function(result){return format(result,"photon");}); }
       function resultsFromNominatim(data){ return data.map(function(result){return format(result,"nominatim");}); }
