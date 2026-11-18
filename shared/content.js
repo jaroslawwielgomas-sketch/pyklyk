@@ -1,8 +1,8 @@
 /* =============================================================================
-   PYK ŁYK — WSPÓLNA TREŚĆ STRONY  (single source of truth)
+   PYK ŁYK - WSPÓLNA TREŚĆ STRONY  (single source of truth)
    -----------------------------------------------------------------------------
    To jest JEDYNE miejsce, w którym trzymamy treść, dane kontaktowe, menu, FAQ itd.
-   Wszystkie 4 wersje strony czytają dane stąd — zmiana tutaj = zmiana we wszystkich
+   Wszystkie 4 wersje strony czytają dane stąd - zmiana tutaj = zmiana we wszystkich
    wersjach naraz. Edytuj spokojnie teksty, telefon, linki, pozycje menu.
 
    ⚠  Aby zmienić coś na stronie, w 99% przypadków edytujesz właśnie ten plik,
@@ -12,7 +12,7 @@
 window.PYKLYK = {
 
   /* -------------------------------------------------------------------------
-     KONFIGURACJA / KONTAKT  — to co wyświetla się w nagłówku, stopce, przyciskach
+     KONFIGURACJA / KONTAKT  - to co wyświetla się w nagłówku, stopce, przyciskach
      ------------------------------------------------------------------------- */
   config: {
     brand:       "Pyk Łyk",
@@ -25,7 +25,7 @@ window.PYKLYK = {
     email:       "kontakt@pyklyk.pl",
     emailHref:   "mailto:kontakt@pyklyk.pl",
 
-    // Temat maila z formularza — WYMAGANY dokładnie w tej formie:
+    // Temat maila z formularza - WYMAGANY dokładnie w tej formie:
     formSubject: "Zapytanie ofertowe- strona internetowa PYK ŁYK",
 
     // Strona polityki prywatności (link przy checkboxie RODO). Strona serwowana z katalogu głównego.
@@ -39,15 +39,15 @@ window.PYKLYK = {
     },
 
     // Logo (ścieżki względem katalogu głównego strony). Wersje na jasnym tle
-    // używają logo-light, na ciemnym — logo-dark.
+    // używają logo-light, na ciemnym - logo-dark.
     logo: {
-      light:   "assets/logo/logo-light.png",   // czarny napis — na jasne tło
-      dark:    "assets/logo/logo-dark.png",     // biały napis — na ciemne tło
+      light:   "assets/logo/logo-light.png",   // czarny napis - na jasne tło
+      dark:    "assets/logo/logo-dark.png",     // biały napis - na ciemne tło
       favicon: "assets/logo/favicon.png"
     },
 
     area:        "Mazowieckie · Łódzkie · Lubelskie",
-    areaLong:    "Działamy głównie na Mazowszu oraz w województwie łódzkim i lubelskim — do ok. 150 km od Warszawy.",
+    areaLong:    "Działamy głównie na Mazowszu oraz w województwie łódzkim i lubelskim - do ok. 150 km od Warszawy.",
 
     social: {
       facebook:  "https://www.facebook.com/pyklyk",
@@ -57,7 +57,7 @@ window.PYKLYK = {
   },
 
   /* -------------------------------------------------------------------------
-     LICZNIKI (Hero / sekcja zaufania) — animowane liczby
+     LICZNIKI (Hero / sekcja zaufania) - animowane liczby
      ------------------------------------------------------------------------- */
   stats: [
     { value: 1000, suffix: "+", label: "zrealizowanych imprez" },
@@ -67,13 +67,13 @@ window.PYKLYK = {
   ],
 
   /* -------------------------------------------------------------------------
-     GŁÓWNE TEKSTY (Hero + wstępy sekcji) — wspólne dla wersji
+     GŁÓWNE TEKSTY (Hero + wstępy sekcji) - wspólne dla wersji
      ------------------------------------------------------------------------- */
   copy: {
     hero: {
       kicker:   "Profesjonalna obsługa barmańska",
       title:    "Barman na wesele i mobilny drink bar",
-      subtitle: "Mobilny bar, autorskie koktajle i barmani z pasją — sprawimy, że Twoje wesele lub event zapamiętają wszyscy goście.",
+      subtitle: "Mobilny bar, autorskie koktajle i barmani z pasją - sprawimy, że Twoje wesele lub event zapamiętają wszyscy goście.",
       ctaPrimary:   "Zapytaj o termin",
       ctaSecondary: "Zobacz ofertę"
     },
@@ -81,10 +81,10 @@ window.PYKLYK = {
     about: {
       kicker: "O nas",
       title:  "12 lat za barem. Ponad 1000 udanych imprez.",
-      lead:   "Jesteśmy zespołem doświadczonych barmanów, których łączy jedna pasja — tworzenie niezapomnianych koktajli.",
+      lead:   "Jesteśmy zespołem doświadczonych barmanów, których łączy jedna pasja - tworzenie niezapomnianych koktajli.",
       body: [
         "Od 12 lat jako Pyk Łyk tworzymy niezapomniane koktajle i wyjątkową atmosferę. Zapewniamy profesjonalną obsługę barmańską na weselach i eventach, działając głównie na terenie województw: mazowieckiego, lubelskiego i łódzkiego.",
-        "Pracujemy w pełni kompleksowo – po Twojej stronie zostaje jedynie przygotowanie 3–5 litrów czystej wódki. Całą logistyką (od zakupów, przez szkło, lód, dopasowane dekoracje, aż po sprzątanie) zajmujemy się my. Dysponujemy kilkoma doświadczonymi ekipami, co gwarantuje pełną niezawodność, nawet przy wielu realizacjach jednego dnia."
+        "Pracujemy w pełni kompleksowo - po Twojej stronie zostaje jedynie przygotowanie 3-5 litrów czystej wódki. Całą logistyką (od zakupów, przez szkło, lód, dopasowane dekoracje, aż po sprzątanie) zajmujemy się my. Dysponujemy kilkoma doświadczonymi ekipami, co gwarantuje pełną niezawodność, nawet przy wielu realizacjach jednego dnia."
       ],
       points: [
         "Kompleksowość: My organizujemy bar, Ty cieszysz się imprezą.",
@@ -101,13 +101,13 @@ window.PYKLYK = {
         {
           name: "Elegancki biały",
           material: "ekoskóra",
-          desc: "Nowoczesny, pikowany bar w bieli — pasuje do eleganckich sal weselnych i przyjęć w stylu glamour.",
+          desc: "Nowoczesny, pikowany bar w bieli - pasuje do eleganckich sal weselnych i przyjęć w stylu glamour.",
           image: "bar-white-01"
         },
         {
           name: "Stylowy drewniany",
           material: "naturalne drewno",
-          desc: "Ciepły, rustykalny bar z drewna — idealny na wesela w stodole, plenerze i przyjęcia w klimacie boho.",
+          desc: "Ciepły, rustykalny bar z drewna - idealny na wesela w stodole, plenerze i przyjęcia w klimacie boho.",
           image: "bar-wood-01"
         }
       ]
@@ -115,10 +115,10 @@ window.PYKLYK = {
 
     offer: {
       kicker: "Nasza oferta",
-      title:  "Kompleksowa obsługa — zajmujemy się wszystkim",
+      title:  "Kompleksowa obsługa - zajmujemy się wszystkim",
       lead:   "Jeden pakiet, a w nim wszystko, czego potrzeba, by bar działał bez zarzutu od pierwszego do ostatniego drinka.",
       note:   "Cena usługi zależy głównie od liczby gości i terminu. Obsługa barmańska jest wliczona w cenę.",
-      personalization: "To tylko punkt wyjścia — ofertę w pełni personalizujemy pod Twoje oczekiwania. Jesteśmy elastyczni i zawsze gotowi dopasować się w 100%."
+      personalization: "To tylko punkt wyjścia - ofertę w pełni personalizujemy pod Twoje oczekiwania. Jesteśmy elastyczni i zawsze gotowi dopasować się w 100%."
     },
 
     menu: {
@@ -147,16 +147,16 @@ window.PYKLYK = {
     contact: {
       kicker: "Kontakt",
       title:  "Zapytaj o wolny termin",
-      lead:   "Wypełnij formularz — odezwiemy się z indywidualną wyceną. Wolisz porozmawiać? Zadzwoń, chętnie doradzimy.",
+      lead:   "Wypełnij formularz - odezwiemy się z indywidualną wyceną. Wolisz porozmawiać? Zadzwoń, chętnie doradzimy.",
       formCta: "Wyślij zapytanie"
     }
   },
 
   /* -------------------------------------------------------------------------
-     CO WCHODZI W SKŁAD USŁUGI (oferta — bez cen)
+     CO WCHODZI W SKŁAD USŁUGI (oferta - bez cen)
      ------------------------------------------------------------------------- */
   included: [
-    { icon: "users",    title: "Dwóch barmanów",        desc: "Dwuosobowa obsługa barmańska — na miejscu 2 godziny przed startem, do 2:00 w nocy (z możliwością przedłużenia)." },
+    { icon: "users",    title: "Dwóch barmanów",        desc: "Dwuosobowa obsługa barmańska - na miejscu 2 godziny przed startem, do 2:00 w nocy (z możliwością przedłużenia)." },
     { icon: "bar",      title: "Mobilny bar",           desc: "Do wyboru elegancki biały z ekoskóry lub stylowy drewniany." },
     { icon: "tools",    title: "Pełne wyposażenie",     desc: "Profesjonalny sprzęt barmański oraz szkło dopasowane do każdego rodzaju drinka." },
     { icon: "ice",      title: "Lód",                   desc: "Lód w kostkach i kruszony, a na życzenie także suchy lód do efektownych dekoracji." },
@@ -173,7 +173,7 @@ window.PYKLYK = {
   },
 
   /* -------------------------------------------------------------------------
-     KARTA DRINKÓW  (skład wg oferty — bez cen)
+     KARTA DRINKÓW  (skład wg oferty - bez cen)
      ------------------------------------------------------------------------- */
   menu: {
     alcoholic: [
@@ -206,7 +206,7 @@ window.PYKLYK = {
   },
 
   /* -------------------------------------------------------------------------
-     PAKIETY DODATKOWE (bez cen — tylko skład)
+     PAKIETY DODATKOWE (bez cen - tylko skład)
      ------------------------------------------------------------------------- */
   packages: [
     {
@@ -252,7 +252,7 @@ window.PYKLYK = {
   ],
 
   /* -------------------------------------------------------------------------
-     OPINIE — źródłowe podsumowania publicznych opinii z profilu Wesele z Klasą.
+     OPINIE - źródłowe podsumowania publicznych opinii z profilu Wesele z Klasą.
      Nie są to fikcyjne cytaty; teksty są parafrazą najczęściej powtarzających się
      ocen klientów, z linkiem do źródła pod sekcją opinii.
      ------------------------------------------------------------------------- */
@@ -264,7 +264,7 @@ window.PYKLYK = {
   ],
 
   /* -------------------------------------------------------------------------
-     FAQ — najczęstsze pytania
+     FAQ - najczęstsze pytania
      ------------------------------------------------------------------------- */
   faq: [
     {
@@ -273,11 +273,11 @@ window.PYKLYK = {
     },
     {
       q: "Z jakim wyprzedzeniem najlepiej rezerwować termin?",
-      a: "Im wcześniej, tym lepiej — najlepsze terminy weselne (piątki i soboty w sezonie) rezerwują się z dużym wyprzedzeniem. Dysponujemy kilkoma ekipami barmańskimi, więc jesteśmy w stanie obsłużyć nawet kilka imprez tego samego dnia. Napisz lub zadzwoń, a sprawdzimy dostępność Twojej daty."
+      a: "Im wcześniej, tym lepiej - najlepsze terminy weselne (piątki i soboty w sezonie) rezerwują się z dużym wyprzedzeniem. Dysponujemy kilkoma ekipami barmańskimi, więc jesteśmy w stanie obsłużyć nawet kilka imprez tego samego dnia. Napisz lub zadzwoń, a sprawdzimy dostępność Twojej daty."
     },
     {
       q: "Jak wygląda rezerwacja terminu?",
-      a: "To naprawdę proste. Po akceptacji oferty, aby zarezerwować termin, wystarczy wypełnić i podpisać skan umowy — cały proces możemy załatwić w 100% online. Jesteśmy też gotowi spotkać się osobiście przy podpisaniu umowy. Zaliczka nie jest wymagana."
+      a: "To naprawdę proste. Po akceptacji oferty, aby zarezerwować termin, wystarczy wypełnić i podpisać skan umowy - cały proces możemy załatwić w 100% online. Jesteśmy też gotowi spotkać się osobiście przy podpisaniu umowy. Zaliczka nie jest wymagana."
     },
     {
       q: "Jakie imprezy obsługujecie?",
@@ -289,7 +289,7 @@ window.PYKLYK = {
     },
     {
       q: "Czy alkohol jest po Waszej stronie?",
-      a: "Tak — świadczymy usługę kompleksowo. Zapewniamy alkohole i likiery, soki, napoje, świeże owoce, lód, szkło i pełne wyposażenie baru. Po stronie Pary Młodej zostają zwykle jedynie 3–5 litrów czystej wódki. Resztą zajmujemy się my."
+      a: "Tak - świadczymy usługę kompleksowo. Zapewniamy alkohole i likiery, soki, napoje, świeże owoce, lód, szkło i pełne wyposażenie baru. Po stronie Pary Młodej zostają zwykle jedynie 3-5 litrów czystej wódki. Resztą zajmujemy się my."
     },
     {
       q: "Ile trwa obsługa i od kiedy jesteście na miejscu?",
@@ -297,19 +297,19 @@ window.PYKLYK = {
     },
     {
       q: "Czego potrzebujecie od sali, żeby postawić bar?",
-      a: "Wystarczy dostęp do prądu (gniazdko 230 V) oraz miejsce ok. 2×2 m na mobilny bar. Przy imprezach plenerowych prosimy o zadaszenie stanowiska. Bar dowozimy i składamy sami — transport jest wliczony w cenę."
+      a: "Wystarczy dostęp do prądu (gniazdko 230 V) oraz miejsce ok. 2×2 m na mobilny bar. Przy imprezach plenerowych prosimy o zadaszenie stanowiska. Bar dowozimy i składamy sami - transport jest wliczony w cenę."
     },
     {
       q: "Kto zajmuje się myciem i zbieraniem szkła?",
-      a: "Zawsze staramy się dostosować do polityki sali, w której wykonujemy usługę. Jeśli sala pomaga w zbieraniu i myciu szkła, jest to dla nas duże ułatwienie. Jeśli nie ma takiej możliwości, serwisem szkła — zbieraniem i myciem — zajmujemy się w pełni sami."
+      a: "Zawsze staramy się dostosować do polityki sali, w której wykonujemy usługę. Jeśli sala pomaga w zbieraniu i myciu szkła, jest to dla nas duże ułatwienie. Jeśli nie ma takiej możliwości, serwisem szkła - zbieraniem i myciem - zajmujemy się w pełni sami."
     },
     {
       q: "Czy menu i ofertę można personalizować?",
-      a: "Oczywiście. Standardowa karta to punkt wyjścia — chętnie przygotujemy koktajle spoza menu i dopasujemy ofertę do motywu przewodniego Waszej imprezy. Dla Pary Młodej mamy też welcome drink w prezencie."
+      a: "Oczywiście. Standardowa karta to punkt wyjścia - chętnie przygotujemy koktajle spoza menu i dopasujemy ofertę do motywu przewodniego Waszej imprezy. Dla Pary Młodej mamy też welcome drink w prezencie."
     },
     {
       q: "Ile kosztuje obsługa baru?",
-      a: "Cena zależy przede wszystkim od liczby gości i terminu imprezy — dlatego przygotowujemy indywidualną wycenę. Wyślij zapytanie przez formularz lub zadzwoń pod 513 595 540, a szybko przedstawimy propozycję."
+      a: "Cena zależy przede wszystkim od liczby gości i terminu imprezy - dlatego przygotowujemy indywidualną wycenę. Wyślij zapytanie przez formularz lub zadzwoń pod 513 595 540, a szybko przedstawimy propozycję."
     },
     {
       q: "Gdzie dojeżdża Wasz mobilny drink bar i w jakich miastach obsługujecie wesela?",
@@ -350,7 +350,7 @@ window.PYKLYK = {
   ],
 
   /* -------------------------------------------------------------------------
-     WOJEWÓDZTWA (dropdown w formularzu — lokalizacja)
+     WOJEWÓDZTWA (dropdown w formularzu - lokalizacja)
      ------------------------------------------------------------------------- */
   voivodeships: [
     "mazowieckie", "łódzkie", "lubelskie", "świętokrzyskie", "podlaskie",
@@ -360,7 +360,7 @@ window.PYKLYK = {
   ],
 
   /* -------------------------------------------------------------------------
-     MAPA ZDJĘĆ  — role semantyczne → nazwy plików w assets/img/
+     MAPA ZDJĘĆ  - role semantyczne → nazwy plików w assets/img/
      (bez rozszerzenia; helper poda .webp z fallbackiem .jpg)
      ------------------------------------------------------------------------- */
   images: {
