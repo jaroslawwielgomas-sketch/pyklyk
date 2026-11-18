@@ -506,7 +506,7 @@
       }).join("");
     }
     function card(id, title, data, premium) {
-      return '<section class="pl-menu__card' + (premium ? ' pl-menu__card--premium' : '') + '" data-card-panel="' + id + '">' +
+      return '<section class="pl-menu__card' + (id === "standard" ? ' is-active' : '') + (premium ? ' pl-menu__card--premium' : '') + '" data-card-panel="' + id + '">' +
         '<div class="pl-menu__card-title">' + title + (premium ? ' <span class="pl-menu__premium-badge">premium</span>' : '') + '</div>' +
         '<div class="pl-menu__tabs" role="tablist">' +
           groups.map(function (g, i) {
