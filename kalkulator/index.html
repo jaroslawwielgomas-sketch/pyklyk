@@ -2483,7 +2483,10 @@
       var field = input.closest(".pyk-field");
       if (!field) return;
       field.classList.add("pyk-location-field");
-      var inputWrap = input.closest(".pyk-location-input-wrap") || input.parentElement;
+      var inputWrap = document.createElement("div");
+      inputWrap.className = "pyk-location-input-wrap";
+      input.parentNode.insertBefore(inputWrap, input);
+      inputWrap.appendChild(input);
       var list = document.createElement("ul");
       list.className = "pyk-location-suggestions";
       list.setAttribute("role", "listbox");
@@ -2558,7 +2561,7 @@
           try{
             var results=[];
             try{results=await photon(query,controller.signal)}catch(error){if(error.name==="AbortError")throw error}
-            if(!results.length){try{results=await nominatim(query,controller.signal)}catch(error){if(error.name==="AbortError")throw error}}
+            try{results=results.concat(await nominatim(query,controller.signal))}catch(error){if(error.name==="AbortError")throw error}
             showResults(results);
           }catch(error){
             if(error.name!=="AbortError"){list.innerHTML='<li class="pyk-location-empty">Nie udało się pobrać podpowiedzi. Wpisz miejscowość ręcznie.</li>';list.classList.add("is-visible")}
