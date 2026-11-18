@@ -6,6 +6,9 @@
   <title>Kalkulator ceny drink baru na wesele - wycena | Pyk Łyk</title>
   <meta name="description" content="Sprawdź orientacyjny koszt mobilnego drink baru na swoje wesele. Wybierz szczegóły wydarzenia i poznaj cenę online.">
   <link rel="canonical" href="https://pyklyk.pl/kalkulator/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Caveat:wght@600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/logo/favicon.png">
   <style>
@@ -983,6 +986,47 @@
       .pyk-summary, .pyk-panel, .pyk-menu, .pyk-proof { box-shadow: none; }
       .pyk-actions, .pyk-modal { display: none !important; }
     }
+  </style>
+  <style id="homepage-visual-style">
+    :root{
+      --pyk-font:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+      --pyk-font-display:"DM Serif Display",Georgia,"Times New Roman",serif;
+      --pyk-bg:#f5efe5;--pyk-surface:#fffdf9;--pyk-ink:#263746;--pyk-muted:#756d63;
+      --pyk-line:#d8c9b0;--pyk-gold:#a87b3f;--pyk-gold-dark:#72522e;--pyk-soft:#eee3d2;
+      --pyk-shadow:0 18px 44px rgba(91,67,42,.12);--pyk-radius:18px;
+    }
+    body{background:radial-gradient(circle at 8% 0,rgba(202,164,103,.16),transparent 28rem),linear-gradient(135deg,#fffdf9 0%,var(--pyk-bg) 62%,#ede2d1 100%);font-family:var(--pyk-font);color:var(--pyk-ink)}
+    h1,h2,h3,h4,.pyk-heading,.pyk-legend,.pyk-summary h2{font-family:var(--pyk-font-display);font-weight:400;letter-spacing:.01em}
+    .pyk-calculator{padding-top:34px}
+    .pyk-back-home{font-weight:700;color:var(--pyk-gold-dark);transition:transform .25s ease,color .25s ease}
+    .pyk-back-home:hover{transform:translateX(-4px);color:var(--pyk-gold)}
+    .pyk-panel,.pyk-summary,.pyk-menu,.pyk-proof{border-radius:24px;border-color:rgba(216,201,176,.9);box-shadow:var(--pyk-shadow)}
+    .pyk-panel{padding:24px;background:rgba(255,253,249,.9)}
+    .pyk-brand-top{padding-bottom:20px;margin-bottom:22px;border-bottom-color:rgba(216,201,176,.72)}
+    .pyk-logo{width:142px}
+    .pyk-heading{font-size:clamp(2.3rem,6vw,4.5rem);line-height:.96}
+    .pyk-eyebrow{font-family:"Caveat",cursive;text-transform:none;letter-spacing:.01em;font-size:1.35rem;color:var(--pyk-gold-dark)}
+    .pyk-fieldset{border-radius:18px;border-color:rgba(216,201,176,.85);background:rgba(255,255,255,.56);padding:20px}
+    .pyk-legend{font-size:1.35rem;color:var(--pyk-ink)}
+    .pyk-input{border-radius:12px;border-color:#d8c9b0;transition:border-color .22s,box-shadow .22s,transform .22s,background .22s}
+    .pyk-input:focus{border-color:var(--pyk-gold);box-shadow:0 0 0 4px rgba(168,123,63,.14);transform:translateY(-1px)}
+    .pyk-bar-card,.pyk-package-card{border-radius:18px;border-color:#d8c9b0;transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .25s,box-shadow .3s}
+    .pyk-bar-card:hover,.pyk-package-card:hover{transform:translateY(-5px);box-shadow:0 18px 34px rgba(91,67,42,.13)}
+    .pyk-bar-card:has(input:checked),.pyk-package-card:has(input:checked){border-color:var(--pyk-gold);box-shadow:0 0 0 3px rgba(168,123,63,.18),0 18px 38px rgba(91,67,42,.13)}
+    .pyk-button{border-radius:999px;font-family:var(--pyk-font);font-weight:700;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s}
+    .pyk-button:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(91,67,42,.14)}
+    .pyk-button-primary{background:var(--pyk-gold-dark);border-color:var(--pyk-gold-dark)}
+    .pyk-button-primary:hover{background:#5e4325}
+    .pyk-button-secondary,.pyk-button-quiet{border-color:var(--pyk-gold);color:var(--pyk-gold-dark)}
+    .pyk-summary{background:rgba(255,253,249,.94)}
+    .pyk-menu-summary{border-radius:18px;transition:background .25s,transform .25s,box-shadow .25s}
+    .pyk-menu-summary:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(91,67,42,.1)}
+    .pyk-menu-icon{color:var(--pyk-gold-dark);filter:drop-shadow(0 3px 3px rgba(91,67,42,.12));transition:transform .35s ease}
+    details[open] .pyk-menu-icon{transform:rotate(-4deg) scale(1.05)}
+    .pyk-package-details[open] .pyk-drink-list,.pyk-all-best-menu[open] .pyk-menu-items{animation:homepageReveal .45s ease both}
+    @keyframes homepageReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .pyk-summary.is-ready{animation:homepageReveal .5s ease both}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
   </style>
 </head>
 <body>
