@@ -495,9 +495,9 @@
     var t = el(target); if (!t) return;
     var m = C.menu;
     var groups = [
-      { key: "alc",  label: "Alkoholowe",   items: m.alcoholic },
-      { key: "non",  label: "Bezalkoholowe",items: m.nonAlcoholic },
-      { key: "shot", label: "Shoty",        items: m.shots }
+      { key: "alc", label: "Alkoholowe", itemsKey: "alcoholic" },
+      { key: "non", label: "Bezalkoholowe", itemsKey: "nonAlcoholic" },
+      { key: "shot", label: "Shoty", itemsKey: "shots" }
     ];
     function items(arr) {
       return arr.map(function (d) {
@@ -505,29 +505,54 @@
           '</span><span class="pl-menu__ing">' + ing(d.ingredients) + "</span></li>";
       }).join("");
     }
+    function card(id, title, data, premium) {
+      return '<section class="pl-menu__card' + (premium ? ' pl-menu__card--premium' : '') + '" data-card-panel="' + id + '">' +
+        '<div class="pl-menu__card-title">' + title + (premium ? ' <span class="pl-menu__premium-badge">premium</span>' : '') + '</div>' +
+        '<div class="pl-menu__tabs" role="tablist">' +
+          groups.map(function (g, i) {
+            var arr = data[g.itemsKey] || [];
+            return '<button class="pl-menu__tab' + (i === 0 ? " is-active" : "") + '" role="tab" data-tab="' + id + '-' + g.key + '">' +
+              g.label + ' <span class="pl-menu__count">' + arr.length + "</span></button>";
+          }).join("") +
+        "</div><div class="pl-menu__panels">" +
+          groups.map(function (g, i) {
+            var arr = data[g.itemsKey] || [];
+            return '<div class="pl-menu__panel' + (i === 0 ? " is-active" : "") + '" data-panel="' + id + '-' + g.key + '">' +
+              '<ul class="pl-menu__list">' + items(arr) + "</ul></div>";
+          }).join("") +
+        "</div></section>";
+    }
+    var premium = m.allBest || m;
     t.innerHTML = '<div class="pl-menu">' +
-      '<div class="pl-menu__tabs" role="tablist">' +
-        groups.map(function (g, i) {
-          return '<button class="pl-menu__tab' + (i === 0 ? " is-active" : "") + '" role="tab" data-tab="' + g.key + '">' +
-            g.label + ' <span class="pl-menu__count">' + g.items.length + "</span></button>";
-        }).join("") +
-      "</div>" +
-      '<div class="pl-menu__panels">' +
-        groups.map(function (g, i) {
-          return '<div class="pl-menu__panel' + (i === 0 ? " is-active" : "") + '" data-panel="' + g.key + '">' +
-            '<ul class="pl-menu__list">' + items(g.items) + "</ul></div>";
-        }).join("") +
-      "</div></div>";
-    // interakcja zakładek
-    var tabs = t.querySelectorAll(".pl-menu__tab");
-    var panels = t.querySelectorAll(".pl-menu__panel");
-    tabs.forEach(function (tab) {
+      '<div class="pl-menu__card-tabs" role="tablist">' +
+        '<button class="pl-menu__card-tab is-active" data-card-tab="standard">Karta drinków - Standard</button>' +
+        '<button class="pl-menu__card-tab" data-card-tab="allbest">Karta drinków - All The Best</button>' +
+      '</div>' +
+      card("standard", "Karta drinków - Standard", m, false) +
+      card("allbest", "Karta drinków - All The Best", premium, true) +
+      "</div>";
+    var cardTabs = t.querySelectorAll(".pl-menu__card-tab");
+    var cardPanels = t.querySelectorAll("[data-card-panel]");
+    cardTabs.forEach(function (tab) {
       tab.addEventListener("click", function () {
-        tabs.forEach(function (x) { x.classList.remove("is-active"); });
-        panels.forEach(function (x) { x.classList.remove("is-active"); });
+        cardTabs.forEach(function (x) { x.classList.remove("is-active"); });
+        cardPanels.forEach(function (x) { x.classList.remove("is-active"); });
         tab.classList.add("is-active");
-        var p = t.querySelector('.pl-menu__panel[data-panel="' + tab.getAttribute("data-tab") + '"]');
+        var p = t.querySelector('[data-card-panel="' + tab.getAttribute("data-card-tab") + '"]');
         if (p) p.classList.add("is-active");
+      });
+    });
+    t.querySelectorAll("[data-card-panel]").forEach(function (panel) {
+      var tabs = panel.querySelectorAll(".pl-menu__tab");
+      var panels = panel.querySelectorAll(".pl-menu__panel");
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          tabs.forEach(function (x) { x.classList.remove("is-active"); });
+          panels.forEach(function (x) { x.classList.remove("is-active"); });
+          tab.classList.add("is-active");
+          var p = panel.querySelector('[data-panel="' + tab.getAttribute("data-tab") + '"]');
+          if (p) p.classList.add("is-active");
+        });
       });
     });
   };
