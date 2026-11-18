@@ -1241,8 +1241,8 @@
             <strong class="pyk-proof-rating-line"><span class="pyk-proof-stars" aria-hidden="true">★★★★★</span> 5,00/5 · 149 opinii</strong>
           </div>
           <div class="pyk-testimonial" id="testimonialBox" aria-live="polite">
-            <blockquote id="testimonialQuote"></blockquote>
-            <cite id="testimonialAuthor"></cite>
+            <blockquote id="testimonialQuote">„Fantastyczne drinki, eleganckie serwowanie i sprawna obsługa - goście przez całe wesele chętnie wracali do baru.”</blockquote>
+            <cite id="testimonialAuthor">Olaf i Agata - Wesele, Warszawa</cite>
           </div>
           <div class="pyk-proof-dots" id="testimonialDots" aria-label="Wybierz opinię"></div>
           <div class="pyk-proof-source">
@@ -2450,7 +2450,15 @@
                 <p>E-mail: <a href="mailto:${escapeAttribute(CONFIG.contactEmail)}">${escapeHtml(CONFIG.contactEmail)}</a></p>
               </section>
             </main>
-            <script>
+          
+</body>
+          </html>`;
+      }
+
+      init();
+    })();
+  </script>
+  <script>
     (function () {
       var input = document.querySelector("#eventLocation");
       if (!input) return;
@@ -2465,62 +2473,53 @@
       help.className = "pyk-location-help";
       help.textContent = "Wybierz konkretny adres z podpowiedzi, aby dokładnie obliczyć dystans.";
       input.insertAdjacentElement("afterend", help);
-      var timer = null;
-      var controller = null;
+      var timer = null, controller = null;
       function closeList(){ list.innerHTML = ""; list.classList.remove("is-visible"); }
       function label(result){
-        var a = result.address || {};
-        var parts = [a.road && ((a.house_number ? a.road + " " + a.house_number : a.road)), a.postcode, a.city || a.town || a.village || a.municipality, a.state].filter(Boolean);
-        return parts.join(", ") || result.display_name;
+        var a = result.address || result.properties || {};
+        var road = a.road || a.street;
+        var number = a.house_number || a.housenumber;
+        var city = a.city || a.town || a.village || a.municipality;
+        var state = a.state || a.state_district;
+        var parts = [road && (number ? road + " " + number : road), a.postcode, city, state].filter(Boolean);
+        return parts.join(", ") || result.display_name || result.properties?.name || "";
       }
       function showResults(results){
         list.innerHTML = "";
         results.slice(0,6).forEach(function(result){
-          var item = document.createElement("li");
-          var button = document.createElement("button");
-          button.type = "button";
-          button.className = "pyk-location-suggestion";
-          button.setAttribute("role","option");
-          button.textContent = label(result);
-          button.addEventListener("mousedown", function(event){ event.preventDefault(); });
-          button.addEventListener("click", function(){
-            input.value = label(result);
-            input.dataset.latitude = result.lat;
-            input.dataset.longitude = result.lon;
-            input.dataset.locationSelected = "true";
+          var item=document.createElement("li"), button=document.createElement("button");
+          button.type="button"; button.className="pyk-location-suggestion"; button.setAttribute("role","option");
+          button.textContent=label(result);
+          button.addEventListener("mousedown",function(e){e.preventDefault()});
+          button.addEventListener("click",function(){
+            input.value=label(result); input.dataset.latitude=result.lat || result.geometry?.coordinates?.[1];
+            input.dataset.longitude=result.lon || result.geometry?.coordinates?.[0]; input.dataset.locationSelected="true";
             closeList();
           });
           item.appendChild(button); list.appendChild(item);
         });
-        list.classList.toggle("is-visible", results.length > 0);
+        list.classList.toggle("is-visible",results.length>0);
       }
-      input.addEventListener("input", function(){
-        input.dataset.locationSelected = "false";
-        delete input.dataset.latitude; delete input.dataset.longitude;
-        var query = input.value.trim();
-        clearTimeout(timer); if (controller) controller.abort();
-        if (query.length < 3){ closeList(); return; }
-        timer = setTimeout(async function(){
-          controller = new AbortController();
-          try{
-            var url = new URL("https://nominatim.openstreetmap.org/search");
-            url.searchParams.set("format","jsonv2"); url.searchParams.set("addressdetails","1");
-            url.searchParams.set("countrycodes","pl"); url.searchParams.set("limit","6");
-            url.searchParams.set("accept-language","pl"); url.searchParams.set("q",query);
-            var response = await fetch(url,{headers:{"Accept":"application/json","Accept-Language":"pl"},signal:controller.signal});
-            if (!response.ok) throw new Error("autocomplete");
-            showResults(await response.json());
-          }catch(error){ if(error.name !== "AbortError") closeList(); }
-        },350);
+      async function search(query,signal){
+        var url=new URL("https://nominatim.openstreetmap.org/search");
+        url.searchParams.set("format","jsonv2"); url.searchParams.set("addressdetails","1");
+        url.searchParams.set("countrycodes","pl"); url.searchParams.set("limit","6");
+        url.searchParams.set("accept-language","pl"); url.searchParams.set("q",query);
+        var response=await fetch(url,{headers:{"Accept":"application/json","Accept-Language":"pl"},signal:signal});
+        if(!response.ok) throw new Error("nominatim");
+        return response.json();
+      }
+      input.addEventListener("input",function(){
+        input.dataset.locationSelected="false"; delete input.dataset.latitude; delete input.dataset.longitude;
+        var query=input.value.trim(); clearTimeout(timer); if(controller) controller.abort();
+        if(query.length<3){closeList();return}
+        timer=setTimeout(async function(){
+          controller=new AbortController();
+          try{showResults(await search(query,controller.signal))}
+          catch(error){if(error.name!=="AbortError")closeList()}
+        },300);
       });
-      document.addEventListener("click", function(event){ if(!field.contains(event.target)) closeList(); });
-    })();
-  </script>
-</body>
-          </html>`;
-      }
-
-      init();
+      document.addEventListener("click",function(e){if(!field.contains(e.target))closeList()});
     })();
   </script>
 </body>
