@@ -2488,73 +2488,49 @@
       list.className = "pyk-location-suggestions";
       list.setAttribute("role", "listbox");
       inputWrap.appendChild(list);
-      var help = document.createElement("small");
-      help.className = "pyk-location-help";
-      help.textContent = "Wpisz miejscowość, ulicę i numer, a następnie wybierz dokładny adres z listy.";
-      inputWrap.appendChild(help);
       var timer = null, controller = null;
       function closeList(){ list.innerHTML = ""; list.classList.remove("is-visible"); }
       function normalize(value){ return String(value || "").toLowerCase().replace(/[^a-z0-9ąćęłńóśźż]/gi,""); }
       function format(result, source){
         var a = source === "photon" ? (result.properties || {}) : (result.address || {});
-        var road = a.road || a.street;
-        var number = a.house_number || a.housenumber;
         var postcode = a.postcode || a.postalcode;
         var city = a.city || a.town || a.village || a.municipality || a.county;
         var state = a.state || a.state_district;
-        var exact = Boolean(road && number);
-        var parts = [road && (number ? road + " " + number : road), postcode, city, state].filter(Boolean);
-        var label = parts.join(", ");
-        if (!label) label = result.display_name || [a.name, city, state].filter(Boolean).join(", ");
-        return { label: label, exact: exact, postcode: postcode, city: city, state: state, lat: result.lat || result.geometry?.coordinates?.[1], lon: result.lon || result.geometry?.coordinates?.[0] };
+        var place = [city, postcode, state].filter(Boolean).join(", ");
+        var road = a.road || a.street, number = a.house_number || a.housenumber;
+        var street = road && number ? road + " " + number + ", " : "";
+        return { label: street + place, key: [city,postcode,state].map(normalize).join("|"), hasPlace: Boolean(city), hasPostcode: Boolean(postcode), lat: result.lat || result.geometry?.coordinates?.[1], lon: result.lon || result.geometry?.coordinates?.[0] };
       }
-      function resultsFromPhoton(data){
-        return (data.features || []).filter(function(result){
-          var p=result.properties || {};
-          return !p.countrycode || String(p.countrycode).toLowerCase() === "pl";
-        }).map(function(result){ return format(result,"photon"); });
-      }
-      function resultsFromNominatim(data){ return data.map(function(result){ return format(result,"nominatim"); }); }
+      function resultsFromPhoton(data){ return (data.features || []).filter(function(result){var p=result.properties||{};return !p.countrycode||String(p.countrycode).toLowerCase()==="pl"}).map(function(result){return format(result,"photon");}); }
+      function resultsFromNominatim(data){ return data.map(function(result){return format(result,"nominatim");}); }
       function uniqueSorted(results){
         var seen={};
         return results.filter(function(result){
-          var key=normalize(result.label);
-          if(!key || seen[key]) return false;
-          seen[key]=true; return true;
+          if(!result.hasPlace) return false;
+          var key=result.key || normalize(result.label);
+          if(seen[key]) return false; seen[key]=true; return true;
         }).sort(function(a,b){
-          return Number(b.exact)-Number(a.exact) ||
-            Number(Boolean(b.postcode))-Number(Boolean(a.postcode)) ||
-            Number(String(b.state||"").toLowerCase().includes("mazowieck"))-
-            Number(String(a.state||"").toLowerCase().includes("mazowieck"));
+          return Number(b.hasPostcode)-Number(a.hasPostcode) ||
+            Number(String(b.label).toLowerCase().includes("mazowieck"))-
+            Number(String(a.label).toLowerCase().includes("mazowieck"));
         }).slice(0,6);
       }
       function showResults(results){
         list.innerHTML="";
         var usable=uniqueSorted(results);
         if(!usable.length){
-          var empty=document.createElement("li");
-          empty.className="pyk-location-empty";
-          empty.textContent="Nie znaleziono dokładnego adresu. Dopisz ulicę i numer.";
-          list.appendChild(empty);
-          list.classList.add("is-visible");
-          return;
+          list.innerHTML='<li class="pyk-location-empty">Nie znaleziono miejscowości. Spróbuj wpisać nazwę lub kod pocztowy.</li>';
+          list.classList.add("is-visible"); return;
         }
         usable.forEach(function(result){
-          var item=document.createElement("li");
-          if(!result.exact){
-            item.className="pyk-location-empty";
-            item.textContent=result.label+" - dopisz ulicę i numer";
-          }else{
-            var button=document.createElement("button");
-            button.type="button"; button.className="pyk-location-suggestion"; button.setAttribute("role","option");
-            button.textContent=result.label;
-            button.addEventListener("mousedown",function(event){event.preventDefault()});
-            button.addEventListener("click",function(){
-              input.value=result.label; input.dataset.latitude=result.lat; input.dataset.longitude=result.lon; input.dataset.locationSelected="true"; closeList();
-            });
-            item.appendChild(button);
-          }
-          list.appendChild(item);
+          var item=document.createElement("li"), button=document.createElement("button");
+          button.type="button"; button.className="pyk-location-suggestion"; button.setAttribute("role","option");
+          button.textContent=result.label + (result.hasPostcode ? "" : " - kod pocztowy niedostępny");
+          button.addEventListener("mousedown",function(event){event.preventDefault()});
+          button.addEventListener("click",function(){
+            input.value=result.label; input.dataset.latitude=result.lat; input.dataset.longitude=result.lon; input.dataset.locationSelected="true"; closeList();
+          });
+          item.appendChild(button); list.appendChild(item);
         });
         list.classList.add("is-visible");
       }
@@ -2576,20 +2552,18 @@
       input.addEventListener("input",function(){
         input.dataset.locationSelected="false"; delete input.dataset.latitude; delete input.dataset.longitude;
         var query=input.value.trim(); clearTimeout(timer); if(controller) controller.abort();
-        if(query.length<3){closeList();return}
+        if(query.length<2){closeList();return}
         timer=setTimeout(async function(){
           controller=new AbortController();
           try{
             var results=[];
             try{results=await photon(query,controller.signal)}catch(error){if(error.name==="AbortError")throw error}
-            if(!results.some(function(result){return result.exact})) {
-              try{results=results.concat(await nominatim(query,controller.signal))}catch(error){if(error.name==="AbortError")throw error}
-            }
+            if(!results.length){try{results=await nominatim(query,controller.signal)}catch(error){if(error.name==="AbortError")throw error}}
             showResults(results);
           }catch(error){
-            if(error.name!=="AbortError"){list.innerHTML='<li class="pyk-location-empty">Dopisz ulicę i numer, aby znaleźć dokładny adres.</li>';list.classList.add("is-visible")}
+            if(error.name!=="AbortError"){list.innerHTML='<li class="pyk-location-empty">Nie udało się pobrać podpowiedzi. Wpisz miejscowość ręcznie.</li>';list.classList.add("is-visible")}
           }
-        },180);
+        },160);
       });
       document.addEventListener("click",function(event){if(!field.contains(event.target))closeList()});
     })();
