@@ -577,7 +577,7 @@
       "Dolce Vita": "Lekkie i świeże koktajle na bazie prosecco, idealne na eleganckie przyjęcia.",
       "Gentlemen's Club": "Klasyczne, mocniejsze smaki dla miłośników whisky.",
       "Meister’s Selection": "Wyraziste drinki z jägermeisterem i energetycznym charakterem.",
-      "Fruity Star Selection": "Kolorowe, owocowe koktajle, które przyciągają wzrok i smakują wyjątkowo."
+      "Fruit Star Selection": "Kolorowe, owocowe koktajle, które przyciągają wzrok i smakują wyjątkowo."
     };
     t.innerHTML = C.packages.map(function (p, i) {
       return '<article class="pl-pkg" data-reveal data-reveal-delay="' + i + '">' +
