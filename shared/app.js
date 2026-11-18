@@ -494,10 +494,28 @@
   PL.renderMenu = function (target) {
     var t = el(target); if (!t) return;
     var m = C.menu;
+    var premium = {
+      alcoholic: [
+        { name: "Aperol Spritz", ingredients: ["aperol", "prosecco", "woda gazowana"] },
+        { name: "Porn star martini", ingredients: ["wódka", "syrop waniliowy", "przecier z marakui", "limonka", "shot prosecco"] },
+        { name: "Whisky Sour", ingredients: ["whisky", "białko", "angostura", "sok z cytryny"] },
+        { name: "Mojito", ingredients: ["rum", "woda gazowana", "mięta", "limonka", "cukier brązowy"] },
+        { name: "Sex on the beach", ingredients: ["wódka", "likier brzoskwiniowy", "sok pomarańczowy", "sok żurawinowy"] },
+        { name: "Hugo", ingredients: ["limonka", "mięta", "prosecco", "syrop z czarnego bzu", "woda gazowana"] },
+        { name: "Cuba libre", ingredients: ["rum", "cola", "limonka"] },
+        { name: "Jamaica", ingredients: ["malibu", "wódka", "sok pomarańczowy", "sok ananasowy", "blue curacao", "grenadina"] },
+        { name: "Margarita", ingredients: ["Tequila", "Triple Sec", "sok z cytryny"] },
+        { name: "Gin & Tonic", ingredients: ["gin", "tonic"] },
+        { name: "Blue lagoon", ingredients: ["sprite", "sok z cytryny", "blue curacao", "wódka"] },
+        { name: "Pina colada", ingredients: ["rum", "malibu", "sok ananasowy", "śmietanka"] }
+      ],
+      nonAlcoholic: m.nonAlcoholic,
+      shots: m.shots
+    };
     var groups = [
-      { key: "alc",  label: "Alkoholowe",   items: m.alcoholic },
-      { key: "non",  label: "Bezalkoholowe",items: m.nonAlcoholic },
-      { key: "shot", label: "Shoty",        items: m.shots }
+      { key: "alc", label: "Alkoholowe", field: "alcoholic" },
+      { key: "non", label: "Bezalkoholowe", field: "nonAlcoholic" },
+      { key: "shot", label: "Shoty", field: "shots" }
     ];
     function items(arr) {
       return arr.map(function (d) {
@@ -505,29 +523,50 @@
           '</span><span class="pl-menu__ing">' + ing(d.ingredients) + "</span></li>";
       }).join("");
     }
+    function card(id, title, data, premiumCard) {
+      return '<section class="pl-menu__card' + (id === "standard" ? " is-active" : "") + '" data-menu-card="' + id + '">' +
+        '<h3 class="pl-menu__card-title">' + title + (premiumCard ? ' <span class="pl-menu__premium-label">premium</span>' : '') + "</h3>" +
+        '<div class="pl-menu__tabs" role="tablist">' +
+        groups.map(function (g, i) {
+          var arr = data[g.field] || [];
+          return '<button class="pl-menu__tab' + (i === 0 ? " is-active" : "") + '" role="tab" data-menu-tab="' + id + '-' + g.key + '">' +
+            g.label + ' <span class="pl-menu__count">' + arr.length + "</span></button>";
+        }).join("") + "</div>" +
+        '<div class="pl-menu__panels">' +
+        groups.map(function (g, i) {
+          var arr = data[g.field] || [];
+          return '<div class="pl-menu__panel' + (i === 0 ? " is-active" : "") + '" data-menu-panel="' + id + '-' + g.key + '">' +
+            '<ul class="pl-menu__list">' + items(arr) + "</ul></div>";
+        }).join("") + "</div></section>";
+    }
     t.innerHTML = '<div class="pl-menu">' +
-      '<div class="pl-menu__tabs" role="tablist">' +
-        groups.map(function (g, i) {
-          return '<button class="pl-menu__tab' + (i === 0 ? " is-active" : "") + '" role="tab" data-tab="' + g.key + '">' +
-            g.label + ' <span class="pl-menu__count">' + g.items.length + "</span></button>";
-        }).join("") +
-      "</div>" +
-      '<div class="pl-menu__panels">' +
-        groups.map(function (g, i) {
-          return '<div class="pl-menu__panel' + (i === 0 ? " is-active" : "") + '" data-panel="' + g.key + '">' +
-            '<ul class="pl-menu__list">' + items(g.items) + "</ul></div>";
-        }).join("") +
-      "</div></div>";
-    // interakcja zakładek
-    var tabs = t.querySelectorAll(".pl-menu__tab");
-    var panels = t.querySelectorAll(".pl-menu__panel");
-    tabs.forEach(function (tab) {
+      '<div class="pl-menu__card-tabs" role="tablist">' +
+      '<button class="pl-menu__card-tab is-active" data-menu-card-tab="standard">Karta drinków - Standard</button>' +
+      '<button class="pl-menu__card-tab" data-menu-card-tab="allbest">Karta drinków - All The Best</button>' +
+      "</div>" + card("standard", "Karta drinków - Standard", m, false) +
+      card("allbest", "Karta drinków - All The Best", premium, true) + "</div>";
+    var cardTabs = t.querySelectorAll("[data-menu-card-tab]");
+    var cards = t.querySelectorAll("[data-menu-card]");
+    cardTabs.forEach(function (tab) {
       tab.addEventListener("click", function () {
-        tabs.forEach(function (x) { x.classList.remove("is-active"); });
-        panels.forEach(function (x) { x.classList.remove("is-active"); });
+        cardTabs.forEach(function (x) { x.classList.remove("is-active"); });
+        cards.forEach(function (x) { x.classList.remove("is-active"); });
         tab.classList.add("is-active");
-        var p = t.querySelector('.pl-menu__panel[data-panel="' + tab.getAttribute("data-tab") + '"]');
-        if (p) p.classList.add("is-active");
+        var cardNode = t.querySelector('[data-menu-card="' + tab.getAttribute("data-menu-card-tab") + '"]');
+        if (cardNode) cardNode.classList.add("is-active");
+      });
+    });
+    t.querySelectorAll("[data-menu-card]").forEach(function (cardNode) {
+      var tabs = cardNode.querySelectorAll("[data-menu-tab]");
+      var panels = cardNode.querySelectorAll("[data-menu-panel]");
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          tabs.forEach(function (x) { x.classList.remove("is-active"); });
+          panels.forEach(function (x) { x.classList.remove("is-active"); });
+          tab.classList.add("is-active");
+          var panel = cardNode.querySelector('[data-menu-panel="' + tab.getAttribute("data-menu-tab") + '"]');
+          if (panel) panel.classList.add("is-active");
+        });
       });
     });
   };
