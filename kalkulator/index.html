@@ -2540,6 +2540,7 @@
       async function photon(query,signal){
         var url=new URL("https://photon.komoot.io/api/");
         url.searchParams.set("q",query); url.searchParams.set("limit","10"); url.searchParams.set("lang","pl");
+        url.searchParams.set("lat","52.2297"); url.searchParams.set("lon","21.0122");
         var response=await fetch(url,{headers:{"Accept":"application/json"},signal:signal});
         if(!response.ok) throw new Error("photon");
         return resultsFromPhoton(await response.json());
@@ -2562,7 +2563,6 @@
             var results=[];
             try{results=await photon(query,controller.signal)}catch(error){if(error.name==="AbortError")throw error}
             try{results=results.concat(await nominatim(query,controller.signal))}catch(error){if(error.name==="AbortError")throw error}
-            try{results=results.concat(await nominatim(query + ", województwo mazowieckie",controller.signal))}catch(error){if(error.name==="AbortError")throw error}
             showResults(results);
           }catch(error){
             if(error.name!=="AbortError"){list.innerHTML='<li class="pyk-location-empty">Nie udało się pobrać podpowiedzi. Wpisz miejscowość ręcznie.</li>';list.classList.add("is-visible")}
