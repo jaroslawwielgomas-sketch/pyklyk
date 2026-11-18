@@ -1,5 +1,5 @@
 /* =============================================================================
-   PYK ŁYK — WSPÓLNY SILNIK STRONY  (zachowania + formularz + ikony)
+   PYK ŁYK - WSPÓLNY SILNIK STRONY  (zachowania + formularz + ikony)
    -----------------------------------------------------------------------------
    Ten plik dostarcza wszystkim wersjom to samo, poprawne zachowanie:
      • PL.img(name, opts)      → <picture> z WebP + fallback JPG
@@ -14,7 +14,7 @@
   "use strict";
 
   var C = window.PYKLYK;
-  if (!C) { console.error("Brak PYKLYK — dołącz content.js przed app.js"); return; }
+  if (!C) { console.error("Brak PYKLYK - dołącz content.js przed app.js"); return; }
 
   // Ustal katalog główny strony na podstawie ścieżki tego skryptu (…/shared/app.js)
   var base = "../";
@@ -32,14 +32,14 @@
   };
 
   /* ---------------------------------------------------------------------------
-     OBRAZY — <picture> z WebP i fallbackiem JPG
+     OBRAZY - <picture> z WebP i fallbackiem JPG
      name: nazwa pliku bez rozszerzenia (np. "cocktails-01")
      --------------------------------------------------------------------------- */
   PL.img = function (name, opts) {
     opts = opts || {};
     var cls = opts.className ? ' class="' + opts.className + '"' : "";
     var loading = opts.loading || "lazy";
-    var alt = (opts.alt || "Pyk Łyk — mobilny bar").replace(/"/g, "&quot;");
+    var alt = (opts.alt || "Pyk Łyk - mobilny bar").replace(/"/g, "&quot;");
     var sizes = opts.sizes ? ' sizes="' + opts.sizes + '"' : "";
     var w = opts.width ? ' width="' + opts.width + '"' : "";
     var h = opts.height ? ' height="' + opts.height + '"' : "";
@@ -56,7 +56,7 @@
   PL.imgUrl = function (name, ext) { return IMG + name + "." + (ext || "jpg"); };
 
   /* ---------------------------------------------------------------------------
-     IKONY SVG — stroke = currentColor (dopasowują się do koloru tekstu wersji)
+     IKONY SVG - stroke = currentColor (dopasowują się do koloru tekstu wersji)
      --------------------------------------------------------------------------- */
   var ICONS = {
     check:   '<polyline points="20 6 9 17 4 12"/>',
@@ -95,7 +95,7 @@
   };
 
   /* ---------------------------------------------------------------------------
-     FORMULARZ ZAPYTANIA OFERTOWEGO  (cel biznesowy — jeden, poprawny renderer)
+     FORMULARZ ZAPYTANIA OFERTOWEGO  (cel biznesowy - jeden, poprawny renderer)
      Użycie w wersji:  <div data-form></div>  → PL.renderForm() wypełni go.
      --------------------------------------------------------------------------- */
   PL.renderForm = function (selector) {
@@ -117,10 +117,7 @@
           field("Termin imprezy *", '<input class="pl-input" type="date" name="termin" min="' + min + '" required>', "full-sm") +
           field("Typ imprezy *",
             '<select class="pl-input" name="typ" required><option value="" disabled selected>Wybierz…</option>' + evOpts + "</select>") +
-          field("Liczba gości *", '<input class="pl-input" type="number" name="goscie" min="1" max="2000" placeholder="np. 120" required>') +
-
-          field("Nazwa sali / miejsca", '<input class="pl-input" type="text" name="sala" placeholder="np. Dworek Leśny">') +
-          field("Miejscowość *", '<input class="pl-input" type="text" name="miejscowosc" placeholder="np. Otwock" required>') +
+          field("Liczba gości *", '<input class="pl-input" type="number" name="goscie" min="1" max="2000" placeholder="np. 120" required>') +          field("Miejscowość *", '<input class="pl-input" type="text" name="miejscowosc" placeholder="np. Otwock" required>') +
           field("Województwo *",
             '<select class="pl-input" name="wojewodztwo" required><option value="" disabled selected>Wybierz…</option>' + wojOpts + "</select>") +
 
@@ -187,26 +184,23 @@
     function collect(f) {
       var g = function (n) { return (f.elements[n] && f.elements[n].value || "").trim(); };
       return {
-        termin: g("termin"), typ: g("typ"), goscie: g("goscie"),
-        sala: g("sala"), miejscowosc: g("miejscowosc"), wojewodztwo: g("wojewodztwo"),
+        termin: g("termin"), typ: g("typ"), goscie: g("goscie"), miejscowosc: g("miejscowosc"), wojewodztwo: g("wojewodztwo"),
         imie: g("imie"), email: g("email"), telefon: g("telefon"), wiadomosc: g("wiadomosc")
       };
     }
 
     function bodyText(d) {
       return [
-        "ZAPYTANIE OFERTOWE — PYK ŁYK",
+        "ZAPYTANIE OFERTOWE - PYK ŁYK",
         "----------------------------------------",
         "Termin imprezy:  " + d.termin,
         "Typ imprezy:     " + d.typ,
-        "Liczba gości:    " + d.goscie,
-        "Sala / miejsce:  " + (d.sala || "—"),
-        "Miejscowość:     " + d.miejscowosc,
+        "Liczba gości:    " + d.goscie,        "Miejscowość:     " + d.miejscowosc,
         "Województwo:     " + d.wojewodztwo,
         "----------------------------------------",
         "Imię i nazwisko: " + d.imie,
         "E-mail:          " + d.email,
-        "Telefon:         " + (d.telefon || "—"),
+        "Telefon:         " + (d.telefon || "-"),
         "----------------------------------------",
         "Wiadomość:",
         d.wiadomosc,
@@ -228,7 +222,7 @@
       var payload = Object.assign({
         access_key: cfg.form.accessKey,
         subject: cfg.formSubject,
-        from_name: "Formularz PYK ŁYK — " + d.imie
+        from_name: "Formularz PYK ŁYK - " + d.imie
       }, d);
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -236,7 +230,7 @@
         body: JSON.stringify(payload)
       }).then(function (r) { return r.json(); })
         .then(function (j) {
-          if (j.success) { form.reset(); setStatus("Dziękujemy! Zapytanie zostało wysłane — odezwiemy się wkrótce.", "success"); }
+          if (j.success) { form.reset(); setStatus("Dziękujemy! Zapytanie zostało wysłane - odezwiemy się wkrótce.", "success"); }
           else setStatus("Nie udało się wysłać. Zadzwoń: " + cfg.phone, "error");
         })
         .catch(function () { setStatus("Błąd połączenia. Zadzwoń: " + cfg.phone, "error"); });
@@ -260,7 +254,7 @@
   }
 
   /* ---------------------------------------------------------------------------
-     LICZNIKI — animacja liczb, gdy wejdą w widok  ([data-counter="1000"])
+     LICZNIKI - animacja liczb, gdy wejdą w widok  ([data-counter="1000"])
      --------------------------------------------------------------------------- */
   PL.initCounters = function () {
     var els = document.querySelectorAll("[data-counter]");
@@ -290,7 +284,7 @@
   };
 
   /* ---------------------------------------------------------------------------
-     SCROLL-REVEAL — dodaje .is-visible do [data-reveal]
+     SCROLL-REVEAL - dodaje .is-visible do [data-reveal]
      --------------------------------------------------------------------------- */
   PL.initReveal = function () {
     var els = document.querySelectorAll("[data-reveal]");
@@ -307,7 +301,7 @@
   };
 
   /* ---------------------------------------------------------------------------
-     NAWIGACJA — mobilne menu, smooth-scroll, scrollspy, stan nagłówka
+     NAWIGACJA - mobilne menu, smooth-scroll, scrollspy, stan nagłówka
      --------------------------------------------------------------------------- */
   PL.initNav = function () {
     var header = document.querySelector("[data-header]");
@@ -397,7 +391,7 @@
       deadline = setTimeout(cancel, 4000);                 // twardy koniec korekcji (~4 s)
     }
 
-    // Późne doładowanie fontów (Google Fonts, display=swap) też przesuwa sekcje —
+    // Późne doładowanie fontów (Google Fonts, display=swap) też przesuwa sekcje -
     // gdy będą gotowe, popraw aktywny cel.
     if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
       document.fonts.ready.then(function () { if (activeNav) activeNav.aim(false); });
@@ -422,7 +416,7 @@
       onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
     }
 
-    // scrollspy — podświetlanie aktywnej sekcji w menu
+    // scrollspy - podświetlanie aktywnej sekcji w menu
     var links = Array.prototype.slice.call(document.querySelectorAll("[data-navlink]"));
     var sections = links.map(function (l) { return document.querySelector(l.getAttribute("href")); }).filter(Boolean);
     if (sections.length) {
@@ -439,7 +433,7 @@
   };
 
   /* ---------------------------------------------------------------------------
-     FAQ — akordeon.  Struktura:
+     FAQ - akordeon.  Struktura:
        <div data-faq-item><button data-faq-q>…</button><div data-faq-a>…</div></div>
      --------------------------------------------------------------------------- */
   PL.initFaq = function () {
@@ -573,10 +567,17 @@
 
   PL.renderPackages = function (target) {
     var t = el(target); if (!t) return;
+    var descriptions = {
+      "Dolce Vita": "Lekkie i świeże koktajle na bazie prosecco, idealne na eleganckie przyjęcia.",
+      "Gentlemen's Club": "Klasyczne, mocniejsze smaki dla miłośników whisky.",
+      "Meister’s Selection": "Wyraziste drinki z jägermeisterem i energetycznym charakterem.",
+      "Fruit Star Selection": "Owocowe koktajle pełne świeżości, tropikalnych smaków i lekkiej słodyczy."
+    };
     t.innerHTML = C.packages.map(function (p, i) {
       return '<article class="pl-pkg" data-reveal data-reveal-delay="' + i + '">' +
         '<header class="pl-pkg__head"><h3 class="pl-pkg__name">' + p.name +
-          '<sup class="pl-pkg__badge">' + p.badge + "</sup></h3></header>" +
+          '<sup class="pl-pkg__badge">' + p.badge + "</sup></h3>" +
+          '<p class="pl-pkg__desc">' + (descriptions[p.name] || "") + "</p></header>" +
         '<ul class="pl-pkg__drinks">' +
           p.drinks.map(function (d) {
             return '<li class="pl-pkg__drink"><span class="pl-pkg__dname">' + d.name +
@@ -736,7 +737,7 @@
       return names.map(function (name) {
         var d = GAL_DIMS[name] || [3, 4];
         return '<figure class="pl-gal__item">' +
-          PL.img(name, { className: "pl-gal__pic", alt: (C.images.galleryAlt || {})[name] || GAL_ALT[name] || "Pyk Łyk — realizacja", width: d[0], height: d[1] }) + "</figure>";
+          PL.img(name, { className: "pl-gal__pic", alt: (C.images.galleryAlt || {})[name] || GAL_ALT[name] || "Pyk Łyk - realizacja", width: d[0], height: d[1] }) + "</figure>";
       }).join("");
     }
 
