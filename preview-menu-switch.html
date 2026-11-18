@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pyk Łyk - podgląd menu</title>
+<style>
+:root{--ink:#172b3d;--cream:#f4eee3;--gold:#a47b3e;--line:#d9cbb5;--muted:#6f6b65}
+*{box-sizing:border-box}body{margin:0;background:#fffdf9;color:var(--ink);font-family:Arial,sans-serif}
+.wrap{max-width:1080px;margin:40px auto;padding:0 20px}.board{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:28px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}.tabs button{border:1px solid var(--gold);background:transparent;color:#72542f;border-radius:6px;padding:12px 18px;font-weight:700;cursor:pointer}.tabs button.active{background:var(--gold);color:#fff}
+.card{display:none}.card.active{display:block}.card h2{margin:0 0 8px;font-size:28px}.card>p{margin:0 0 24px;color:var(--muted)}.groups{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.group{border-top:2px solid #c4a777;padding-top:10px}.group h3{color:#72542f;font-size:18px}.group ul{margin:0;padding-left:20px;color:#514b44;line-height:1.8}
+@media(max-width:700px){.groups{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap"><section class="board">
+<nav class="tabs" aria-label="Wybór karty drinków">
+<button class="active" data-card="standard">Karta drinków - Standard</button>
+<button data-card="allbest">Karta drinków - All The Best</button>
+</nav>
+<article class="card active" id="standard"><h2>Karta drinków - Standard</h2><p>Pakiet standardowy - zawsze w cenie</p><div class="groups">
+<div class="group"><h3>Alkoholowe</h3><ul><li>Biały/czarny rusek</li><li>Blue lagoon</li><li>Cuba libre</li><li>Eksplozja</li><li>Gin &amp; Tonic</li><li>Gremlin</li><li>Jamaica</li><li>Martini Bianco Royal</li><li>Mojito</li><li>Pina colada</li><li>Sex on the Beach</li><li>Tequila sunrise</li></ul></div>
+<div class="group"><h3>Bezalkoholowe</h3><ul><li>Błękit nieba</li><li>Kokosowa przyjemność</li><li>Mint fresh</li><li>Różowa pantera</li><li>Virgin mojito</li><li>Zielona dróżka</li></ul></div>
+<div class="group"><h3>Shoty</h3><ul><li>Kamikaze</li><li>Tequila</li><li>Wściekły pies</li></ul></div>
+</div></article>
+<article class="card" id="allbest"><h2>Karta drinków - All The Best</h2><p>Wyselekcjonowana karta premium - 21 pozycji</p><div class="groups">
+<div class="group"><h3>Alkoholowe</h3><ul><li>Aperol Spritz</li><li>Porn star martini</li><li>Whisky Sour</li><li>Mojito</li><li>Sex on the beach</li><li>Hugo</li><li>Cuba libre</li><li>Jamaica</li><li>Margarita</li><li>Gin &amp; Tonic</li><li>Blue lagoon</li><li>Pina colada</li></ul></div>
+<div class="group"><h3>Bezalkoholowe</h3><ul><li>Błękit nieba</li><li>Kokosowa przyjemność</li><li>Mint fresh</li><li>Różowa pantera</li><li>Virgin mojito</li><li>Zielona dróżka</li></ul></div>
+<div class="group"><h3>Shoty</h3><ul><li>Kamikaze</li><li>Tequila</li><li>Wściekły pies</li></ul></div>
+</div></article>
+</section></main>
+<script>
+document.querySelectorAll("[data-card]").forEach(function(button){button.addEventListener("click",function(){document.querySelectorAll("[data-card]").forEach(function(b){b.classList.remove("active")});document.querySelectorAll(".card").forEach(function(c){c.classList.remove("active")});button.classList.add("active");document.getElementById(button.dataset.card).classList.add("active")})});
+</script>
+</body></html>
