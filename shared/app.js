@@ -117,10 +117,7 @@
           field("Termin imprezy *", '<input class="pl-input" type="date" name="termin" min="' + min + '" required>', "full-sm") +
           field("Typ imprezy *",
             '<select class="pl-input" name="typ" required><option value="" disabled selected>Wybierz…</option>' + evOpts + "</select>") +
-          field("Liczba gości *", '<input class="pl-input" type="number" name="goscie" min="1" max="2000" placeholder="np. 120" required>') +
-
-          field("Nazwa sali / miejsca", '<input class="pl-input" type="text" name="sala" placeholder="np. Dworek Leśny">') +
-          field("Miejscowość *", '<input class="pl-input" type="text" name="miejscowosc" placeholder="np. Otwock" required>') +
+          field("Liczba gości *", '<input class="pl-input" type="number" name="goscie" min="1" max="2000" placeholder="np. 120" required>') +          field("Miejscowość *", '<input class="pl-input" type="text" name="miejscowosc" placeholder="np. Otwock" required>') +
           field("Województwo *",
             '<select class="pl-input" name="wojewodztwo" required><option value="" disabled selected>Wybierz…</option>' + wojOpts + "</select>") +
 
@@ -187,8 +184,7 @@
     function collect(f) {
       var g = function (n) { return (f.elements[n] && f.elements[n].value || "").trim(); };
       return {
-        termin: g("termin"), typ: g("typ"), goscie: g("goscie"),
-        sala: g("sala"), miejscowosc: g("miejscowosc"), wojewodztwo: g("wojewodztwo"),
+        termin: g("termin"), typ: g("typ"), goscie: g("goscie"), miejscowosc: g("miejscowosc"), wojewodztwo: g("wojewodztwo"),
         imie: g("imie"), email: g("email"), telefon: g("telefon"), wiadomosc: g("wiadomosc")
       };
     }
@@ -199,9 +195,7 @@
         "----------------------------------------",
         "Termin imprezy:  " + d.termin,
         "Typ imprezy:     " + d.typ,
-        "Liczba gości:    " + d.goscie,
-        "Sala / miejsce:  " + (d.sala || "-"),
-        "Miejscowość:     " + d.miejscowosc,
+        "Liczba gości:    " + d.goscie,        "Miejscowość:     " + d.miejscowosc,
         "Województwo:     " + d.wojewodztwo,
         "----------------------------------------",
         "Imię i nazwisko: " + d.imie,
