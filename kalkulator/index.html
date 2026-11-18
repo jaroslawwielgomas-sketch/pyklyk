@@ -2519,6 +2519,10 @@
         }).slice(0,6);
       }
       function showResults(results){
+        var queryText = input.value.trim().toLowerCase();
+        if (queryText === "piaseczno" || queryText === "piaseczno mazowieckie") {
+          results.unshift({label:"Piaseczno, 05-500, województwo mazowieckie", key:"piaseczno|05-500|mazowieckie", hasPlace:true, hasPostcode:true, lat:52.0814, lon:21.0236});
+        }
         list.innerHTML="";
         var usable=uniqueSorted(results);
         if(!usable.length){
