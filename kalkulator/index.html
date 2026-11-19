@@ -1451,7 +1451,7 @@
       let lastQuote = null;
       let lastLeadEmail = "";
       let individualModalPreviousFocus = null;
-      const pendingLeadBeacons = [];
+      const leadUnconfirmedMessage = "Nie udało się potwierdzić zapisu zgłoszenia. Skontaktuj się z nami telefonicznie: 513 595 540.";
       let activeTestimonial = 0;
       let testimonialTimer = null;
 
@@ -1613,7 +1613,8 @@
         if (premiumCardToggle) premiumCardToggle.addEventListener("click", (event) => event.stopPropagation());
         calculateDistanceBtn.addEventListener("click", handleCalculateDistance);
         lockedState.addEventListener("click", (event) => {
-          if (event.target.closest("[data-lock-contact]")) handleLockedContactRequest();
+          const contactButton = event.target.closest("[data-lock-contact]");
+          if (contactButton) handleLockedContactRequest(contactButton);
         });
 
         ["#guestCount", "#distanceKm"].forEach((selector) => {
@@ -2096,11 +2097,12 @@
       async function captureLeadOnce(quote, eventName) {
         if (!CONFIG.leadEndpointUrl || quote.email === lastLeadEmail) return;
         lastLeadEmail = quote.email;
-        await postLead({ event: eventName, quote });
+        const saved = await postLead({ event: eventName, quote });
+        if (!saved && lastLeadEmail === quote.email) lastLeadEmail = "";
       }
 
       async function postLead(payload) {
-        if (!CONFIG.leadEndpointUrl) return;
+        if (!CONFIG.leadEndpointUrl) return false;
         try {
           const lead = {
             createdAt: new Date().toISOString(),
@@ -2125,9 +2127,17 @@
             consent: "tak",
             userAgent: navigator.userAgent
           };
-          submitLeadForm(lead);
+          const response = await fetch(CONFIG.leadEndpointUrl, {
+            method: "POST",
+            body: new URLSearchParams(lead),
+            signal: AbortSignal.timeout(20000)
+          });
+          if (!response.ok) return false;
+          const result = await response.json();
+          return result?.ok === true;
         } catch (error) {
           console.warn("Lead endpoint error", error);
+          return false;
         }
       }
 
@@ -2177,47 +2187,21 @@
         return `${labels[eventName] || "Nowy lead z kalkulatora"} ${packageText}`;
       }
 
-      function submitLeadForm(lead) {
-        const frameName = `leadFrame${Date.now()}`;
-        const frame = document.createElement("iframe");
-        frame.name = frameName;
-        frame.hidden = true;
-
-        const formElement = document.createElement("form");
-        formElement.action = CONFIG.leadEndpointUrl;
-        formElement.method = "POST";
-        formElement.target = frameName;
-        formElement.hidden = true;
-
-        Object.entries(lead).forEach(([name, value]) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = name;
-          input.value = value == null ? "" : String(value);
-          formElement.appendChild(input);
-        });
-
-        document.body.append(frame, formElement);
-        pendingLeadBeacons.push(frame);
-        frame.addEventListener("load", () => {
-          window.setTimeout(() => {
-            formElement.remove();
-            frame.remove();
-            const index = pendingLeadBeacons.indexOf(frame);
-            if (index >= 0) pendingLeadBeacons.splice(index, 1);
-          }, 1500);
-        }, { once: true });
-        formElement.submit();
-      }
-
       async function handleLikeOffer() {
         if (!lastQuote) return;
         if (!ensurePrivacyConsent()) return;
         likeOfferBtn.disabled = true;
         likeOfferBtn.textContent = "Wysyłamy zapytanie...";
         const eventDescription = leadEventDescription.value.trim();
-        await postLead({ event: "offer_liked", quote: lastQuote, feedback: eventDescription });
-        showOfferSuccess();
+        const quote = lastQuote;
+        const saved = await postLead({ event: "offer_liked", quote, feedback: eventDescription });
+        if (quote !== lastQuote) return;
+        if (saved) {
+          showOfferSuccess();
+        } else {
+          resetOfferSuccess();
+          window.alert(leadUnconfirmedMessage);
+        }
       }
 
       function openIndividualModal() {
@@ -2249,7 +2233,13 @@
         const reason = [reasonType, details].filter(Boolean).join(" - ");
         sendIndividualBtn.disabled = true;
         sendIndividualBtn.textContent = "Wysyłamy prośbę...";
-        await postLead({ event: "custom_quote_requested", quote: lastQuote, feedback: reason });
+        const saved = await postLead({ event: "custom_quote_requested", quote: lastQuote, feedback: reason });
+        if (!saved) {
+          sendIndividualBtn.disabled = false;
+          sendIndividualBtn.textContent = "Wyślij prośbę";
+          window.alert(leadUnconfirmedMessage);
+          return;
+        }
         individualSuccessMessage.hidden = false;
         individualSuccessMessage.classList.add("is-visible");
         sendIndividualBtn.textContent = "Prośba wysłana";
@@ -2293,7 +2283,7 @@
         }
       }
 
-      async function handleLockedContactRequest() {
+      async function handleLockedContactRequest(button) {
         const data = getFormData();
         const validationMessage = validateContactRequest(data);
         if (validationMessage) {
@@ -2305,8 +2295,18 @@
 
         const reason = getLockedContactReason(data);
         const quote = buildContactRequestQuote(data, reason);
-        await postLead({ event: "custom_quote_requested", quote, feedback: reason });
-        setAlert("Zapytanie indywidualne zostało zapisane. Skontaktujemy się z Tobą z indywidualną propozycją.", true);
+        const originalLabel = button.textContent;
+        button.disabled = true;
+        button.textContent = "Wysyłamy zapytanie...";
+        const saved = await postLead({ event: "custom_quote_requested", quote, feedback: reason });
+        if (saved) {
+          button.textContent = "Zapytanie zapisane";
+          setAlert("Zapytanie indywidualne zostało zapisane. Skontaktujemy się z Tobą z indywidualną propozycją.", true);
+        } else {
+          button.disabled = false;
+          button.textContent = originalLabel;
+          setAlert(leadUnconfirmedMessage, true);
+        }
       }
 
       function validateContactRequest(data) {

@@ -20,7 +20,8 @@ W obu przypadkach:
 ## Co znajduje się w folderze
 
 - `index.html` — strona główna,
-- `kalkulator.html` — finalny kalkulator z automatycznym zapisem leadów,
+- `kalkulator/index.html` — aktualny kalkulator z automatycznym zapisem leadów,
+- `kalkulator.html` — przekierowanie ze starego adresu kalkulatora,
 - `styles.css` i `shared/` — wygląd oraz wspólne elementy strony,
 - `assets/` — zdjęcia, logo i ikony,
 - `polityka-prywatnosci.html` — polityka prywatności,
@@ -54,7 +55,7 @@ Szczegółowa instrukcja znajduje się w pliku:
 
 Po opublikowaniu strony:
 
-1. Otwórz `https://pyklyk.pl/kalkulator.html`.
+1. Otwórz `https://pyklyk.pl/kalkulator/`.
 2. Wpisz testowe dane.
 3. Przejdź do wyceny.
 4. Kliknij przycisk dostępności terminu albo wyceny indywidualnej.
