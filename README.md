@@ -1,64 +1,26 @@
-# Pyk Łyk — aktualizacja z dnia 29.07.2026
+# Pyk Łyk Drink Bar
 
-## Wersja gotowa do przeniesienia na GitHub
+Repozytorium strony Pyk Łyk i kalkulatora wyceny mobilnego baru na wesele.
 
-Ten folder zawiera finalną wersję strony i kalkulatora Pyk Łyk, przetestowaną 29.07.2026.
-Pakiet został odchudzony do 97 plików, aby można było przesłać go przez GitHub bez przekraczania limitu 100 plików.
+- [Strona główna](https://pyklyk.pl/)
+- [Kalkulator wyceny](https://pyklyk.pl/kalkulator/)
 
-Kalkulator został sprawdzony w dwóch scenariuszach:
+## Pliki strony
 
-- klient wysyła prośbę o sprawdzenie dostępności terminu,
-- klient prosi o wycenę indywidualną, gdy standardowa cena mu nie odpowiada.
+- `index.html` — strona główna.
+- `kalkulator/index.html` — kalkulator wyceny.
+- `kalkulator.html` — przekierowanie ze starego adresu kalkulatora.
+- `styles.css`, `shared/` i `assets/` — style, skrypty i zasoby strony.
+- `polityka-prywatnosci.html` — polityka prywatności.
 
-W obu przypadkach:
+## Zgłoszenia z kalkulatora
 
-- zgłoszenie zapisuje się w arkuszu leadów,
-- na `kontakt@pyklyk.pl` przychodzi automatyczne powiadomienie,
-- kalkulator nie otwiera programu pocztowego,
-- opis wydarzenia i podsumowanie wyceny są przekazywane do zgłoszenia.
+Kalkulator pozwala wysłać zapytanie o dostępność terminu lub poprosić o wycenę indywidualną. Wydarzenia od 2029 roku są wyceniane indywidualnie. Kalkulator pokazuje potwierdzenie zapisu po odpowiedzi Google Apps Script.
 
-## Co znajduje się w folderze
+Wdrożony projekt Apps Script obsługuje arkusz leadów i powiadomienia na `kontakt@pyklyk.pl`. Plik `google-apps-script-leady-crm.gs` w repozytorium zawiera starszą kopię kodu. Aktywną wersję sprawdzisz w projekcie Apps Script w menu **Wdróż → Zarządzaj wdrożeniami**.
 
-- `index.html` — strona główna,
-- `kalkulator/index.html` — aktualny kalkulator z automatycznym zapisem leadów,
-- `kalkulator.html` — przekierowanie ze starego adresu kalkulatora,
-- `styles.css` i `shared/` — wygląd oraz wspólne elementy strony,
-- `assets/` — zdjęcia, logo i ikony,
-- `polityka-prywatnosci.html` — polityka prywatności,
-- `google-apps-script-leady-crm.gs` — kod obsługi arkusza i powiadomień e-mail,
-- instrukcje wdrożenia arkusza i powiadomień.
+## Test po publikacji
 
-## Jak przenieść stronę na GitHub
-
-Skopiuj **zawartość tego folderu** do głównego katalogu repozytorium GitHub. Nie twórz dodatkowego folderu wewnątrz repozytorium.
-
-Nie zmieniaj nazw folderów:
-
-- `assets`
-- `shared`
-
-Po przesłaniu plików na GitHub strona powinna działać pod adresem:
-
-`https://pyklyk.pl/`
-
-## Ważne — arkusz i automatyczne maile
-
-Kod `google-apps-script-leady-crm.gs` jest częścią zaplecza. Nie trzeba go uruchamiać na GitHubie.
-
-W Google Apps Script musi być aktywna wdrożona **Wersja 5 z 29 lipca 2026**. To właśnie ona wysyła powiadomienia o nowych leadach i zawiera statusy `Umowa` oraz `Konkurencja`.
-
-Szczegółowa instrukcja znajduje się w pliku:
-
-`INSTRUKCJA-WDROZENIA-POWIADOMIENIA.md`
-
-## Szybki test po publikacji
-
-Po opublikowaniu strony:
-
-1. Otwórz `https://pyklyk.pl/kalkulator/`.
-2. Wpisz testowe dane.
-3. Przejdź do wyceny.
-4. Kliknij przycisk dostępności terminu albo wyceny indywidualnej.
-5. Sprawdź arkusz oraz skrzynkę `kontakt@pyklyk.pl`.
-
-Po teście usuń testowy wpis z arkusza.
+1. Otwórz [kalkulator](https://pyklyk.pl/kalkulator/) i użyj własnego działającego adresu e-mail. CRM może pominąć powiadomienia dla adresów zaczynających się od `test@` lub `demo@`.
+2. Wyślij zapytanie o dostępność terminu albo zapytanie indywidualne.
+3. Sprawdź potwierdzenie w kalkulatorze, wpis w arkuszu leadów i powiadomienie na skrzynce firmowej.
