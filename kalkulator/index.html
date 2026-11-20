@@ -288,7 +288,9 @@
       gap: 4px;
     }
 
-    .pyk-package-card { padding: 13px; }
+    /* Rozwinięcie menu zmienia wysokość wyłącznie wybranej karty pakietu. */
+    .pyk-package-grid { align-items: start; }
+    .pyk-package-card { padding: 13px; align-content: start; }
 
     .pyk-package-copy { padding: 0; }
     .pyk-package-hint { margin: 0; color: var(--pyk-muted); font-size: .9rem; }
