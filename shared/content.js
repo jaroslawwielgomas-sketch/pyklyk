@@ -297,7 +297,7 @@ window.PYKLYK = {
     },
     {
       q: "Czego potrzebujecie od sali, żeby postawić bar?",
-      a: "Wystarczy dostęp do prądu (gniazdko 230 V) oraz miejsce ok. 2×2 m na mobilny bar. Przy imprezach plenerowych prosimy o zadaszenie stanowiska. Bar dowozimy i składamy sami - transport jest wliczony w cenę."
+      a: "Prosimy obsługę sali o wskazanie miejsca, w którym możemy ustawić bar. Na stanowisko barowe potrzebujemy około 2 × 3 m przestrzeni. W przypadku przyjęcia w plenerze potrzebne jest również zadaszenie baru."
     },
     {
       q: "Kto zajmuje się myciem i zbieraniem szkła?",
@@ -305,7 +305,7 @@ window.PYKLYK = {
     },
     {
       q: "Czy menu i ofertę można personalizować?",
-      a: "Oczywiście. Standardowa karta to punkt wyjścia - chętnie przygotujemy koktajle spoza menu i dopasujemy ofertę do motywu przewodniego Waszej imprezy. Dla Pary Młodej mamy też welcome drink w prezencie."
+      a: "Oczywiście. Standardowa karta to punkt wyjścia — chętnie przygotujemy koktajle spoza menu i dopasujemy ofertę do motywu przewodniego Waszej imprezy."
     },
     {
       q: "Ile kosztuje obsługa baru?",
