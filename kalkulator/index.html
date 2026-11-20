@@ -1137,6 +1137,10 @@
               <input class="pyk-input" id="distanceKm" name="distance" type="number" inputmode="decimal" min="0" step="1" placeholder="np. 84" required>
               <small>Pierwsze 50 km jest w cenie. Każdy kolejny kilometr: 1,50 zł przed podwyżką za rok wesela. Możesz też wpisać dystans ręcznie.</small>
             </div>
+          <label class="pyk-consent">
+            <input type="checkbox" id="privacyConsent" name="privacy" required>
+            <span>Wyrażam zgodę na kontakt w sprawie oferty i akceptuję <a href="/polityka-prywatnosci.html" target="_blank" rel="noopener">politykę prywatności</a>.</span>
+          </label>
           </fieldset>
 
           <fieldset class="pyk-fieldset">
@@ -1191,14 +1195,6 @@
             <div id="allBestChoice"></div>
           </section>
 
-          <label class="pyk-consent">
-            <input type="checkbox" id="privacyConsent" name="privacy" required>
-            <span>Wyrażam zgodę na kontakt w sprawie oferty i akceptuję <a href="/polityka-prywatnosci.html" target="_blank" rel="noopener">politykę prywatności</a>.</span>
-          </label>
-
-          <div class="pyk-alert" id="formAlert" role="alert"></div>
-        </form>
-
         <div class="pyk-offer-bands" aria-label="Zakres oferty">
           <section class="pyk-band">
             <h3>Zapewniamy</h3>
@@ -1224,6 +1220,9 @@
             </ul>
           </section>
         </div>
+          <button class="pyk-button pyk-button-primary" style="width:100%" type="submit" id="showQuoteBtn" aria-controls="quoteSummary">Pokaż wycenę</button>
+          <div class="pyk-alert" id="formAlert" role="alert"></div>
+        </form>
       </section>
 
       <aside class="pyk-summary" id="quoteSummary" aria-live="polite">
@@ -1449,7 +1448,8 @@
       const calculateDistanceBtn = document.querySelector("#calculateDistanceBtn");
       const distanceStatus = document.querySelector("#distanceStatus");
       let lastQuote = null;
-      let lastLeadEmail = "";
+      const showQuoteBtn = document.querySelector("#showQuoteBtn");
+      const quoteCaptures = new Map();
       let individualModalPreviousFocus = null;
       const leadUnconfirmedMessage = "Nie udało się potwierdzić zapisu zgłoszenia. Skontaktuj się z nami telefonicznie: 513 595 540.";
       let activeTestimonial = 0;
@@ -1594,6 +1594,7 @@
       }
 
       function bindEvents() {
+        form.addEventListener("submit", handleShowQuote);
         form.addEventListener("input", handleInput);
         form.addEventListener("change", handleInput);
         likeOfferBtn.addEventListener("click", handleLikeOffer);
@@ -1769,7 +1770,29 @@
         };
       }
 
-      function updateQuote() {
+      async function handleShowQuote(event) {
+        event.preventDefault();
+        if (showQuoteBtn.disabled) return;
+        const quote = updateQuote(true);
+        if (!quote) {
+          const missingFields = getMissingContactFields(getFormData());
+          if (missingFields.length) focusMissingContactField(missingFields[0]);
+          setAlert(lockedState.textContent.trim(), true);
+          return;
+        }
+        quoteSummary.scrollIntoView({ behavior: "smooth", block: "start" });
+        showQuoteBtn.disabled = true;
+        showQuoteBtn.textContent = "Zapisywanie...";
+        try {
+          const saved = await captureLeadOnce(quote, "quote_unlocked");
+          if (!saved) setAlert(leadUnconfirmedMessage, true);
+        } finally {
+          showQuoteBtn.disabled = false;
+          showQuoteBtn.textContent = "Pokaż wycenę";
+        }
+      }
+
+      function updateQuote(reveal = false) {
         const data = getFormData();
         standardCardToggle.checked = !data.packages.includes("allbest");
         const allBestCardToggle = document.querySelector("#allBestCardToggle");
@@ -1790,9 +1813,14 @@
           return;
         }
 
+        if (!reveal) {
+          lastQuote = null;
+          showLocked('Kliknij „Pokaż wycenę” pod sekcją „Zapewniamy”, aby zobaczyć cenę.');
+          return;
+        }
         lastQuote = quote;
         showReady(quote);
-        captureLeadOnce(quote, "quote_unlocked");
+        return quote;
       }
 
       function validate(data) {
@@ -1817,7 +1845,7 @@
           return { ok: false, message: "Wycena niedostępna na ten rok - skontaktuj się z nami.", critical: true, contactCta: true, missingFields: getMissingContactFields(data) };
         }
         if (!data.location) return { ok: false, message: "Wpisz lokalizację wydarzenia." };
-        if (!Number.isFinite(data.distance) || data.distance < 0) {
+        if (!form.distance.value.trim() || !Number.isFinite(data.distance) || data.distance < 0) {
           return { ok: false, message: "Podaj dystans od Warszawy w kilometrach." };
         }
         if (!data.bar) return { ok: false, message: "Wybierz bar, którym jesteś zainteresowany/a." };
@@ -2095,10 +2123,23 @@
       }
 
       async function captureLeadOnce(quote, eventName) {
-        if (!CONFIG.leadEndpointUrl || quote.email === lastLeadEmail) return;
-        lastLeadEmail = quote.email;
-        const saved = await postLead({ event: eventName, quote });
-        if (!saved && lastLeadEmail === quote.email) lastLeadEmail = "";
+        if (!CONFIG.leadEndpointUrl) return false;
+        // One lead per contact and event in this calculator session, including retries.
+        const key = JSON.stringify([quote.email, quote.date, eventName]);
+        let capture = quoteCaptures.get(key);
+        if (!capture) {
+          capture = { leadId: buildLeadId(quote, eventName), saved: false, pending: null };
+          quoteCaptures.set(key, capture);
+        }
+        if (capture.saved) return true;
+        if (capture.pending) return capture.pending;
+        capture.pending = postLead({ event: eventName, quote, leadId: capture.leadId });
+        try {
+          capture.saved = await capture.pending;
+          return capture.saved;
+        } finally {
+          capture.pending = null;
+        }
       }
 
       async function postLead(payload) {
@@ -2106,7 +2147,7 @@
         try {
           const lead = {
             createdAt: new Date().toISOString(),
-            leadId: buildLeadId(payload.quote, payload.event),
+            leadId: payload.leadId || buildLeadId(payload.quote, payload.event),
             email: payload.quote.email,
             guests: payload.quote.guests,
             date: payload.quote.date,
