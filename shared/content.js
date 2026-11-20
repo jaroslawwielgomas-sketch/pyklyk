@@ -115,8 +115,8 @@ window.PYKLYK = {
 
     offer: {
       kicker: "Nasza oferta",
-      title:  "Kompleksowa obsługa - zajmujemy się wszystkim",
-      lead:   "Jeden pakiet, a w nim wszystko, czego potrzeba, by bar działał bez zarzutu od pierwszego do ostatniego drinka.",
+      title:  "Kompleksowa obsługa baru — wszystko, czego potrzebujesz",
+      lead:   "W podstawie zapewniamy pełne wyposażenie i obsługę barmańską. Kartę drinków możesz rozszerzyć o wybrane pakiety dodatkowe.",
       note:   "Cena usługi zależy głównie od liczby gości i terminu. Obsługa barmańska jest wliczona w cenę.",
       personalization: "To tylko punkt wyjścia - ofertę w pełni personalizujemy pod Twoje oczekiwania. Jesteśmy elastyczni i zawsze gotowi dopasować się w 100%."
     },
@@ -309,7 +309,7 @@ window.PYKLYK = {
     },
     {
       q: "Ile kosztuje obsługa baru?",
-      a: "Cena zależy przede wszystkim od liczby gości i terminu imprezy - dlatego przygotowujemy indywidualną wycenę. Wyślij zapytanie przez formularz lub zadzwoń pod 513 595 540, a szybko przedstawimy propozycję."
+      a: "Cena zależy od liczby gości, terminu, lokalizacji i wybranego pakietu. Skorzystaj z naszego <a href=\"/kalkulator/\">kalkulatora wyceny</a>, aby sprawdzić koszt obsługi na Twoje przyjęcie. Jeśli masz dodatkowe pytania lub potrzebujesz indywidualnej oferty, napisz do nas albo zadzwoń pod 513 595 540."
     },
     {
       q: "Gdzie dojeżdża Wasz mobilny drink bar i w jakich miastach obsługujecie wesela?",
