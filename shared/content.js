@@ -116,7 +116,7 @@ window.PYKLYK = {
     offer: {
       kicker: "Nasza oferta",
       title:  "Kompleksowa obsługa baru — wszystko, czego potrzebujesz",
-      lead:   "W podstawie zapewniamy pełne wyposażenie i obsługę barmańską. Kartę drinków możesz rozszerzyć o wybrane pakiety dodatkowe.",
+      lead:   "W podstawie zapewniamy pełne wyposażenie i profesjonalną obsługę barmańską. Serwujemy dopracowane koktajle i dbamy o dobrą atmosferę przy barze.",
       note:   "Cena usługi zależy głównie od liczby gości i terminu. Obsługa barmańska jest wliczona w cenę.",
       personalization: "To tylko punkt wyjścia - ofertę w pełni personalizujemy pod Twoje oczekiwania. Jesteśmy elastyczni i zawsze gotowi dopasować się w 100%."
     },
