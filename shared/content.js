@@ -62,7 +62,6 @@ window.PYKLYK = {
   stats: [
     { value: 1000, suffix: "+", label: "zrealizowanych imprez" },
     { value: 12,   suffix: "",  label: "lat doświadczenia" },
-    { value: 37,   suffix: "", label: "drinków w karcie" },
     { value: 150,  suffix: "+", label: "opinii na Facebooku i Wesele z Klasą" }
   ],
 
