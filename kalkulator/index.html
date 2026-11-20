@@ -288,9 +288,7 @@
       gap: 4px;
     }
 
-    /* Rozwinięcie menu zmienia wysokość wyłącznie wybranej karty pakietu. */
-    .pyk-package-grid { align-items: start; }
-    .pyk-package-card { padding: 13px; align-content: start; }
+    .pyk-package-card { padding: 13px; }
 
     .pyk-package-copy { padding: 0; }
     .pyk-package-hint { margin: 0; color: var(--pyk-muted); font-size: .9rem; }
@@ -976,7 +974,8 @@
       .pyk-panel { padding: 24px; }
       .pyk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pyk-choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .pyk-package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      /* W dwóch kolumnach zamknięta karta nie rozciąga się do rozwiniętej sąsiadki. */
+      .pyk-package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
       .pyk-actions { grid-template-columns: 1fr 1fr; }
       .pyk-actions > .pyk-button-quiet { grid-column: 1 / -1; }
       .pyk-summary-actions .pyk-button-primary { grid-column: 1 / -1; }
