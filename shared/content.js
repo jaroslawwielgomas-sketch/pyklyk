@@ -63,7 +63,7 @@ window.PYKLYK = {
     { value: 1000, suffix: "+", label: "zrealizowanych imprez" },
     { value: 12,   suffix: "",  label: "lat doświadczenia" },
     { value: 37,   suffix: "", label: "drinków w karcie" },
-    { value: 100,  suffix: "+", label: "pozytywnych opinii" }
+    { value: 150,  suffix: "+", label: "opinii na Facebooku i Wesele z Klasą" }
   ],
 
   /* -------------------------------------------------------------------------
@@ -136,7 +136,7 @@ window.PYKLYK = {
     reviews: {
       kicker: "Opinie",
       title:  "Zaufało nam ponad 1000 par i firm",
-      lead:   "Zweryfikowane opinie w serwisie Wesele z Klasą potwierdzają średnią 5,00/5 przy 60 recenzjach, a dodatkowe rekomendacje klientów znajdziesz także na Facebooku."
+      lead:   "Ponad 150 opinii klientów łącznie na Facebooku i w serwisie Wesele z Klasą. W serwisie Wesele z Klasą mamy średnią 5,00/5 z 60 opinii."
     },
 
     faq: {
