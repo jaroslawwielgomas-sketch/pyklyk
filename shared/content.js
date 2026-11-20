@@ -136,7 +136,7 @@ window.PYKLYK = {
     reviews: {
       kicker: "Opinie",
       title:  "Zaufało nam ponad 1000 par i firm",
-      lead:   "Zweryfikowane opinie w serwisie Wesele z Klasą potwierdzają średnią 5,00/5 przy 47 recenzjach, a dodatkowe rekomendacje klientów znajdziesz także na Facebooku."
+      lead:   "Zweryfikowane opinie w serwisie Wesele z Klasą potwierdzają średnią 5,00/5 przy 60 recenzjach, a dodatkowe rekomendacje klientów znajdziesz także na Facebooku."
     },
 
     faq: {
@@ -257,7 +257,7 @@ window.PYKLYK = {
      ocen klientów, z linkiem do źródła pod sekcją opinii.
      ------------------------------------------------------------------------- */
   reviews: [
-    { text: "47 publicznych opinii i średnia 5,00/5. Klienci najczęściej chwalą dopracowane koktajle, profesjonalną obsługę, estetykę podania i dobry kontakt.", author: "Profil Pyk Łyk", meta: "Wesele z Klasą" },
+    { text: "60 publicznych opinii i średnia 5,00/5. Klienci najczęściej chwalą dopracowane koktajle, profesjonalną obsługę, estetykę podania i dobry kontakt.", author: "Profil Pyk Łyk", meta: "Wesele z Klasą" },
     { text: "Po weselu w Warszawie klientka podkreśliła sprawną obsługę, koktajle dopracowane w szczegółach i poczucie, że goście byli dobrze zaopiekowani.", author: "Karolina", meta: "Zweryfikowana opinia, Warszawa" },
     { text: "Pary młode zwracają uwagę, że drink bar staje się realną atrakcją wesela, a goście chętnie wracają po kolejne koktajle.", author: "Agata", meta: "Opinia po weselu, Parzno" },
     { text: "W opiniach często pojawiają się bardzo smaczne drinki, elegancki wygląd koktajli oraz kulturalna i sympatyczna obsługa barmańska.", author: "Anna i Wioletta", meta: "Opinie klientów, Mazowieckie" }
@@ -269,7 +269,7 @@ window.PYKLYK = {
   faq: [
     {
       q: "Dlaczego warto wybrać Pyk Łyk jako drink bar na wesele?",
-      a: "Pyk Łyk łączy 12 lat doświadczenia, ponad 1000 realizacji, dwóch barmanów na przyjęciu, mobilny bar, pełne wyposażenie, szkło, lód, napoje, alkohole i autorskie koktajle. Na profilu Wesele z Klasą firma ma średnią 5,00/5 z 47 opinii, a dodatkowe rekomendacje klientów można znaleźć także na Facebooku."
+      a: "Pyk Łyk łączy 12 lat doświadczenia, ponad 1000 realizacji, dwóch barmanów na przyjęciu, mobilny bar, pełne wyposażenie, szkło, lód, napoje, alkohole i autorskie koktajle. Na profilu Wesele z Klasą firma ma średnią 5,00/5 z 60 opinii, a dodatkowe rekomendacje klientów można znaleźć także na Facebooku."
     },
     {
       q: "Z jakim wyprzedzeniem najlepiej rezerwować termin?",
