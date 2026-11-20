@@ -1322,6 +1322,7 @@
   </div>
 
   <script src="/czarna-lista-konkurencji.js"></script>
+  <script src="/kalkulator/kontakt-telefoniczny.js?v=20261120"></script>
   <script>
     (() => {
       "use strict";
@@ -1782,11 +1783,16 @@
           return;
         }
         quoteSummary.scrollIntoView({ behavior: "smooth", block: "start" });
+        const quoteShownAt = Date.now();
         showQuoteBtn.disabled = true;
         showQuoteBtn.textContent = "Zapisywanie...";
         try {
           const saved = await captureLeadOnce(quote, "quote_unlocked");
           if (!saved) setAlert(leadUnconfirmedMessage, true);
+          if (saved && lastQuote === quote) {
+            const capture = quoteCaptures.get(JSON.stringify([quote.email, quote.date, "quote_unlocked"]));
+            window.PykCallback.activate({ quote, shownAt: quoteShownAt, leadId: capture.leadId, token: capture.callbackToken, endpoint: CONFIG.leadEndpointUrl });
+          }
         } finally {
           showQuoteBtn.disabled = false;
           showQuoteBtn.textContent = "Pokaż wycenę";
@@ -1930,6 +1936,7 @@
       }
 
       function showLocked(message, isCritical = false, showContactButton = false, missingFields = []) {
+        window.PykCallback.suspend();
         const missingFieldsMarkup = missingFields.length ? `
           <div class="pyk-missing-fields">
             <strong>Uzupełnij jeszcze:</strong>
@@ -2129,12 +2136,13 @@
         const key = JSON.stringify([quote.email, quote.date, eventName]);
         let capture = quoteCaptures.get(key);
         if (!capture) {
-          capture = { leadId: buildLeadId(quote, eventName), saved: false, pending: null };
+          const random = crypto.getRandomValues(new Uint8Array(24));
+          capture = { leadId: buildLeadId(quote, eventName), callbackToken: Array.from(random, byte => byte.toString(16).padStart(2, "0")).join(""), saved: false, pending: null };
           quoteCaptures.set(key, capture);
         }
         if (capture.saved) return true;
         if (capture.pending) return capture.pending;
-        capture.pending = postLead({ event: eventName, quote, leadId: capture.leadId });
+        capture.pending = postLead({ event: eventName, quote, leadId: capture.leadId, callbackToken: capture.callbackToken });
         try {
           capture.saved = await capture.pending;
           return capture.saved;
@@ -2149,6 +2157,7 @@
           const lead = {
             createdAt: new Date().toISOString(),
             leadId: payload.leadId || buildLeadId(payload.quote, payload.event),
+            callbackToken: payload.callbackToken || "",
             email: payload.quote.email,
             guests: payload.quote.guests,
             date: payload.quote.date,
